@@ -15,4 +15,7 @@
 // Number of blocks vertically
 #define G_MAZE_BLOCKS_HIGH 16
 
+//// Parser config
+#define DEFAULT_MAP_STR default_map.data
+
 #endif // MICROMOUSE_UNICORN_GLOBAL_CONFIG_H_
