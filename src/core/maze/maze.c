@@ -5,7 +5,7 @@
  */
 
 #include <stdlib.h>
-#include "base/maze.h"
+#include "core/maze/maze.h"
 
 /**
  * Create new Maze struct and return it.

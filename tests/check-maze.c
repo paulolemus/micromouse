@@ -7,8 +7,8 @@
 
 #include <stdlib.h>
 #include <check.h>
-#include "base/maze.h"
-#include "base/maze.c"
+#include "core/maze/maze.h"
+#include "core/maze/maze.c"
 
 // Test to ensure check works
 START_TEST(check_basic) {
