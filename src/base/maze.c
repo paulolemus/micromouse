@@ -42,7 +42,7 @@ void deleteMaze(struct Maze maze) {
 void deleteMazePtr(struct Maze* maze) {
     if(maze) {
         if(maze->mat) {
-            free(maze.mat);
+            free(maze->mat);
         }
         free(maze);
     }
@@ -60,7 +60,7 @@ char getBlock(struct Maze maze, int x, int y) {
     return maze.mat[maze.width * y + x];
 }
 
-void isBlockBitSet(struct Maze maze, int x, int y, int mask) {
+int isBlockBitSet(struct Maze maze, int x, int y, int mask) {
     if(maze.mat[maze.width * y + x] & mask) return 1;
     else                                    return 0;
 }
