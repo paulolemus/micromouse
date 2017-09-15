@@ -25,10 +25,12 @@
 #define M_SOUTH_WALL 2
 #define M_EAST_WALL  4
 #define M_WEST_WALL  8
+#define M_VISITED    16
 #define M_NORTH_WALL_IDX 0
 #define M_SOUTH_WALL_IDX 1
 #define M_EAST_WALL_IDX  2
 #define M_WEST_WALL_IDX  3
+#define M_VISITED_IDX    4
 
 /**
  * Maze struct that models a maze. Should only be created, modified,
