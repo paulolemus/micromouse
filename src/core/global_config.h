@@ -11,9 +11,9 @@
 
 //// Maze config
 // Number of blocks horizontally
-#define G_MAZE_BLOCKS_WIDE 16
+#define G_MAZE_BLOCKS_WIDTH 16
 // Number of blocks vertically
-#define G_MAZE_BLOCKS_HIGH 16
+#define G_MAZE_BLOCKS_HEIGHT 16
 
 //// Parser config
 #define DEFAULT_MAP_STR default_map.data
