@@ -26,11 +26,13 @@
 #define M_EAST_WALL  4
 #define M_WEST_WALL  8
 #define M_VISITED    16
+#define M_UNCERTAIN  32
 #define M_NORTH_WALL_IDX 0
 #define M_SOUTH_WALL_IDX 1
 #define M_EAST_WALL_IDX  2
 #define M_WEST_WALL_IDX  3
 #define M_VISITED_IDX    4
+#define M_UNCERTAIN_IDX  5
 
 /**
  * Maze struct that models a maze. Should only be created, modified,
@@ -58,11 +60,9 @@ struct Maze {
 /**
  * Maze creation and destruction functions.
  */
-struct Maze  newMaze(int width, int height);
 struct Maze* newMazePtr(int width, int height);
+void deleteMaze(struct Maze* mazeptr);
 
-void deleteMaze   (struct Maze maze);
-void deleteMazePtr(struct Maze* mazeptr);
 
 /**
  * Maze modification functions
@@ -75,12 +75,12 @@ void deleteMazePtr(struct Maze* mazeptr);
  * y increases going up, decreases going down
  */
 // Set a bit on using bitwise OR (efficient)
-void setBlockBitOn(struct Maze maze, int x, int y, int mask);
+void setBitOn(struct Maze* maze, int x, int y, int mask);
 // Set a bit off using bitwise AND ~ (efficient)
-void setBlockBitOff(struct Maze maze, int x, int y, int mask);
+void setBitOff(struct Maze* maze, int x, int y, int mask);
 // Get a char from maze
-char getBlock(struct Maze maze, int x, int y);
+char getBlock(struct Maze* maze, int x, int y);
 // Check if block's bit is set
-int isBlockBitSet(struct Maze maze, int x, int y, int mask);
+int isBitSet(struct Maze* maze, int x, int y, int mask);
 
 #endif // MICROMOUSE_UNICORN_MAZE_H_
