@@ -37,10 +37,12 @@ END_TEST
 START_TEST(check_maze_created) {
     int width = 16;
     int height = 16;
-    struct Maze* maze1 = newMaze(width, height);
+    struct Maze* maze = newMaze(width, height);
 
-    ck_assert_int_eq(maze1->width, width);
-    ck_assert_int_eq(maze1->height, height);
+    ck_assert_int_eq(maze->width, width);
+    ck_assert_int_eq(maze->height, height);
+
+    deleteMaze(maze);
 }
 END_TEST
 
@@ -60,6 +62,7 @@ START_TEST(check_maze_bits_zeroed) {
             ck_assert_int_eq(isBitSet(maze, x, y, M_UNCERTAIN),  0);
         }
     }
+    deleteMaze(maze);
 }
 END_TEST
 
@@ -111,6 +114,8 @@ START_TEST(check_maze_bit_on) {
     ck_assert_int_eq(isBitSet(maze, checkx, checky, M_WEST_WALL),  0);
     ck_assert_int_eq(isBitSet(maze, checkx, checky, M_VISITED),    0);
     ck_assert_int_eq(isBitSet(maze, checkx, checky, M_UNCERTAIN),  1);
+
+    deleteMaze(maze);
 }
 END_TEST
 
@@ -124,18 +129,16 @@ START_TEST(check_maze_bit_off) {
 
     // Assert bit is not set
     ck_assert_int_eq(isBitSet(maze, checkx, checky, M_NORTH_WALL), 0);
-
     // Set the bit
     setBitOn(maze, checkx, checky, M_NORTH_WALL);
-
     // Assert bit is turned on
     ck_assert_int_eq(isBitSet(maze, checkx, checky, M_NORTH_WALL), 1);
-
     // Turn bit off
     setBitOff(maze, checkx, checky, M_NORTH_WALL);
-
     // Assert bit is turned off
     ck_assert_int_eq(isBitSet(maze, checkx, checky, M_NORTH_WALL), 0);
+
+    deleteMaze(maze);
 }
 END_TEST
 
