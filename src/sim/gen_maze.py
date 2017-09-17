@@ -113,8 +113,6 @@ class GUI:
 
     # convert xscr to x: x = (xscr - 1) / 2
     # convert yscr to y: y = m(aze.height - 1) - (yscr - 1) / 2
-    # TODO: Ensure that if the current block is connected to another, its
-    #       value updates as well.
     def updateMaze(self):
 
         if self.key == 'a' or \
@@ -127,12 +125,28 @@ class GUI:
 
             if self.key == 'a':
                 self.maze.toggleWest(x, y)
+                x -= 1
+                if x >= 0:
+                    self.maze.toggleEast(x, y)
+
             elif self.key == 's':
                 self.maze.toggleSouth(x, y)
+                y -= 1
+                if y >= 0:
+                    self.maze.toggleNorth(x, y)
+
             elif self.key == 'd':
                 self.maze.toggleEast(x, y)
+                x += 1
+                if x < self.maze.width:
+                    self.maze.toggleWest(x, y)
+
             elif self.key == 'w':
                 self.maze.toggleNorth(x, y)
+                y += 1
+                if y < self.maze.height:
+                    self.maze.toggleSouth(x, y)
+
             return True
         else:
             return False
