@@ -32,16 +32,18 @@ set (CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
 set (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 
-
-# src/ folder
-set (MICROMOUSE_SRC_DIR ${CMAKE_SOURCE_DIR}/src)
-
 # Source files
+# TODO: Complete this and use it for add_executable function
 #set (SOURCE_FILES )
 
 # Consider folder "include" for header includes from -I
 include_directories (include)
 
 
+# EXECUTABLES
+add_executable (micromouse src/main.c
+                           src/core/maze/maze.c)
 
-add_executable (micromouse ${PROJECT_SOURCE_DIR}/src/main.c)
+
+# TESTS
+
