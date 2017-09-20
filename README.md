@@ -1,6 +1,15 @@
 # micromouse
 Code, schematics, and documentation for the University of Hawaii at Manoa UNICORN X mouse.
 
+# Build Project
+
+To build project, do the following:
+```bash
+cd build
+cmake ../
+cmake --build .  OR  make
+```
+
 # Architecture
 
 The project is structured like an OOP project.
