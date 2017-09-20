@@ -10,8 +10,8 @@
  * get info from, and delete a maze.
  */
 
-#ifndef MICROMOUSE_UNICORN_MAZE_H_
-#define MICROMOUSE_UNICORN_MAZE_H_
+#ifndef MICROMOUSE_CORE_MAZE_H_
+#define MICROMOUSE_CORE_MAZE_H_
 
 /**
  * Char bit masks
@@ -60,7 +60,7 @@ struct Maze {
 /**
  * Maze creation and destruction functions.
  */
-struct Maze* newMazePtr(int width, int height);
+struct Maze* newMaze(int width, int height);
 void deleteMaze(struct Maze* mazeptr);
 
 

@@ -5,7 +5,7 @@
  */
 
 #include <stdlib.h>
-#include "core/maze/maze.h"
+#include <core/maze/maze.h>
 
 /**
  * @brief Create a maze strut that contains:
