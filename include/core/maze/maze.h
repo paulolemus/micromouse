@@ -52,35 +52,73 @@
  * This was done so all blocks exist in contiguous memory.
  */
 struct Maze {
-    char* mat;
-    int width;
-    int height;
+    unsigned char* mat;
+    unsigned int width;
+    unsigned int height;
 };
 
 /**
- * Maze creation and destruction functions.
+ * @brief Constructor function that builds and initialized 
+ *        a maze structure.
+ *
+ * @param width A positive int representing width.
+ * @param height A positive int representing height.
+ * @return A pointer to the newly created maze struct.
  */
-struct Maze* newMaze(int width, int height);
-void deleteMaze(struct Maze* mazeptr);
-
+struct Maze* newMaze(unsigned int width, unsigned int height);
 
 /**
- * Maze modification functions
+ * @brief Deconstructor for a maze structure.
+ *        It deletes the maze as well as the inner char array.
+ *        Use this when you are done with a maze.
  *
- * My convention for maze coordinates:
- * (x, y)
- * (0, 0)     = bottom-left corner
- * (max, max) = top-right corner
- * x increases going right, decreases going left
- * y increases going up, decreases going down
+ * @param maze A pointer to the maze to be deleted.
  */
-// Set a bit on using bitwise OR (efficient)
-void setBitOn(struct Maze* maze, int x, int y, int mask);
-// Set a bit off using bitwise AND ~ (efficient)
-void setBitOff(struct Maze* maze, int x, int y, int mask);
-// Get a char from maze
-char getBlock(struct Maze* maze, int x, int y);
-// Check if block's bit is set
-int isBitSet(struct Maze* maze, int x, int y, int mask);
+void deleteMaze(struct Maze* maze);
+
+/**
+ * @brief Turn on a single bit in the block found at the coordinate (x, y).
+ *        Note that (0, 0) is the "bottom-left" corner of the maze, and 
+ *        (xmax, ymax) is the "top-right" corner.
+ *
+ * @param maze A pointer to the maze struct to add the bit to.
+ * @param x The x coordinate of the block.
+ * @param y The y coordinate of the block.
+ * @param mask A mask representing the bit to turn on in the block.
+ */
+void setBitOn(struct Maze* maze, unsigned int x, unsigned int y, unsigned char mask);
+
+/**
+ * @brief Turn off a single bit in the block found at (x, y).
+ *        Note (0, 0) is "bottom-left" corner, while (xmax, ymax)
+ *        is the "top-right" corner.
+ *
+ * @param maze A pointer to the maze struct to turn off the bit from.
+ * @param x The x coordinate in the maze of the block.
+ * @param y The y coordinate in the maze of the block.
+ * @param mask A bitmask representing the bit to turn off.
+ */
+void setBitOff(struct Maze* maze, unsigned int x, unsigned int y, unsigned char mask);
+
+/**
+ * @brief Check if the given bit is set or not.
+ *
+ * @param maze A pointer to the maze struct.
+ * @param x The x coordinate in the maze of the block.
+ * @param y The y coordinate in the maze of the block.
+ * @param mask A bitmask representing the bit to check.
+ * @return 1 if bit is on, 0 if bit is off.
+ */
+unsigned int isBitSet(struct Maze* maze, unsigned int x, unsigned int y, unsigned char mask);
+
+/**
+ * @brief Get a copy of the "block" at the (x, y) coordinate of the maze.
+ *
+ * @param maze A pointer to our maze.
+ * @param x The x coordinate of the block.
+ * @param y The y coordinate of the block.
+ * @return A copy of the block.
+ */
+unsigned char getBlock(struct Maze* maze, unsigned int x, unsigned int y);
 
 #endif // MICROMOUSE_UNICORN_MAZE_H_
