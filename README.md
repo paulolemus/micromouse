@@ -1,33 +1,37 @@
-# micromouse
+# Micromouse
 Code, schematics, and documentation for the University of Hawaii at Manoa UNICORN X mouse.
 
-# Build Project
+## The Team
 
-To build project, do the following:
+* Paulo Lemus => Software lead
+* Nicole Hortizuela => Hardware Lead
+* Rodolfo Julian => Hardware
+* Eva Keelar => Hardware and Software
+
+## Table of Contents
+
+* [Purpose](#purpose)
+* [Building](#building)
+* [Architecture](#architecture)
+
+## Purpose
+
+We are Team UNICORN X. Our purpose is to build an autonomous micromouse that is exemplary at mapping and solving NxN mazes. Our mouse, the UNICORN X, is a side-sensing, DC motor mouse controlled by a PIC32MK MCU. Our goal for this semester is to win first place at the University of Hawaii at Manoa fall Micromouse competition.
+
+## Building
+
+This is primarily a C project. We use CMake as our primary build system for desktop builds.
+To build the code, do the following from the project root:
 ```bash
 cd build
 cmake ../
-cmake --build .  OR  make
+make
 ```
+These commands should build all tests into the tests/ folder, and all executables into the bin/ folder.
 
-# Architecture
+## Architecture
 
-The project is structured like an OOP project.
-"core" package = All the base code that is necessary to get the mouse running.
-"sim" package = Code used for simulation of the micromouse. This includes floodfill, astar, and mouse-vision sims.
-
-# "Core" breakdown
-
-The core package consists of the following core components of the mouse:
-
-* Astar - Powerful pathplanning algorithm
-* Floodfill - an alternate and simpler pathplanning algorithm that Astar
-* Maze - struct to model a maze, and functions used to create, modify, and delete it.
-* PID - Proportional-Integral-Derivative controller used for motor control.
-
-# "Sim" breakdown
-
-This package contains several programs used for simulating a micromouse navigating a maze.
-This will be used to determine if the pathplanning algorithms behave as expected, amongst others.
-
-TODO: Everything
+This project has three primary "modules", which are **core**, **sim**, and **pic**.
+**Core** contains all the code that makes up the library that is our micromouse. This code is independent from any specific PIC, simulation, or display. It contains the data structures and functions used for creating and modifying a representation of a maze. It contains pathplanning algorithms used to solve a maze, and our PID controllers. It also contains useful functions for parsing a maze from file.
+**Sim** is the module that allows us to have a graphical representation of a maze, and to simulate what happens when we try to send our mouse through it, or when we would like to run a pathplanning algorithm on a maze. It makes use of **core** to build structures, and displays them to a screen.
+**Pic** contains all the code required to flash everything to our MCU. This includes MCU specific configurations (PRAGMAS), and mouse maze solving logic, as well as sensor polling / motor control / ADC functions.
