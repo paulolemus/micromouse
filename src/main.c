@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-#include <core/maze/maze.h>
+#include <micromouse/core/maze/maze.h>
 
 int main() {
     struct Maze* maze = newMaze(5, 5);

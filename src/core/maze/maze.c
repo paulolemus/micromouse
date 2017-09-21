@@ -5,7 +5,7 @@
  */
 
 #include <stdlib.h>
-#include <core/maze/maze.h>
+#include <micromouse/core/maze/maze.h>
 
 /*
  * Allocate memory for a new maze structure.
