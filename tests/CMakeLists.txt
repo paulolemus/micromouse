@@ -10,7 +10,8 @@ macro (macro_micromouse_test TEST_NAME)
     add_executable (${TEST_NAME} ${TEST_NAME}.c)
     target_link_libraries (${TEST_NAME} ${MICROMOUSE_LIBRARY_NAME})
     target_link_libraries (${TEST_NAME} check)
-    set_target_properties (${TEST_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY tests)
+    set_target_properties (${TEST_NAME} PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endmacro (macro_micromouse_test)
 
 # All tests below
