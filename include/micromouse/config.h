@@ -27,6 +27,8 @@
 #define LEFT_WALL_STR   "WEST"
 #define RIGHT_WALL_STR  "EAST"
 #define BOTTOM_WALL_STR "SOUTH"
+#define VISITED_STR     "VISITED"
+#define UNCERTAIN_STR   "UNCERT"
 
 
 #endif // MICROMOUSE_UNICORN_CONFIG_H_

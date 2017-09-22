@@ -118,6 +118,46 @@ START_TEST(check_maze_parser_simple_map) {
     ck_assert_uint_eq(isBitSet(maze, 1, 3, M_SOUTH_WALL), 0);
     ck_assert_uint_eq(isBitSet(maze, 1, 3, M_EAST_WALL),  0);
     ck_assert_uint_eq(isBitSet(maze, 1, 3, M_WEST_WALL),  0);
+
+    ck_assert_uint_eq(isBitSet(maze, 2, 0, M_NORTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 2, 0, M_SOUTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 2, 0, M_EAST_WALL),  0);
+    ck_assert_uint_eq(isBitSet(maze, 2, 0, M_WEST_WALL),  0);
+
+    ck_assert_uint_eq(isBitSet(maze, 2, 1, M_NORTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 2, 1, M_SOUTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 2, 1, M_EAST_WALL),  0);
+    ck_assert_uint_eq(isBitSet(maze, 2, 1, M_WEST_WALL),  0);
+
+    ck_assert_uint_eq(isBitSet(maze, 2, 2, M_NORTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 2, 2, M_SOUTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 2, 2, M_EAST_WALL),  1);
+    ck_assert_uint_eq(isBitSet(maze, 2, 2, M_WEST_WALL),  0);
+
+    ck_assert_uint_eq(isBitSet(maze, 2, 3, M_NORTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 2, 3, M_SOUTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 2, 3, M_EAST_WALL),  0);
+    ck_assert_uint_eq(isBitSet(maze, 2, 3, M_WEST_WALL),  0);
+    
+    ck_assert_uint_eq(isBitSet(maze, 3, 0, M_NORTH_WALL), 0);
+    ck_assert_uint_eq(isBitSet(maze, 3, 0, M_SOUTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 3, 0, M_EAST_WALL),  1);
+    ck_assert_uint_eq(isBitSet(maze, 3, 0, M_WEST_WALL),  0);
+
+    ck_assert_uint_eq(isBitSet(maze, 3, 1, M_NORTH_WALL), 0);
+    ck_assert_uint_eq(isBitSet(maze, 3, 1, M_SOUTH_WALL), 0);
+    ck_assert_uint_eq(isBitSet(maze, 3, 1, M_EAST_WALL),  1);
+    ck_assert_uint_eq(isBitSet(maze, 3, 1, M_WEST_WALL),  0);
+
+    ck_assert_uint_eq(isBitSet(maze, 3, 2, M_NORTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 3, 2, M_SOUTH_WALL), 0);
+    ck_assert_uint_eq(isBitSet(maze, 3, 2, M_EAST_WALL),  1);
+    ck_assert_uint_eq(isBitSet(maze, 3, 2, M_WEST_WALL),  1);
+
+    ck_assert_uint_eq(isBitSet(maze, 3, 3, M_NORTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 3, 3, M_SOUTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, 3, 3, M_EAST_WALL),  1);
+    ck_assert_uint_eq(isBitSet(maze, 3, 3, M_WEST_WALL),  0);
 }
 END_TEST
 
