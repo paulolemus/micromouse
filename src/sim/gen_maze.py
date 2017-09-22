@@ -158,6 +158,11 @@ class GUI:
         self.stdscr.clear()
         matrix = self.maze.maze
 
+        # Render pegs
+        for x in range(2, self.maze.width * 2 + 1, 2):
+            for y in range(2, self.maze.height * 2 + 1, 2):
+                self.stdscr.addch(y, x, '+')
+
         for x in range(self.maze.width):
             for y in range(self.maze.height):
 
