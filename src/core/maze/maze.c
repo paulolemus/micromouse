@@ -1,7 +1,7 @@
-/**
+/*
  * File     : maze.c
+ * Author   : Paulo Lemus
  * Created  : 8/28/2017
- * Modified : 8/28/2017
  */
 
 #include <stdlib.h>
