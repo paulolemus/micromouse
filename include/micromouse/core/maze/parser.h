@@ -12,6 +12,8 @@
 
 /**
  * @brief Build a maze struct from information parsed from file.
+ *        If the file can be opened but there is an error while parsing,
+ *        program will quit, as the data file is incorrectly formatted.
  *
  * @param filename The name of the file containing the maze data.
  * @return A pointer to a newly allocated maze structure. 
