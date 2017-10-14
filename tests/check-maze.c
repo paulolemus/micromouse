@@ -17,51 +17,39 @@ END_TEST
 
 // Check that all values are defined corectly
 START_TEST(check_maze_definitions) {
-    ck_assert_uint_eq(M_NORTH_WALL, 1);
-    ck_assert_uint_eq(M_SOUTH_WALL, 2);
-    ck_assert_uint_eq(M_EAST_WALL,  4);
-    ck_assert_uint_eq(M_WEST_WALL,  8);
-    ck_assert_uint_eq(M_VISITED,   16);
-    ck_assert_uint_eq(M_UNCERTAIN, 32);
-    ck_assert_uint_eq(M_NORTH_WALL_IDX, 0);
-    ck_assert_uint_eq(M_SOUTH_WALL_IDX, 1);
-    ck_assert_uint_eq(M_EAST_WALL_IDX,  2);
-    ck_assert_uint_eq(M_WEST_WALL_IDX,  3);
-    ck_assert_uint_eq(M_VISITED_IDX,    4);
-    ck_assert_uint_eq(M_UNCERTAIN_IDX,  5);
-}
-END_TEST
-
-// Check that maze default contruction works
-START_TEST(check_maze_created) {
-    unsigned int width = 16;
-    unsigned int height = 16;
-    struct Maze* maze = newMaze(width, height);
-
-    ck_assert_uint_eq(maze->width, width);
-    ck_assert_uint_eq(maze->height, height);
-
-    deleteMaze(maze);
+    ck_assert_uint_eq(NORTH_WALL, 1);
+    ck_assert_uint_eq(SOUTH_WALL, 2);
+    ck_assert_uint_eq(EAST_WALL,  4);
+    ck_assert_uint_eq(WEST_WALL,  8);
+    ck_assert_uint_eq(VISITED,   16);
+    ck_assert_uint_eq(UNCERTAIN, 32);
+    ck_assert_uint_eq(NORTH_WALL_IDX, 0);
+    ck_assert_uint_eq(SOUTH_WALL_IDX, 1);
+    ck_assert_uint_eq(EAST_WALL_IDX,  2);
+    ck_assert_uint_eq(WEST_WALL_IDX,  3);
+    ck_assert_uint_eq(VISITED_IDX,    4);
+    ck_assert_uint_eq(UNCERTAIN_IDX,  5);
 }
 END_TEST
 
 // Check that all bits are zero in array representing maze
 START_TEST(check_maze_bits_zeroed) {
-    unsigned int width = 16;
+
+    unsigned int width  = 16;
     unsigned int height = 16;
-    struct Maze* maze = newMaze(width, height);
+    block maze[width][height];
+    clear_maze(maze);
 
     for(unsigned int x = 0; x < width; ++x) {
         for(unsigned int y = 0; y < height; ++y) {
-            ck_assert_uint_eq(isBitSet(maze, x, y, M_NORTH_WALL), 0);
-            ck_assert_uint_eq(isBitSet(maze, x, y, M_SOUTH_WALL), 0);
-            ck_assert_uint_eq(isBitSet(maze, x, y, M_EAST_WALL),  0);
-            ck_assert_uint_eq(isBitSet(maze, x, y, M_WEST_WALL),  0);
-            ck_assert_uint_eq(isBitSet(maze, x, y, M_VISITED),    0);
-            ck_assert_uint_eq(isBitSet(maze, x, y, M_UNCERTAIN),  0);
+            ck_assert_uint_eq(isBitSet(maze, x, y, NORTH_WALL), 0);
+            ck_assert_uint_eq(isBitSet(maze, x, y, SOUTH_WALL), 0);
+            ck_assert_uint_eq(isBitSet(maze, x, y, EAST_WALL),  0);
+            ck_assert_uint_eq(isBitSet(maze, x, y, WEST_WALL),  0);
+            ck_assert_uint_eq(isBitSet(maze, x, y, VISITED),    0);
+            ck_assert_uint_eq(isBitSet(maze, x, y, UNCERTAIN),  0);
         }
     }
-    deleteMaze(maze);
 }
 END_TEST
 
@@ -71,73 +59,70 @@ START_TEST(check_maze_bit_on) {
     unsigned int height = 16;
     unsigned int checkx = 0;
     unsigned int checky = 0;
-    struct Maze* maze = newMaze(width, height);
+    block maze[width][height];
 
     // Assert all important bits are 0
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_NORTH_WALL), 0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_SOUTH_WALL), 0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_EAST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_WEST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_VISITED),    0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_UNCERTAIN),  0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, NORTH_WALL), 0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, SOUTH_WALL), 0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, EAST_WALL),  0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, WEST_WALL),  0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, VISITED),    0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, UNCERTAIN),  0);
 
     // Set first bit on
-    setBitOn(maze, checkx, checky, M_NORTH_WALL);
+    setBitOn(maze, checkx, checky, NORTH_WALL);
 
-    // Assert all bits are 0 except the M_NORTH_WALL bit
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_NORTH_WALL), 1);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_SOUTH_WALL), 0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_EAST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_WEST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_VISITED),    0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_UNCERTAIN),  0);
+    // Assert all bits are 0 except the NORTH_WALL bit
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, NORTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, SOUTH_WALL), 0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, EAST_WALL),  0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, WEST_WALL),  0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, VISITED),    0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, UNCERTAIN),  0);
 
     // Set third bit on
-    setBitOn(maze, checkx, checky, M_EAST_WALL);
+    setBitOn(maze, checkx, checky, EAST_WALL);
 
     // Assert all bits are 0 except first and third
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_NORTH_WALL), 1);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_SOUTH_WALL), 0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_EAST_WALL),  1);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_WEST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_VISITED),    0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_UNCERTAIN),  0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, NORTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, SOUTH_WALL), 0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, EAST_WALL),  1);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, WEST_WALL),  0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, VISITED),    0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, UNCERTAIN),  0);
 
     // Set sixth bit on
-    setBitOn(maze, checkx, checky, M_UNCERTAIN);
+    setBitOn(maze, checkx, checky, UNCERTAIN);
 
     // Assert all bits are 0 except first, third, and sixth
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_NORTH_WALL), 1);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_SOUTH_WALL), 0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_EAST_WALL),  1);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_WEST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_VISITED),    0);
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_UNCERTAIN),  1);
-
-    deleteMaze(maze);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, NORTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, SOUTH_WALL), 0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, EAST_WALL),  1);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, WEST_WALL),  0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, VISITED),    0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, UNCERTAIN),  1);
 }
 END_TEST
 
 // Check that a bit that is on can be turned off
 START_TEST(check_maze_bit_off) {
-    unsigned int width = 16;
+    unsigned int width  = 16;
     unsigned int height = 16;
     unsigned int checkx = 0;
     unsigned int checky = 0;
-    struct Maze* maze = newMaze(width, height);
+    block maze[width][height];
+    clear_maze(maze);
 
     // Assert bit is not set
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_NORTH_WALL), 0);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, NORTH_WALL), 0);
     // Set the bit
-    setBitOn(maze, checkx, checky, M_NORTH_WALL);
+    setBitOn(maze, checkx, checky, NORTH_WALL);
     // Assert bit is turned on
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_NORTH_WALL), 1);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, NORTH_WALL), 1);
     // Turn bit off
-    setBitOff(maze, checkx, checky, M_NORTH_WALL);
+    setBitOff(maze, checkx, checky, NORTH_WALL);
     // Assert bit is turned off
-    ck_assert_uint_eq(isBitSet(maze, checkx, checky, M_NORTH_WALL), 0);
-
-    deleteMaze(maze);
+    ck_assert_uint_eq(isBitSet(maze, checkx, checky, NORTH_WALL), 0);
 }
 END_TEST
 
@@ -156,7 +141,6 @@ Suite* maze_suite(void) {
      */
     tcase_add_test(tc_core, check_basic);
     tcase_add_test(tc_core, check_maze_definitions);
-    tcase_add_test(tc_core, check_maze_created);
     tcase_add_test(tc_core, check_maze_bits_zeroed);
     tcase_add_test(tc_core, check_maze_bit_on);
     tcase_add_test(tc_core, check_maze_bit_off);

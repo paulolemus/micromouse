@@ -18,9 +18,9 @@
 /////////////////////
 
 // Number of blocks horizontally
-#define MAZE_BLOCKS_WIDTH 16
+#define MAZE_WIDTH 16
 // Number of blocks vertically
-#define MAZE_BLOCKS_HEIGHT 16
+#define MAZE_HEIGHT 16
 
 ///////////////////////
 //   Parser config   //
