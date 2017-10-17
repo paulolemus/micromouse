@@ -6,7 +6,7 @@
  * This file contains functions that operate on a maze dat structure.
  * This code is intended to run on a PIC microcontroller, so care
  * must be taken to avoid mallocs. 
- * To create a maze, use the typedef block, which represents a single block
+ * To create a maze, use the typedef BLOCK, which represents a single BLOCK
  * of the maze.
  *
  */
@@ -23,15 +23,15 @@
  * on memory, and we only need 8 bits to represent everything
  * we need of a maze.
  */
-using block = unsigned char;
+typedef unsigned char BLOCK;
 
 /**
  * Char bit masks
  * 
  * These definitions define what each bit in a char represents 
- * for one block of the maze. The maze is a matrix of chars,
+ * for one BLOCK of the maze. The maze is a matrix of chars,
  * and each char has 8 bits, meaning 8 possible fields of info
- * per block.
+ * per BLOCK.
  */
 #define NORTH_WALL 1
 #define SOUTH_WALL 2
@@ -52,51 +52,51 @@ using block = unsigned char;
  *        to modify the maze.
  * @param maze The representation of the maze.
  */
-void clear_maze(block** maze);
+void clear_maze(BLOCK** maze);
 
 /**
- * @brief Turn on a single bit in the block found at the coordinate (x, y).
+ * @brief Turn on a single bit in the BLOCK found at the coordinate (x, y).
  *        Note that (0, 0) is the "bottom-left" corner of the maze, and 
  *        (xmax, ymax) is the "top-right" corner.
  *
  * @param maze A pointer to the maze to add the bit to.
- * @param x The x coordinate of the block.
- * @param y The y coordinate of the block.
- * @param mask A mask representing the bit to turn on in the block.
+ * @param x The x coordinate of the BLOCK.
+ * @param y The y coordinate of the BLOCK.
+ * @param mask A mask representing the bit to turn on in the BLOCK.
  */
-void setBitOn(block** maze, unsigned int x, unsigned int y, unsigned char mask);
+void setBitOn(BLOCK** maze, unsigned int x, unsigned int y, unsigned char mask);
 
 /**
- * @brief Turn off a single bit in the block found at (x, y).
+ * @brief Turn off a single bit in the BLOCK found at (x, y).
  *        Note (0, 0) is "bottom-left" corner, while (xmax, ymax)
  *        is the "top-right" corner.
  *
  * @param maze A pointer to the maze to turn off the bit from.
- * @param x The x coordinate in the maze of the block.
- * @param y The y coordinate in the maze of the block.
+ * @param x The x coordinate in the maze of the BLOCK.
+ * @param y The y coordinate in the maze of the BLOCK.
  * @param mask A bitmask representing the bit to turn off.
  */
-void setBitOff(block** maze, unsigned int x, unsigned int y, unsigned char mask);
+void setBitOff(BLOCK** maze, unsigned int x, unsigned int y, unsigned char mask);
 
 /**
  * @brief Check if the given bit is set or not.
  *
  * @param maze A pointer to the maze.
- * @param x The x coordinate in the maze of the block.
- * @param y The y coordinate in the maze of the block.
+ * @param x The x coordinate in the maze of the BLOCK.
+ * @param y The y coordinate in the maze of the BLOCK.
  * @param mask A bitmask representing the bit to check.
  * @return 1 if bit is on, 0 if bit is off.
  */
-unsigned int isBitSet(block** maze, unsigned int x, unsigned int y, unsigned char mask);
+unsigned int isBitSet(BLOCK** maze, unsigned int x, unsigned int y, unsigned char mask);
 
 /**
- * @brief Get a copy of the "block" at the (x, y) coordinate of the maze.
+ * @brief Get a copy of the "BLOCK" at the (x, y) coordinate of the maze.
  *
  * @param maze A pointer to our maze.
- * @param x The x coordinate of the block.
- * @param y The y coordinate of the block.
- * @return A copy of the block.
+ * @param x The x coordinate of the BLOCK.
+ * @param y The y coordinate of the BLOCK.
+ * @return A copy of the BLOCK.
  */
-unsigned char getBlock(block** maze, unsigned int x, unsigned int y);
+unsigned char getBlock(BLOCK** maze, unsigned int x, unsigned int y);
 
 #endif // MICROMOUSE_UNICORN_MAZE_H_

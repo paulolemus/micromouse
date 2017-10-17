@@ -37,7 +37,7 @@ START_TEST(check_maze_bits_zeroed) {
 
     unsigned int width  = 16;
     unsigned int height = 16;
-    block maze[width][height];
+    BLOCK maze[width][height];
     clear_maze(maze);
 
     for(unsigned int x = 0; x < width; ++x) {
@@ -59,7 +59,7 @@ START_TEST(check_maze_bit_on) {
     unsigned int height = 16;
     unsigned int checkx = 0;
     unsigned int checky = 0;
-    block maze[width][height];
+    BLOCK maze[width][height];
 
     // Assert all important bits are 0
     ck_assert_uint_eq(isBitSet(maze, checkx, checky, NORTH_WALL), 0);
@@ -110,7 +110,7 @@ START_TEST(check_maze_bit_off) {
     unsigned int height = 16;
     unsigned int checkx = 0;
     unsigned int checky = 0;
-    block maze[width][height];
+    BLOCK maze[width][height];
     clear_maze(maze);
 
     // Assert bit is not set

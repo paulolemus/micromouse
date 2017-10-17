@@ -21,9 +21,9 @@
 int main() {
 
     // Maze data structures
-    block maze[SIM_MAZE_WIDTH][SIM_MAZE_HEIGHT];
-    block mouseMaze[SIM_MAZE_WIDTH][SIM_MAZE_HEIGHT];
-    block ffMaze[SIM_MAZE_WIDTH][SIM_MAZE_HEIGHT];
+    BLOCK maze[SIM_MAZE_WIDTH][SIM_MAZE_HEIGHT];
+    BLOCK mouseMaze[SIM_MAZE_WIDTH][SIM_MAZE_HEIGHT];
+    BLOCK ffMaze[SIM_MAZE_WIDTH][SIM_MAZE_HEIGHT];
 
     // Clear mazes, ensure all bits are properly set. 
     clear_maze(maze);
