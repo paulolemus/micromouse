@@ -7,13 +7,6 @@
 
 #include <stdlib.h>
 #include <check.h>
-#include <micromouse/config.h>
-// Redefine width and height for test
-#undef MAZE_WIDTH
-#undef MAZE_HEIGHT
-#define MAZE_WIDTH  4
-#define MAZE_HEIGHT 4
-
 #include <micromouse/core/maze/maze.h>
 #include <micromouse/core/maze/parser.h>
 
@@ -25,8 +18,6 @@ END_TEST
 
 // Check that all values are defined corectly
 START_TEST(check_maze_definitions) {
-    ck_assert_uint_eq(MAZE_WIDTH,  16);
-    ck_assert_uint_eq(MAZE_HEIGHT, 16);
     ck_assert_uint_eq(NORTH_WALL,   1);
     ck_assert_uint_eq(SOUTH_WALL,   2);
     ck_assert_uint_eq(EAST_WALL,    4);
@@ -86,7 +77,7 @@ START_TEST(check_maze_parser_simple_map) {
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT];
     clear_maze(maze);
 
-    ck_assert_uint_eq(parse_maze(maze, "maps/simple_map.data"), 1);
+    ck_assert_uint_eq(parse_maze(maze, "./maps/simple_map.data"), 1);
     
     // Assert correct bits are set
     ck_assert_uint_eq(isBitSet(maze, 0, 0, NORTH_WALL), 0);

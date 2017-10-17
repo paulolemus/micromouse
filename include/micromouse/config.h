@@ -11,31 +11,22 @@
  */
 
 #ifndef MICROMOUSE_UNICORN_CONFIG_H_
-#define MICROMOUSE_UNICORN_CONGIG_H_
+#define MICROMOUSE_UNICORN_CONFIG_H_
 
 /////////////////////
 //   Maze config   //
 /////////////////////
 
-#ifndef SIMULATION
-
 // Primary maze dimensions
 #define MAZE_WIDTH  16
 #define MAZE_HEIGHT 16
-
-#else
-// Simulation dimensions
-#define MAZE_WIDTH  4 
-#define MAZE_HEIGHT 4 
-
-#endif
 
 
 ///////////////////////
 //   Parser config   //
 ///////////////////////
 
-#define DEFAULT_MAP_STR "src/default_map.data"
+#define DEFAULT_MAP_STR "../src/default_map.data"
 #define TOP_WALL_STR    "NORTH"
 #define LEFT_WALL_STR   "WEST"
 #define RIGHT_WALL_STR  "EAST"
@@ -49,7 +40,7 @@
 ///////////////////////
 
 // File containing maze data
-#define SIM_MAP_STR "src/sim/default_sim_maze.data"
+#define SIM_MAP_STR "../src/sim/default_sim_maze.data"
 
 
 #endif // MICROMOUSE_UNICORN_CONFIG_H_

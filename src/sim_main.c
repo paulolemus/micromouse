@@ -15,7 +15,6 @@
 
 #include <stdio.h>
 
-#define SIMULATION
 #include <micromouse/config.h>
 #include <micromouse/core/maze/maze.h>
 #include <micromouse/core/maze/parser.h>
@@ -33,11 +32,10 @@ int main() {
     clear_maze(ffMaze);
 
     // Parse in mazes from default sim file named in config.h
-    if(!parse_maze(maze, SIM_MAP_STR)) {
-        perror("Error: No such file\n");
+    if(parse_maze(maze, SIM_MAP_STR) == 0) {
+        fprintf(stderr, "sim_main - Failed to parse maze\n");
         return (-1);
     }
-
 
     return 0;
 }

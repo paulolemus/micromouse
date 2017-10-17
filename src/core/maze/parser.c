@@ -8,7 +8,7 @@
 #include <string.h>
 #include <micromouse/config.h>
 #include <micromouse/core/maze/maze.h>
-#include <micromouse/coree/maze/parser.h>
+#include <micromouse/core/maze/parser.h>
 
 /**
  * @brief Using the information parsed in from a single line of
@@ -32,7 +32,7 @@ void setMazeBit(
     else if(!strcmp(str, VISITED_STR))     setBitOn(maze, x, y, VISITED);
     else if(!strcmp(str, UNCERTAIN_STR))   setBitOn(maze, x, y, UNCERTAIN);
     else {
-        perror("Error: parsed undefined token\n");
+        fprintf(stderr, "setMazeBit - undefined token = %s\n", str);
         exit(-1);
     }
 }
@@ -59,15 +59,18 @@ unsigned int parse_maze(
     int width;
     int height;
     if(fgets(buffer, BUF_SIZE, fp) == NULL) {
-        perror("Error: Could not parse first line\n");
+        fprintf(stderr, "parse_maze - could not parse first line\n");
+        fclose(fp);
         return FAILURE;
     }
     if(sscanf(buffer, "%d %d", &width, &height) != 2) {
-        perror("Error: Could not parse width and height\n");
+        fprintf(stderr, "parse_maze - Could not parse width and height\n");
+        fclose(fp);
         return FAILURE;
     }
-    if(width != MAZE_WIDTH || height != MAZE_HEIGHT) {
-        perror("Error: Width and height of maze data do not match actual\n");
+    if(width > MAZE_WIDTH || height > MAZE_HEIGHT) {
+        fprintf(stderr, "parse_maze - Width and height of greater than allowed\n");
+        fclose(fp);
         return FAILURE;
     }
 
@@ -77,7 +80,7 @@ unsigned int parse_maze(
     while(fgets(buffer, BUF_SIZE, fp) != NULL) {
         unsigned int x;
         unsigned int y;
-        const char delim[3] = ", ";
+        const char delim[3] = ", \n";
         char line[BUF_SIZE];
         char* token;
 
@@ -87,13 +90,15 @@ unsigned int parse_maze(
         
         // Get x and y
         token = strtok(line, delim);
-        if(sscanf(token, "%d", &x) != 1) {
-            perror("Error: Failed to parse x coord\n");
+        if(sscanf(token, "%u", &x) != 1) {
+            fprintf(stderr, "parse_maze - Failed to parse x coord\n");
+            fclose(fp);
             return FAILURE;
         }
         token = strtok(NULL, delim);
-        if(sscanf(token, "%d", &y)) {
-            perror("Error: Failed to parse y coord\n");
+        if(sscanf(token, "%u", &y) != 1) {
+            fprintf(stderr, "parse_maze - Failed to parse y coord\n");
+            fclose(fp);
             return FAILURE;
         }
 
@@ -104,6 +109,7 @@ unsigned int parse_maze(
             token = strtok(NULL, delim);
         }
     }
+    fclose(fp);
     return SUCCESS;
 }
 

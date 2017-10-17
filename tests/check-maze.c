@@ -7,13 +7,6 @@
 
 #include <stdlib.h>
 #include <check.h>
-#include <micromouse/config.h>
-// Redefine width and height for test
-#undef MAZE_WIDTH
-#undef MAZE_HEIGHT
-#define MAZE_WIDTH  16
-#define MAZE_HEIGHT 16
-
 #include <micromouse/core/maze/maze.h>
 
 // Test to ensure check works
@@ -24,9 +17,6 @@ END_TEST
 
 // Check that all values are defined corectly
 START_TEST(check_maze_definitions) {
-    ck_assert_uint_eq(MAZE_WIDTH,  16);
-    ck_assert_uint_eq(MAZE_HEIGHT, 16);
-
     ck_assert_uint_eq(NORTH_WALL,   1);
     ck_assert_uint_eq(SOUTH_WALL,   2);
     ck_assert_uint_eq(EAST_WALL,    4);
