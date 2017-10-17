@@ -47,8 +47,9 @@ add_library (${MICROMOUSE_LIBRARY_NAME} SHARED ${SOURCE_FILES})
 
 
 # EXECUTABLES
-add_executable (micromouse ${SOURCE_FILES} src/main.c)
-target_link_libraries (micromouse ${MICROMOUSE_LIBRARY_NAME})
+# Micromouse simulation target
+add_executable (micromouse_sim ${SOURCE_FILES} src/sim_main.c)
+target_link_libraries (micromouse_sim ${MICROMOUSE_LIBRARY_NAME})
 
 
 # TESTS

@@ -14,6 +14,8 @@
 #ifndef MICROMOUSE_CORE_MAZE_H_
 #define MICROMOUSE_CORE_MAZE_H_
 
+#include <micromouse/config.h>
+
 /**
  * Typedef used to create a maze representation.
  * Using this makes it easy to change the type if ever
@@ -52,7 +54,7 @@ typedef unsigned char BLOCK;
  *        to modify the maze.
  * @param maze The representation of the maze.
  */
-void clear_maze(BLOCK** maze);
+void clear_maze(BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT]);
 
 /**
  * @brief Turn on a single bit in the BLOCK found at the coordinate (x, y).
@@ -64,7 +66,12 @@ void clear_maze(BLOCK** maze);
  * @param y The y coordinate of the BLOCK.
  * @param mask A mask representing the bit to turn on in the BLOCK.
  */
-void setBitOn(BLOCK** maze, unsigned int x, unsigned int y, unsigned char mask);
+void setBitOn(
+    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
+    unsigned int x, 
+    unsigned int y, 
+    unsigned char mask
+);
 
 /**
  * @brief Turn off a single bit in the BLOCK found at (x, y).
@@ -76,7 +83,12 @@ void setBitOn(BLOCK** maze, unsigned int x, unsigned int y, unsigned char mask);
  * @param y The y coordinate in the maze of the BLOCK.
  * @param mask A bitmask representing the bit to turn off.
  */
-void setBitOff(BLOCK** maze, unsigned int x, unsigned int y, unsigned char mask);
+void setBitOff(
+    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
+    unsigned int x, 
+    unsigned int y, 
+    unsigned char mask
+);
 
 /**
  * @brief Check if the given bit is set or not.
@@ -87,7 +99,12 @@ void setBitOff(BLOCK** maze, unsigned int x, unsigned int y, unsigned char mask)
  * @param mask A bitmask representing the bit to check.
  * @return 1 if bit is on, 0 if bit is off.
  */
-unsigned int isBitSet(BLOCK** maze, unsigned int x, unsigned int y, unsigned char mask);
+unsigned int isBitSet(
+    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
+    unsigned int x, 
+    unsigned int y, 
+    unsigned char mask
+);
 
 /**
  * @brief Get a copy of the "BLOCK" at the (x, y) coordinate of the maze.
@@ -97,6 +114,10 @@ unsigned int isBitSet(BLOCK** maze, unsigned int x, unsigned int y, unsigned cha
  * @param y The y coordinate of the BLOCK.
  * @return A copy of the BLOCK.
  */
-unsigned char getBlock(BLOCK** maze, unsigned int x, unsigned int y);
+unsigned char getBlock(
+    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
+    unsigned int x, 
+    unsigned int y
+);
 
 #endif // MICROMOUSE_UNICORN_MAZE_H_

@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 #include <micromouse/config.h>
-#include <micromouse/maze/maze.h>
+#include <micromouse/core/maze/maze.h>
 
 int main() {
 
