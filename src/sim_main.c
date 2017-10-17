@@ -15,15 +15,17 @@
 
 #include <stdio.h>
 
+#define SIMULATION
 #include <micromouse/config.h>
 #include <micromouse/core/maze/maze.h>
+#include <micromouse/core/maze/parser.h>
 
 int main() {
 
     // Maze data structures
-    BLOCK maze[SIM_MAZE_WIDTH][SIM_MAZE_HEIGHT];
-    BLOCK mouseMaze[SIM_MAZE_WIDTH][SIM_MAZE_HEIGHT];
-    BLOCK ffMaze[SIM_MAZE_WIDTH][SIM_MAZE_HEIGHT];
+    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT];
+    BLOCK mouseMaze[MAZE_WIDTH][MAZE_HEIGHT];
+    BLOCK ffMaze[MAZE_WIDTH][MAZE_HEIGHT];
 
     // Clear mazes, ensure all bits are properly set. 
     clear_maze(maze);
@@ -31,7 +33,10 @@ int main() {
     clear_maze(ffMaze);
 
     // Parse in mazes from default sim file named in config.h
-
+    if(!parse_maze(maze, SIM_MAP_STR)) {
+        perror("Error: No such file\n");
+        return (-1);
+    }
 
 
     return 0;

@@ -7,6 +7,13 @@
 
 #include <stdlib.h>
 #include <check.h>
+#include <micromouse/config.h>
+// Redefine width and height for test
+#undef MAZE_WIDTH
+#undef MAZE_HEIGHT
+#define MAZE_WIDTH  16
+#define MAZE_HEIGHT 16
+
 #include <micromouse/core/maze/maze.h>
 
 // Test to ensure check works
@@ -17,12 +24,15 @@ END_TEST
 
 // Check that all values are defined corectly
 START_TEST(check_maze_definitions) {
-    ck_assert_uint_eq(NORTH_WALL, 1);
-    ck_assert_uint_eq(SOUTH_WALL, 2);
-    ck_assert_uint_eq(EAST_WALL,  4);
-    ck_assert_uint_eq(WEST_WALL,  8);
-    ck_assert_uint_eq(VISITED,   16);
-    ck_assert_uint_eq(UNCERTAIN, 32);
+    ck_assert_uint_eq(MAZE_WIDTH,  16);
+    ck_assert_uint_eq(MAZE_HEIGHT, 16);
+
+    ck_assert_uint_eq(NORTH_WALL,   1);
+    ck_assert_uint_eq(SOUTH_WALL,   2);
+    ck_assert_uint_eq(EAST_WALL,    4);
+    ck_assert_uint_eq(WEST_WALL,    8);
+    ck_assert_uint_eq(VISITED,     16);
+    ck_assert_uint_eq(UNCERTAIN,   32);
     ck_assert_uint_eq(NORTH_WALL_IDX, 0);
     ck_assert_uint_eq(SOUTH_WALL_IDX, 1);
     ck_assert_uint_eq(EAST_WALL_IDX,  2);
@@ -35,13 +45,11 @@ END_TEST
 // Check that all bits are zero in array representing maze
 START_TEST(check_maze_bits_zeroed) {
 
-    unsigned int width  = 16;
-    unsigned int height = 16;
-    BLOCK maze[width][height];
+    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT];
     clear_maze(maze);
 
-    for(unsigned int x = 0; x < width; ++x) {
-        for(unsigned int y = 0; y < height; ++y) {
+    for(unsigned int x = 0; x < MAZE_WIDTH; ++x) {
+        for(unsigned int y = 0; y < MAZE_HEIGHT; ++y) {
             ck_assert_uint_eq(isBitSet(maze, x, y, NORTH_WALL), 0);
             ck_assert_uint_eq(isBitSet(maze, x, y, SOUTH_WALL), 0);
             ck_assert_uint_eq(isBitSet(maze, x, y, EAST_WALL),  0);
@@ -55,11 +63,9 @@ END_TEST
 
 // Check that setBlockBitOn function works and does not affect other bits
 START_TEST(check_maze_bit_on) {
-    unsigned int width = 16;
-    unsigned int height = 16;
     unsigned int checkx = 0;
     unsigned int checky = 0;
-    BLOCK maze[width][height];
+    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT];
 
     // Assert all important bits are 0
     ck_assert_uint_eq(isBitSet(maze, checkx, checky, NORTH_WALL), 0);
@@ -106,11 +112,9 @@ END_TEST
 
 // Check that a bit that is on can be turned off
 START_TEST(check_maze_bit_off) {
-    unsigned int width  = 16;
-    unsigned int height = 16;
     unsigned int checkx = 0;
     unsigned int checky = 0;
-    BLOCK maze[width][height];
+    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT];
     clear_maze(maze);
 
     // Assert bit is not set

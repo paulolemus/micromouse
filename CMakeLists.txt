@@ -41,8 +41,7 @@ set (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 # Add all source files to this variable
 set (SOURCE_FILES
     src/core/maze/maze.c
-    src/core/maze/parser.c
-    src/core/pathplanning/floodfill.c)
+    src/core/maze/parser.c)
 add_library (${MICROMOUSE_LIBRARY_NAME} SHARED ${SOURCE_FILES})
 
 

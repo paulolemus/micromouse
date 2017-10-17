@@ -17,10 +17,19 @@
 //   Maze config   //
 /////////////////////
 
-// Number of blocks horizontally
-#define MAZE_WIDTH 16
-// Number of blocks vertically
+#ifndef SIMULATION
+
+// Primary maze dimensions
+#define MAZE_WIDTH  16
 #define MAZE_HEIGHT 16
+
+#else
+// Simulation dimensions
+#define MAZE_WIDTH  4 
+#define MAZE_HEIGHT 4 
+
+#endif
+
 
 ///////////////////////
 //   Parser config   //
@@ -39,12 +48,8 @@
 // Simulation Config //
 ///////////////////////
 
-// Dimensions of simulated maze
-#define SIM_MAZE_WIDTH 16
-#define SIM_MAZE_HEIGHT 16
-
 // File containing maze data
-#define SIM_MAP_STR "src/sim/sim_16_16.data"
+#define SIM_MAP_STR "src/sim/default_sim_maze.data"
 
 
 #endif // MICROMOUSE_UNICORN_CONFIG_H_
