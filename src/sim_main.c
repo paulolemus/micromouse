@@ -34,6 +34,8 @@ int main() {
     unsigned int x_pos = 0;
     unsigned int y_pos = 0;
     unsigned int dir = NORTH;
+    const unsigned int X_GOAL = (width  - 1) / 2;
+    const unsigned int Y_GOAL = (height - 1) / 2;
 
     // Maze data structures
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT];

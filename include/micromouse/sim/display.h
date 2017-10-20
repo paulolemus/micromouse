@@ -24,31 +24,66 @@
  * @param width used to set internal width state.
  * @param height used to set internal height state.
  */
-void init_display(unsigned int width, unsigned int height);
+void init_display(
+    const unsigned int width,
+    const unsigned int height
+);
 
 /**
- * @brief Draw all the walls for a completed maze in a darker color
- * @param 
+ * @brief Clear all text and colors on NCURSES screen.
  */
-void put_hidden_walls();
-
-/**
- * @brief Place a wall in the desired block.
- * @param x X coordinate of block.
- * @param y Y coordinate of block.
- * @param block contains bits that tell if a wall exists.
- */
-void put_walls(unsigned int x, unsigned int y, BLOCK block);
-
-/**
- * @brief Put a path in the maze.
- *
- */
-void put_path();
+void clear_display();
 
 /**
  * @brief Draw all changes to screen. Must be called to see changes.
  */
 void render();
+
+/**
+ * @brief restore the terminal to default values.
+ *        Required before exiting or input and appearence may be wrong.
+ */
+void finish_display();
+
+/**
+ * @brief Put a mouse on the screen.
+ * @param dir Direction the mouse is facing.
+ * @param x X coordinate of the mouse.
+ * @param y Y coordinate of the mouse.
+ */
+void put_mouse(
+    const unsigned int dir,
+    const unsigned int x,
+    const unsigned int y
+);
+
+/**
+ * @brief Draw all the walls for a completed maze in a darker color
+ * @param WIDTH Width to consider of maze.
+ * @param HEIGHT height to consider of maze.
+ * @param maze A representation of the maze.
+ */
+void put_hidden_walls(
+    const unsigned int WIDTH,
+    const unsigned int HEIGHT,
+    BLOCK maze[WIDTH][HEIGHT]
+);
+
+/**
+ * @brief Place a wall in the desired block.
+ * @param maze structure that represents a maze. 
+ */
+void put_visible_walls(
+    const unsigned int WIDTH,
+    const unsigned int HEIGHT,
+    BLOCK maze[WIDTH][HEIGHT]
+);
+
+/**
+ * @brief Put a path in the maze.
+ * TODO: Figure out path
+ */
+void put_path();
+
 
 #endif // MICROMOUSE_SIM_DISPLAY_H_
