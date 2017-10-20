@@ -54,7 +54,22 @@ typedef unsigned char BLOCK;
  *        to modify the maze.
  * @param maze The representation of the maze.
  */
-void clear_maze(BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT]);
+void clear_maze(
+    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT]
+);
+
+/**
+ * @brief Draw a box around a maze.
+ * @param width width to box in
+ * @param height height to box in
+ * @param maze The maze to add box to
+ * @return 1 if success, 0 if failed.
+ */
+unsigned int box_maze(
+    const unsigned int width, 
+    const unsigned int height, 
+    BLOCK maze[width][height]
+);
 
 /**
  * @brief Turn on a single bit in the BLOCK found at the coordinate (x, y).
@@ -68,9 +83,9 @@ void clear_maze(BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT]);
  */
 void setBitOn(
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
-    unsigned int x, 
-    unsigned int y, 
-    unsigned char mask
+    const unsigned int x, 
+    const unsigned int y, 
+    const unsigned char mask
 );
 
 /**
@@ -85,9 +100,9 @@ void setBitOn(
  */
 void setBitOff(
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
-    unsigned int x, 
-    unsigned int y, 
-    unsigned char mask
+    const unsigned int x, 
+    const unsigned int y, 
+    const unsigned char mask
 );
 
 /**
@@ -101,9 +116,9 @@ void setBitOff(
  */
 unsigned int isBitSet(
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
-    unsigned int x, 
-    unsigned int y, 
-    unsigned char mask
+    const unsigned int x, 
+    const unsigned int y, 
+    const unsigned char mask
 );
 
 /**
@@ -114,10 +129,10 @@ unsigned int isBitSet(
  * @param y The y coordinate of the BLOCK.
  * @return A copy of the BLOCK.
  */
-unsigned char getBlock(
+BLOCK getBlock(
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
-    unsigned int x, 
-    unsigned int y
+    const unsigned int x, 
+    const unsigned int y
 );
 
 #endif // MICROMOUSE_UNICORN_MAZE_H_

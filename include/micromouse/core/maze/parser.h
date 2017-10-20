@@ -14,11 +14,15 @@
  * @brief Populate a maze with the contents of a file.
  *
  * @param maze The 2D array representing a maze.
+ * @param g_width Save the width of maze if less than 16
+ * @param g_height Save height of maze if less than 16
  * @param fname The name of the file to parse in.
  * @return 1 if success, 0 if failure.
  */
 unsigned int parse_maze(
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
+    unsigned int* g_width,
+    unsigned int* g_height,
     const char* fname
 );
 

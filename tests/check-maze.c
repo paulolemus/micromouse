@@ -51,6 +51,33 @@ START_TEST(check_maze_bits_zeroed) {
 }
 END_TEST
 
+// Check that box_maze works
+START_TEST(check_box_maze) {
+
+    const unsigned int width  = 16;
+    const unsigned int height = 16;
+    BLOCK maze[width][height];
+    clear_maze(maze);
+
+    ck_assert_uint_eq(
+        box_maze(width, height, maze),
+        1
+    );
+
+    // Check North and South walls
+    for(unsigned int i = 0; i < width; ++i) {
+        ck_assert_uint_eq(isBitSet(maze, i, 0, SOUTH_WALL), 1);
+        ck_assert_uint_eq(isBitSet(maze, i, height - 1, NORTH_WALL), 1);
+    }
+
+    // Check East and West walls
+    for(unsigned int j = 0; j < height; ++j) {
+        ck_assert_uint_eq(isBitSet(maze, 0, j, WEST_WALL), 1);
+        ck_assert_uint_eq(isBitSet(maze, width - 1, j, EAST_WALL), 1);
+    }
+}
+END_TEST
+
 // Check that setBlockBitOn function works and does not affect other bits
 START_TEST(check_maze_bit_on) {
     unsigned int checkx = 0;
@@ -136,6 +163,7 @@ Suite* maze_suite(void) {
     tcase_add_test(tc_core, check_basic);
     tcase_add_test(tc_core, check_maze_definitions);
     tcase_add_test(tc_core, check_maze_bits_zeroed);
+    tcase_add_test(tc_core, check_box_maze);
     tcase_add_test(tc_core, check_maze_bit_on);
     tcase_add_test(tc_core, check_maze_bit_off);
 

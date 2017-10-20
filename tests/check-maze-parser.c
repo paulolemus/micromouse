@@ -55,29 +55,38 @@ END_TEST
 // Ensure that empty string as argument returns NULL 
 START_TEST(check_maze_parser_empty_string) {
 
+    unsigned int width, height;
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT];
     clear_maze(maze);
 
-    ck_assert_uint_eq(parse_maze(maze, ""), 0);
+    ck_assert_uint_eq(parse_maze(maze, &width, &height, ""), 0);
 }
 END_TEST
 
 // Ensure invalid file returns NULL
 START_TEST(check_maze_parser_invalid_filename) {
 
+    unsigned int width, height;
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT];
     clear_maze(maze);
 
-    ck_assert_uint_eq(parse_maze(maze, "SuperInvalidfileNaME1234.data"), 0);
+    ck_assert_uint_eq(parse_maze(maze, &width, &height, "SuprIlidfleNaM123.dt"), 0);
 }
 END_TEST
 
 START_TEST(check_maze_parser_simple_map) {
 
+    unsigned int width, height;
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT];
     clear_maze(maze);
 
-    ck_assert_uint_eq(parse_maze(maze, "./maps/simple_map.data"), 1);
+    ck_assert_uint_eq(
+        parse_maze(maze, &width, &height, "./maps/simple_map.data"), 
+        1
+    );
+
+    ck_assert_uint_eq(width,  4);
+    ck_assert_uint_eq(height, 4);
     
     // Assert correct bits are set
     ck_assert_uint_eq(isBitSet(maze, 0, 0, NORTH_WALL), 0);

@@ -39,6 +39,8 @@ void setMazeBit(
 
 unsigned int parse_maze(
     BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT],
+    unsigned int* g_width,
+    unsigned int* g_height,
     const char* fname
 ) {
     const unsigned int SUCCESS = 1;
@@ -56,14 +58,14 @@ unsigned int parse_maze(
 
     // Confirm that the parsed maze has the same dimensions
     // as the defined maze width and height.
-    int width;
-    int height;
+    unsigned int width;
+    unsigned int height;
     if(fgets(buffer, BUF_SIZE, fp) == NULL) {
         fprintf(stderr, "parse_maze - could not parse first line\n");
         fclose(fp);
         return FAILURE;
     }
-    if(sscanf(buffer, "%d %d", &width, &height) != 2) {
+    if(sscanf(buffer, "%u %u", &width, &height) != 2) {
         fprintf(stderr, "parse_maze - Could not parse width and height\n");
         fclose(fp);
         return FAILURE;
@@ -73,6 +75,8 @@ unsigned int parse_maze(
         fclose(fp);
         return FAILURE;
     }
+    *g_width  = width;
+    *g_height = height;
 
     // Good to parse the the maze data into the maze
     // Read line by line, tokenize line, pass values into

@@ -1,5 +1,7 @@
 # Files without extension
-
+*
+!/**/
+!*.*
 
 #
 bin/*

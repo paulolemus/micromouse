@@ -25,6 +25,8 @@ set (MICROMOUSE_MAJOR_VERSION 0)
 set (MICROMOUSE_MINOR_VERSION 1)
 set (MICROMOUSE_LIBRARY_NAME
         "micromouse-core-${MICROMOUSE_MAJOR_VERSION}.${MICROMOUSE_MINOR_VERSION}")
+set(MICROMOUSE_SIM_LIBRARY_NAME
+        "micromouse-sim-${MICROMOUSE_MAJOR_VERSION}.${MICROMOUSE_MINOR_VERSION}")
 include_directories (include)
 
 
@@ -44,11 +46,18 @@ set (SOURCE_FILES
     src/core/maze/parser.c)
 add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 
+# Files for simulation
+set (SIM_SOURCE_FILES
+    src/sim/display.c)
+add_library (${MICROMOUSE_SIM_LIBRARY_NAME} STATIC ${SIM_SOURCE_FILES})
+
 
 # EXECUTABLES
 # Micromouse simulation target
-add_executable (micromouse_sim ${SOURCE_FILES} src/sim_main.c)
-target_link_libraries (micromouse_sim ${MICROMOUSE_LIBRARY_NAME})
+add_executable (micromouse_sim src/sim_main.c)
+target_link_libraries (micromouse_sim
+                        ${MICROMOUSE_LIBRARY_NAME}
+                        ${MICROMOUSE_SIM_LIBRARY_NAME})
 
 
 # TESTS

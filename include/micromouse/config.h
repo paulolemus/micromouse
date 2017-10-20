@@ -42,5 +42,10 @@
 // File containing maze data
 #define SIM_MAP_STR "../src/sim/default_sim_maze.data"
 
+// Simulator default variables
+#define SHOW_HIDDEN_WALLS 1
+#define SHOW_FF_VALUES    1
+#define SHOW_PATH         1
+
 
 #endif // MICROMOUSE_UNICORN_CONFIG_H_
