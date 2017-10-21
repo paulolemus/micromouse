@@ -5,5 +5,6 @@
  */
 
 #include <micromouse/core/pathplanning/floodfill.h>
+#include <micromouse/core/maze/maze.h>
 
 
