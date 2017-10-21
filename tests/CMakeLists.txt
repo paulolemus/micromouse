@@ -17,4 +17,5 @@ endmacro (macro_micromouse_test)
 # All tests below
 macro_micromouse_test (check-maze)
 macro_micromouse_test (check-maze-parser)
+macro_micromouse_test (check-coord)
 

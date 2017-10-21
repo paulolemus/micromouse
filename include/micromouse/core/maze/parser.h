@@ -19,10 +19,10 @@
  * @param fname The name of the file to parse in.
  * @return 1 if success, 0 if failure.
  */
-unsigned int parse_maze(
-    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
-    unsigned int* g_width,
-    unsigned int* g_height,
+unsigned parse_maze(
+    Maze* maze,
+    unsigned* g_width,
+    unsigned* g_height,
     const char* fname
 );
 

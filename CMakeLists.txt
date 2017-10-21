@@ -43,7 +43,9 @@ set (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 # Add all source files to this variable
 set (SOURCE_FILES
     src/core/maze/maze.c
-    src/core/maze/parser.c)
+    src/core/maze/parser.c
+    src/core/pathplanning/coord.c
+    src/core/pathplanning/path.c)
 add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 
 # Files for simulation

@@ -19,9 +19,9 @@
  * @param str The string to switch.
  */
 void setMazeBit(
-    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT],
-    unsigned int x,
-    unsigned int y,
+    Maze* maze,
+    const unsigned x,
+    const unsigned y,
     const char* str
 ) {
 
@@ -37,14 +37,14 @@ void setMazeBit(
     }
 }
 
-unsigned int parse_maze(
-    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT],
-    unsigned int* g_width,
-    unsigned int* g_height,
+unsigned parse_maze(
+    Maze* maze,
+    unsigned* g_width,
+    unsigned* g_height,
     const char* fname
 ) {
-    const unsigned int SUCCESS = 1;
-    const unsigned int FAILURE = 0;
+    const unsigned SUCCESS = 1;
+    const unsigned FAILURE = 0;
     const int BUF_SIZE = 100;
 
     char buffer[BUF_SIZE]; 
@@ -58,8 +58,8 @@ unsigned int parse_maze(
 
     // Confirm that the parsed maze has the same dimensions
     // as the defined maze width and height.
-    unsigned int width;
-    unsigned int height;
+    unsigned width;
+    unsigned height;
     if(fgets(buffer, BUF_SIZE, fp) == NULL) {
         fprintf(stderr, "parse_maze - could not parse first line\n");
         fclose(fp);
@@ -70,7 +70,7 @@ unsigned int parse_maze(
         fclose(fp);
         return FAILURE;
     }
-    if(width > MAZE_WIDTH || height > MAZE_HEIGHT) {
+    if(width > MAX_WIDTH || height > MAX_HEIGHT) {
         fprintf(stderr, "parse_maze - Width and height of greater than allowed\n");
         fclose(fp);
         return FAILURE;
@@ -82,8 +82,8 @@ unsigned int parse_maze(
     // Read line by line, tokenize line, pass values into
     // function to set bits in the maze pointer.
     while(fgets(buffer, BUF_SIZE, fp) != NULL) {
-        unsigned int x;
-        unsigned int y;
+        unsigned x;
+        unsigned y;
         const char delim[3] = ", \n";
         char line[BUF_SIZE];
         char* token;
@@ -116,5 +116,4 @@ unsigned int parse_maze(
     fclose(fp);
     return SUCCESS;
 }
-
 

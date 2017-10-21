@@ -8,8 +8,8 @@
 #include <micromouse/sim/display.h>
 
 void init_display(
-    const unsigned int width,
-    const unsigned int height
+    const unsigned width,
+    const unsigned height
 ) {
     initscr();
     raw();
@@ -33,25 +33,21 @@ void finish_display() {
 }
 
 void put_mouse(
-    const unsigned int dir,
-    const unsigned int x,
-    const unsigned int y
+    const unsigned dir,
+    const unsigned x,
+    const unsigned y
 ) {
 
 }
 
 void put_hidden_walls(
-    const unsigned int WIDTH,
-    const unsigned int HEIGHT,
-    BLOCK maze[WIDTH][HEIGHT] 
+    Maze* maze
 ) {
 
 }
 
 void put_visible_walls(
-    const unsigned int WIDTH,
-    const unsigned int HEIGHT,
-    BLOCK maze[WIDTH][HEIGHT] 
+    Maze* maze
 ) {
 
 }

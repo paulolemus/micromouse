@@ -25,8 +25,8 @@
  * @param height used to set internal height state.
  */
 void init_display(
-    const unsigned int width,
-    const unsigned int height
+    const unsigned width,
+    const unsigned height
 );
 
 /**
@@ -52,9 +52,9 @@ void finish_display();
  * @param y Y coordinate of the mouse.
  */
 void put_mouse(
-    const unsigned int dir,
-    const unsigned int x,
-    const unsigned int y
+    const unsigned dir,
+    const unsigned x,
+    const unsigned y
 );
 
 /**
@@ -64,9 +64,7 @@ void put_mouse(
  * @param maze A representation of the maze.
  */
 void put_hidden_walls(
-    const unsigned int WIDTH,
-    const unsigned int HEIGHT,
-    BLOCK maze[WIDTH][HEIGHT]
+    Maze* maze
 );
 
 /**
@@ -74,10 +72,9 @@ void put_hidden_walls(
  * @param maze structure that represents a maze. 
  */
 void put_visible_walls(
-    const unsigned int WIDTH,
-    const unsigned int HEIGHT,
-    BLOCK maze[WIDTH][HEIGHT]
+    Maze* maze
 );
+
 
 /**
  * @brief Put a path in the maze.

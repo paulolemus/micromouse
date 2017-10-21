@@ -16,16 +16,11 @@
 
 #include <micromouse/config.h>
 
-/**
- * Typedef used to create a maze representation.
- * Using this makes it easy to change the type if ever
- * needed in the future.
- *
- * unsigned char is chosen becasue it is very conservative
- * on memory, and we only need 8 bits to represent everything
- * we need of a maze.
- */
-typedef unsigned char BLOCK;
+typedef struct Maze {
+    unsigned width;
+    unsigned height;
+    unsigned char maze[MAX_WIDTH][MAX_HEIGHT];
+} Maze;
 
 /**
  * Char bit masks
@@ -49,13 +44,24 @@ typedef unsigned char BLOCK;
 #define UNCERTAIN_IDX  5
 
 /**
+ * @brief function to set new width and height of a maze.
+ * @param maze A pointer to the maze to modify.
+ * @return 1 if success, 0 if failure
+ */
+unsigned set_maze_dimensions(
+    Maze* maze,
+    const unsigned width,
+    const unsigned height
+);
+
+/**
  * @brief Used to initialize each element of a maze to 0.
  *        This is important because we use bitwise operations
  *        to modify the maze.
  * @param maze The representation of the maze.
  */
 void clear_maze(
-    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT]
+    Maze* maze
 );
 
 /**
@@ -63,12 +69,9 @@ void clear_maze(
  * @param width width to box in
  * @param height height to box in
  * @param maze The maze to add box to
- * @return 1 if success, 0 if failed.
  */
-unsigned int box_maze(
-    const unsigned int width, 
-    const unsigned int height, 
-    BLOCK maze[width][height]
+void box_maze(
+    Maze* maze
 );
 
 /**
@@ -82,9 +85,9 @@ unsigned int box_maze(
  * @param mask A mask representing the bit to turn on in the BLOCK.
  */
 void setBitOn(
-    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
-    const unsigned int x, 
-    const unsigned int y, 
+    Maze* maze,
+    const unsigned x, 
+    const unsigned y, 
     const unsigned char mask
 );
 
@@ -99,9 +102,9 @@ void setBitOn(
  * @param mask A bitmask representing the bit to turn off.
  */
 void setBitOff(
-    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
-    const unsigned int x, 
-    const unsigned int y, 
+    Maze* maze,
+    const unsigned x, 
+    const unsigned y, 
     const unsigned char mask
 );
 
@@ -114,10 +117,10 @@ void setBitOff(
  * @param mask A bitmask representing the bit to check.
  * @return 1 if bit is on, 0 if bit is off.
  */
-unsigned int isBitSet(
-    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
-    const unsigned int x, 
-    const unsigned int y, 
+unsigned isBitSet(
+    Maze* maze,
+    const unsigned x, 
+    const unsigned y, 
     const unsigned char mask
 );
 
@@ -129,10 +132,10 @@ unsigned int isBitSet(
  * @param y The y coordinate of the BLOCK.
  * @return A copy of the BLOCK.
  */
-BLOCK getBlock(
-    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT], 
-    const unsigned int x, 
-    const unsigned int y
+unsigned char getBlock(
+    Maze* maze,
+    const unsigned x, 
+    const unsigned y
 );
 
 #endif // MICROMOUSE_UNICORN_MAZE_H_

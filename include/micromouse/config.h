@@ -17,9 +17,17 @@
 //   Maze config   //
 /////////////////////
 
-// Primary maze dimensions
-#define MAZE_WIDTH  16
-#define MAZE_HEIGHT 16
+// MAX maze dimensions
+#define MAX_WIDTH  16
+#define MAX_HEIGHT 16
+
+
+/////////////////////////////
+//   Pathplanning config   //
+/////////////////////////////
+
+// Path default length
+#define PATH_SIZE 64
 
 
 ///////////////////////

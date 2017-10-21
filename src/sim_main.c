@@ -24,36 +24,42 @@ int main() {
 
     // Variables with default values
     // Actual dimensions of maze
-    unsigned int width  = 16;
-    unsigned int height = 16;
+    unsigned width  = 16;
+    unsigned height = 16;
     // Booleans to toggle views
     int show_hidden_walls = SHOW_HIDDEN_WALLS;
     int show_ff_values    = SHOW_FF_VALUES;
     int show_path         = SHOW_PATH;
     // Mouse variables
-    unsigned int x_pos = 0;
-    unsigned int y_pos = 0;
-    unsigned int dir = NORTH;
-    const unsigned int X_GOAL = (width  - 1) / 2;
-    const unsigned int Y_GOAL = (height - 1) / 2;
+    unsigned x_pos = 0;
+    unsigned y_pos = 0;
+    unsigned dir = NORTH;
+    const unsigned X_GOAL = (width  - 1) / 2;
+    const unsigned Y_GOAL = (height - 1) / 2;
 
     // Maze data structures
-    BLOCK maze[MAZE_WIDTH][MAZE_HEIGHT];
-    BLOCK mouseMaze[MAZE_WIDTH][MAZE_HEIGHT];
-    BLOCK ffMaze[MAZE_WIDTH][MAZE_HEIGHT];
+    Maze maze;
+    Maze mouseMaze;
+    Maze ffMaze;
 
     // Clear mazes, ensure all bits are properly set. 
-    clear_maze(maze);
-    clear_maze(mouseMaze);
-    clear_maze(ffMaze);
+    clear_maze(&maze);
+    clear_maze(&mouseMaze);
+    clear_maze(&ffMaze);
 
     // Parse in mazes from default sim file named in config.h
-    if(parse_maze(maze, &width, &height, SIM_MAP_STR) == 0) {
+    if(parse_maze(&maze, &width, &height, SIM_MAP_STR) == 0) {
         fprintf(stderr, "sim_main - Failed to parse maze\n");
         return (-1);
     }
 
+    if(set_maze_dimensions(&maze, width, height)      == 0 ||
+       set_maze_dimensions(&mouseMaze, width, height) == 0 ||
+       set_maze_dimensions(&ffMaze, width, height)    == 0) {
 
+        fprintf(stderr, "sim_main - Failed to set width and height\n");
+        return (-1);
+    }
 
     return 0;
 }
