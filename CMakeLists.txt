@@ -50,14 +50,21 @@ add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 set (SIM_SOURCE_FILES
     src/sim/display.c)
 add_library (${MICROMOUSE_SIM_LIBRARY_NAME} STATIC ${SIM_SOURCE_FILES})
+find_package(Curses REQUIRED)
+include_directories(${CURSES_INCLUDE_DIR})
 
 
 # EXECUTABLES
+
+# PIC main target
+add_executable (pic_micromouse src/pic_main.c)
+
 # Micromouse simulation target
 add_executable (micromouse_sim src/sim_main.c)
 target_link_libraries (micromouse_sim
                         ${MICROMOUSE_LIBRARY_NAME}
-                        ${MICROMOUSE_SIM_LIBRARY_NAME})
+                        ${MICROMOUSE_SIM_LIBRARY_NAME}
+                        ${CURSES_LIBRARIES})
 
 
 # TESTS
