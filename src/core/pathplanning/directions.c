@@ -23,7 +23,7 @@ unsigned char get_direction(Directions* directions) {
 
 unsigned shift_directions_up(Directions* directions) {
     const unsigned SUCCESS = 1;
-    const unsigned FIALURE = 0;
+    const unsigned FAILURE = 0;
 
     if(directions->curr < directions->end) {
         directions->curr++;
