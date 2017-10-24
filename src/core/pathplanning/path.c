@@ -8,7 +8,7 @@
 
 
 void clear_path(Path* path) {
-    path->next = 0;
+    path->curr = 0;
     path->end  = 0;
     for(unsigned i = 0; i < PATH_SIZE; ++i) {
         path->coords[i].x = 0;
@@ -17,16 +17,20 @@ void clear_path(Path* path) {
 }
 
 Coord get_next_coord(const Path* path) {
-    return path->coords[path->next];
+    if(path->curr < path->end) {
+        return path->coords[path->curr + 1];
+    } else {
+        return path->coords[path->end];
+    }
 }
 
 unsigned shift_path_up(Path* path) {
     const unsigned SUCCESS = 1;
     const unsigned FAILURE = 0;
-    if(path->next == 0 || path->next >= path->end) {
+    if(path->curr >= path->end) {
         return FAILURE;
     } else {
-        path->next++;
+        path->curr = path->curr + 1;
         return SUCCESS;
     }
 }

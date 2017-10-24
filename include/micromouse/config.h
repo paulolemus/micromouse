@@ -28,6 +28,8 @@
 
 // Path default length
 #define PATH_SIZE 64
+// Directions default length
+#define DIRECTIONS_SIZE 64
 
 
 ///////////////////////

@@ -25,7 +25,7 @@
  * @field coords The array containing all the coordinates in the path.
  */
 typedef struct Path {
-    unsigned next;
+    unsigned curr;
     unsigned end;
     Coord coords[PATH_SIZE];
 } Path;

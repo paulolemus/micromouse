@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <check.h>
-#include <micromouse/core/pathplanning/path.h>
+#include <micromouse/core/pathplanning/directions.h>
 
 // Test to ensure check works
 START_TEST(check_basic) {

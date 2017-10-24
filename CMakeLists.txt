@@ -45,7 +45,8 @@ set (SOURCE_FILES
     src/core/maze/maze.c
     src/core/maze/parser.c
     src/core/pathplanning/coord.c
-    src/core/pathplanning/path.c)
+    src/core/pathplanning/path.c
+    src/core/pathplanning/directions.c)
 add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 
 # Files for simulation
