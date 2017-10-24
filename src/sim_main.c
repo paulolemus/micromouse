@@ -18,6 +18,7 @@
 #include <micromouse/config.h>
 #include <micromouse/core/maze/maze.h>
 #include <micromouse/core/maze/parser.h>
+#include <micromouse/core/pathplanning/directions.h>
 #include <micromouse/sim/display.h>
 
 int main() {
@@ -33,7 +34,7 @@ int main() {
     // Mouse variables
     unsigned x_pos = 0;
     unsigned y_pos = 0;
-    unsigned dir = NORTH;
+    Direct dir = NORTH;
     const unsigned X_GOAL = (width  - 1) / 2;
     const unsigned Y_GOAL = (height - 1) / 2;
 

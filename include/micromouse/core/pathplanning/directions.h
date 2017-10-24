@@ -9,11 +9,13 @@
 #include <micromouse/config.h>
 
 // Absolute directions - numbers are arbitrary
-#define NORTH 10
-#define SOUTH 20
-#define WEST  30
-#define EAST  40
-#define NONE  50
+typedef enum Direct {
+    NORTH = 10,
+    SOUTH = 20,
+    WEST  = 30,
+    EAST  = 40,
+    NONE  = 50
+} Direct;
 
 /**
  * Directions struct is used to represent the directions that
@@ -26,7 +28,7 @@
 typedef struct Directions {
     unsigned curr;
     unsigned end;
-    unsigned directions[DIRECTIONS_SIZE];
+    Direct directions[DIRECTIONS_SIZE];
 } Directions;
 
 /**
@@ -41,7 +43,7 @@ void clear_directions(Directions* directions);
  * @param directions A pointer to the current Directions struct.
  * @return value equal to one of the directions defined in directions.h
  */
-unsigned get_direction(const Directions* directions);
+Direct get_direction(const Directions* directions);
 
 /**
  * @brief Move the direction up one.

@@ -16,11 +16,11 @@ START_TEST(check_basic) {
 END_TEST
 
 START_TEST(check_definitions) {
-    ck_assert(NORTH == 10);
-    ck_assert(SOUTH == 20);
-    ck_assert(WEST  == 30);
-    ck_assert(EAST  == 40);
-    ck_assert(NONE  == 50);
+    ck_assert_int_eq(NORTH, 10);
+    ck_assert_int_eq(SOUTH, 20);
+    ck_assert_int_eq(WEST,  30);
+    ck_assert_int_eq(EAST,  40);
+    ck_assert_int_eq(NONE,  50);
     ck_assert_uint_gt(DIRECTIONS_SIZE, 0);
 }
 END_TEST
@@ -33,7 +33,7 @@ START_TEST(check_clear_directions) {
     ck_assert_uint_eq(directions.end,  0);
 
     for(unsigned i = 0; i < DIRECTIONS_SIZE; ++i) {
-        ck_assert(directions.directions[i] == NONE);
+        ck_assert_int_eq(directions.directions[i], NONE);
     }
 }
 END_TEST
@@ -48,13 +48,13 @@ START_TEST(check_get_direction) {
     directions.directions[2] = EAST;
     directions.directions[3] = WEST;
 
-    ck_assert_uint_eq(get_direction(&directions), NORTH);
+    ck_assert_int_eq(get_direction(&directions), NORTH);
     directions.curr++;
-    ck_assert_uint_eq(get_direction(&directions), SOUTH);
+    ck_assert_int_eq(get_direction(&directions), SOUTH);
     directions.curr++;
-    ck_assert_uint_eq(get_direction(&directions), EAST);
+    ck_assert_int_eq(get_direction(&directions), EAST);
     directions.curr++;
-    ck_assert_uint_eq(get_direction(&directions), WEST);
+    ck_assert_int_eq(get_direction(&directions), WEST);
 }
 END_TEST
 
