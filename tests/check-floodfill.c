@@ -46,6 +46,46 @@ START_TEST(check_floodfill_empty_maze) {
         floodfill(&maze, &ffMap, x_goal1, y_goal1),
         1
     );
+
+    ck_assert_uint_eq(ffMap.maze[0][0], 6);
+    ck_assert_uint_eq(ffMap.maze[0][1], 5);
+    ck_assert_uint_eq(ffMap.maze[0][2], 4);
+    ck_assert_uint_eq(ffMap.maze[0][3], 3);
+    ck_assert_uint_eq(ffMap.maze[1][0], 5);
+    ck_assert_uint_eq(ffMap.maze[1][1], 4);
+    ck_assert_uint_eq(ffMap.maze[1][2], 3);
+    ck_assert_uint_eq(ffMap.maze[1][3], 2);
+    ck_assert_uint_eq(ffMap.maze[2][0], 4);
+    ck_assert_uint_eq(ffMap.maze[2][1], 3);
+    ck_assert_uint_eq(ffMap.maze[2][2], 2);
+    ck_assert_uint_eq(ffMap.maze[2][3], 1);
+    ck_assert_uint_eq(ffMap.maze[3][0], 3);
+    ck_assert_uint_eq(ffMap.maze[3][1], 2);
+    ck_assert_uint_eq(ffMap.maze[3][2], 1);
+    ck_assert_uint_eq(ffMap.maze[3][3], 0);
+
+
+    ck_assert_uint_eq(
+        floodfill(&maze, &ffMap, x_goal2, y_goal2),
+        1
+    );
+    ck_assert_uint_eq(ffMap.maze[0][0], 0);
+    ck_assert_uint_eq(ffMap.maze[0][1], 1);
+    ck_assert_uint_eq(ffMap.maze[0][2], 2);
+    ck_assert_uint_eq(ffMap.maze[0][3], 3);
+    ck_assert_uint_eq(ffMap.maze[1][0], 1);
+    ck_assert_uint_eq(ffMap.maze[1][1], 2);
+    ck_assert_uint_eq(ffMap.maze[1][2], 3);
+    ck_assert_uint_eq(ffMap.maze[1][3], 4);
+    ck_assert_uint_eq(ffMap.maze[2][0], 2);
+    ck_assert_uint_eq(ffMap.maze[2][1], 3);
+    ck_assert_uint_eq(ffMap.maze[2][2], 4);
+    ck_assert_uint_eq(ffMap.maze[2][3], 5);
+    ck_assert_uint_eq(ffMap.maze[3][0], 3);
+    ck_assert_uint_eq(ffMap.maze[3][1], 4);
+    ck_assert_uint_eq(ffMap.maze[3][2], 5);
+    ck_assert_uint_eq(ffMap.maze[3][3], 6);
+
 }
 END_TEST
 
