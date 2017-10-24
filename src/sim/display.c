@@ -4,8 +4,12 @@
  */
 
 #include <ncurses.h>
+
 #include <micromouse/core/maze/maze.h>
+#include <micromouse/core/pathplanning/path.h>
+#include <micromouse/core/pathplanning/directions.h>
 #include <micromouse/sim/display.h>
+
 
 void init_display(
     const unsigned width,
@@ -41,17 +45,19 @@ void put_mouse(
 }
 
 void put_hidden_walls(
-    Maze* maze
+    const Maze* maze
 ) {
 
 }
 
 void put_visible_walls(
-    Maze* maze
+    const Maze* maze
 ) {
 
 }
 
-void put_path() {
+void put_path(
+    const Path* path
+) {
 
 }

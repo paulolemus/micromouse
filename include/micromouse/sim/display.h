@@ -10,12 +10,8 @@
 #define MICROMOUSE_SIM_DISPLAY_H_
 
 #include <micromouse/core/maze/maze.h>
+#include <micromouse/core/pathplanning/path.h>
 
-// Used for mouse facing
-#define NORTH 0
-#define EAST  1
-#define WEST  2
-#define SOUTH 3
 
 /**
  * @brief Initilize display environment (NCURSES), clear screen.
@@ -64,7 +60,7 @@ void put_mouse(
  * @param maze A representation of the maze.
  */
 void put_hidden_walls(
-    Maze* maze
+    const Maze* maze
 );
 
 /**
@@ -72,15 +68,16 @@ void put_hidden_walls(
  * @param maze structure that represents a maze. 
  */
 void put_visible_walls(
-    Maze* maze
+    const Maze* maze
 );
 
 
 /**
  * @brief Put a path in the maze.
- * TODO: Figure out path
  */
-void put_path();
+void put_path(
+    const Path* path    
+);
 
 
 #endif // MICROMOUSE_SIM_DISPLAY_H_
