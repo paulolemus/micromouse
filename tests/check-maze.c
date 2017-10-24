@@ -17,12 +17,12 @@ END_TEST
 
 // Check that all values are defined corectly
 START_TEST(check_maze_definitions) {
-    ck_assert_uint_eq(NORTH_WALL,   1);
-    ck_assert_uint_eq(SOUTH_WALL,   2);
-    ck_assert_uint_eq(EAST_WALL,    4);
-    ck_assert_uint_eq(WEST_WALL,    8);
-    ck_assert_uint_eq(VISITED,     16);
-    ck_assert_uint_eq(UNCERTAIN,   32);
+    ck_assert_uint_eq(NORTH_WALL, 1);
+    ck_assert_uint_eq(SOUTH_WALL, 2);
+    ck_assert_uint_eq(EAST_WALL,  4);
+    ck_assert_uint_eq(WEST_WALL,  8);
+    ck_assert_uint_eq(VISITED,   16);
+    ck_assert_uint_eq(UNCERTAIN, 32);
 }
 END_TEST
 
