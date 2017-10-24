@@ -16,7 +16,7 @@ void clear_directions(Directions* directions) {
 }
 
 
-char get_direction(const Directions* directions) {
+unsigned get_direction(const Directions* directions) {
     return directions->directions[directions->curr]; 
 }
 

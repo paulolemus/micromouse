@@ -48,13 +48,13 @@ START_TEST(check_get_direction) {
     directions.directions[2] = EAST;
     directions.directions[3] = WEST;
 
-    ck_assert(get_direction(&directions) == NORTH);
+    ck_assert_uint_eq(get_direction(&directions), NORTH);
     directions.curr++;
-    ck_assert(get_direction(&directions) == SOUTH);
+    ck_assert_uint_eq(get_direction(&directions), SOUTH);
     directions.curr++;
-    ck_assert(get_direction(&directions) == EAST);
+    ck_assert_uint_eq(get_direction(&directions), EAST);
     directions.curr++;
-    ck_assert(get_direction(&directions) == WEST);
+    ck_assert_uint_eq(get_direction(&directions), WEST);
 }
 END_TEST
 

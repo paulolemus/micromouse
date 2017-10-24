@@ -26,7 +26,7 @@
 typedef struct Directions {
     unsigned curr;
     unsigned end;
-    char directions[DIRECTIONS_SIZE];
+    unsigned directions[DIRECTIONS_SIZE];
 } Directions;
 
 /**
@@ -41,7 +41,7 @@ void clear_directions(Directions* directions);
  * @param directions A pointer to the current Directions struct.
  * @return value equal to one of the directions defined in directions.h
  */
-char get_direction(const Directions* directions);
+unsigned get_direction(const Directions* directions);
 
 /**
  * @brief Move the direction up one.
