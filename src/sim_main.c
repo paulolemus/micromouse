@@ -60,6 +60,5 @@ int main() {
         fprintf(stderr, "sim_main - Failed to set width and height\n");
         return (-1);
     }
-
     return 0;
 }

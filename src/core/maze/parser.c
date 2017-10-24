@@ -25,12 +25,12 @@ void setMazeBit(
     const char* str
 ) {
 
-    if(     !strcmp(str, TOP_WALL_STR))    setBitOn(maze, x, y, NORTH_WALL);
-    else if(!strcmp(str, LEFT_WALL_STR))   setBitOn(maze, x, y, WEST_WALL);
-    else if(!strcmp(str, RIGHT_WALL_STR))  setBitOn(maze, x, y, EAST_WALL);
-    else if(!strcmp(str, BOTTOM_WALL_STR)) setBitOn(maze, x, y, SOUTH_WALL);
-    else if(!strcmp(str, VISITED_STR))     setBitOn(maze, x, y, VISITED);
-    else if(!strcmp(str, UNCERTAIN_STR))   setBitOn(maze, x, y, UNCERTAIN);
+    if(     !strcmp(str, TOP_WALL_STR))    set_wall_on(maze, x, y, NORTH_WALL);
+    else if(!strcmp(str, LEFT_WALL_STR))   set_wall_on(maze, x, y, WEST_WALL);
+    else if(!strcmp(str, RIGHT_WALL_STR))  set_wall_on(maze, x, y, EAST_WALL);
+    else if(!strcmp(str, BOTTOM_WALL_STR)) set_wall_on(maze, x, y, SOUTH_WALL);
+    else if(!strcmp(str, VISITED_STR))     set_property_on(maze, x, y, VISITED);
+    else if(!strcmp(str, UNCERTAIN_STR))   set_property_on(maze, x, y, UNCERTAIN);
     else {
         fprintf(stderr, "setMazeBit - undefined token = %s\n", str);
         exit(-1);

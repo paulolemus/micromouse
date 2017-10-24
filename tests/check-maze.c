@@ -23,12 +23,6 @@ START_TEST(check_maze_definitions) {
     ck_assert_uint_eq(WEST_WALL,    8);
     ck_assert_uint_eq(VISITED,     16);
     ck_assert_uint_eq(UNCERTAIN,   32);
-    ck_assert_uint_eq(NORTH_WALL_IDX, 0);
-    ck_assert_uint_eq(SOUTH_WALL_IDX, 1);
-    ck_assert_uint_eq(EAST_WALL_IDX,  2);
-    ck_assert_uint_eq(WEST_WALL_IDX,  3);
-    ck_assert_uint_eq(VISITED_IDX,    4);
-    ck_assert_uint_eq(UNCERTAIN_IDX,  5);
 }
 END_TEST
 
@@ -39,19 +33,84 @@ START_TEST(check_maze_bits_zeroed) {
     clear_maze(&maze);
     set_maze_dimensions(&maze, MAX_WIDTH, MAX_HEIGHT);
 
-    ck_assert_uint_eq(maze.width, MAX_WIDTH);
+    ck_assert_uint_eq(maze.width,  MAX_WIDTH);
     ck_assert_uint_eq(maze.height, MAX_HEIGHT);
 
     for(unsigned x = 0; x < maze.width; ++x) {
         for(unsigned y = 0; y < maze.height; ++y) {
-            ck_assert_uint_eq(isBitSet(&maze, x, y, NORTH_WALL), 0);
-            ck_assert_uint_eq(isBitSet(&maze, x, y, SOUTH_WALL), 0);
-            ck_assert_uint_eq(isBitSet(&maze, x, y, EAST_WALL),  0);
-            ck_assert_uint_eq(isBitSet(&maze, x, y, WEST_WALL),  0);
-            ck_assert_uint_eq(isBitSet(&maze, x, y, VISITED),    0);
-            ck_assert_uint_eq(isBitSet(&maze, x, y, UNCERTAIN),  0);
+            ck_assert_uint_eq(has_wall(&maze, x, y, NORTH_WALL), 0);
+            ck_assert_uint_eq(has_wall(&maze, x, y, SOUTH_WALL), 0);
+            ck_assert_uint_eq(has_wall(&maze, x, y, EAST_WALL),  0);
+            ck_assert_uint_eq(has_wall(&maze, x, y, WEST_WALL),  0);
+
+            ck_assert_uint_eq(has_property(&maze, x, y, VISITED),   0);
+            ck_assert_uint_eq(has_property(&maze, x, y, UNCERTAIN), 0);
         }
     }
+}
+END_TEST
+
+
+START_TEST(check_wall_setters) {
+
+    const unsigned x = 1;
+    const unsigned y = 1;
+
+    Maze maze;
+    clear_maze(&maze);
+    set_maze_dimensions(&maze, MAX_WIDTH, MAX_HEIGHT);
+
+    // Check top wall is zero, set it on, check that it is on for both block.
+    ck_assert_uint_eq(has_wall(&maze, x, y,     NORTH_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, x, y + 1, SOUTH_WALL), 0);
+    set_wall_on(&maze, x, y, NORTH_WALL);
+    ck_assert_uint_eq(has_wall(&maze, x, y,     NORTH_WALL), 1);
+    ck_assert_uint_eq(has_wall(&maze, x, y + 1, SOUTH_WALL), 1);
+    clear_maze(&maze);
+
+    ck_assert_uint_eq(has_wall(&maze, x, y,     SOUTH_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, x, y - 1, NORTH_WALL), 0);
+    set_wall_on(&maze, x, y, SOUTH_WALL);
+    ck_assert_uint_eq(has_wall(&maze, x, y,     SOUTH_WALL), 1);
+    ck_assert_uint_eq(has_wall(&maze, x, y - 1, NORTH_WALL), 1);
+    clear_maze(&maze);
+
+    ck_assert_uint_eq(has_wall(&maze, x, y,     EAST_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, x + 1, y, WEST_WALL), 0);
+    set_wall_on(&maze, x, y, EAST_WALL);
+    ck_assert_uint_eq(has_wall(&maze, x, y,     EAST_WALL), 1);
+    ck_assert_uint_eq(has_wall(&maze, x + 1, y, WEST_WALL), 1);
+    clear_maze(&maze);
+
+    ck_assert_uint_eq(has_wall(&maze, x, y,     WEST_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, x - 1, y, EAST_WALL), 0);
+    set_wall_on(&maze, x, y, WEST_WALL);
+    ck_assert_uint_eq(has_wall(&maze, x, y,     WEST_WALL), 1);
+    ck_assert_uint_eq(has_wall(&maze, x - 1, y, EAST_WALL), 1);
+    clear_maze(&maze);
+}
+END_TEST
+
+START_TEST(check_property_setters) {
+
+    const unsigned x = 1;
+    const unsigned y = 1;
+    Maze maze;
+    clear_maze(&maze);
+    set_maze_dimensions(&maze, MAX_WIDTH, MAX_HEIGHT);
+
+    ck_assert_uint_eq(has_property(&maze, x, y, UNCERTAIN), 0);
+    set_property_on(&maze, x, y, UNCERTAIN);
+    ck_assert_uint_eq(has_property(&maze, x, y, UNCERTAIN), 1);
+    set_property_off(&maze, x, y, UNCERTAIN);
+    ck_assert_uint_eq(has_property(&maze, x, y, UNCERTAIN), 0);
+
+    ck_assert_uint_eq(has_property(&maze, x, y, VISITED), 0);
+    set_property_on(&maze, x, y, VISITED);
+    ck_assert_uint_eq(has_property(&maze, x, y, VISITED), 1);
+    set_property_off(&maze, x, y, VISITED);
+    ck_assert_uint_eq(has_property(&maze, x, y, VISITED), 0);
+
 }
 END_TEST
 
@@ -67,14 +126,14 @@ START_TEST(check_box_maze) {
 
     // Check North and South walls
     for(unsigned i = 0; i < width; ++i) {
-        ck_assert_uint_eq(isBitSet(&maze, i, 0, SOUTH_WALL), 1);
-        ck_assert_uint_eq(isBitSet(&maze, i, height - 1, NORTH_WALL), 1);
+        ck_assert_uint_eq(has_wall(&maze, i, 0, SOUTH_WALL), 1);
+        ck_assert_uint_eq(has_wall(&maze, i, height - 1, NORTH_WALL), 1);
     }
 
     // Check East and West walls
     for(unsigned j = 0; j < height; ++j) {
-        ck_assert_uint_eq(isBitSet(&maze, 0, j, WEST_WALL), 1);
-        ck_assert_uint_eq(isBitSet(&maze, width - 1, j, EAST_WALL), 1);
+        ck_assert_uint_eq(has_wall(&maze, 0, j, WEST_WALL), 1);
+        ck_assert_uint_eq(has_wall(&maze, width - 1, j, EAST_WALL), 1);
     }
 }
 END_TEST
@@ -88,45 +147,45 @@ START_TEST(check_maze_bit_on) {
     set_maze_dimensions(&maze, MAX_WIDTH, MAX_HEIGHT);
 
     // Assert all important bits are 0
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, NORTH_WALL), 0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, SOUTH_WALL), 0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, EAST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, WEST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, VISITED),    0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, UNCERTAIN),  0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, NORTH_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, SOUTH_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, EAST_WALL),  0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, WEST_WALL),  0);
+    ck_assert_uint_eq(has_property(&maze, checkx, checky, VISITED),    0);
+    ck_assert_uint_eq(has_property(&maze, checkx, checky, UNCERTAIN),  0);
 
     // Set first bit on
-    setBitOn(&maze, checkx, checky, NORTH_WALL);
+    set_wall_on(&maze, checkx, checky, NORTH_WALL);
 
     // Assert all bits are 0 except the NORTH_WALL bit
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, NORTH_WALL), 1);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, SOUTH_WALL), 0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, EAST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, WEST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, VISITED),    0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, UNCERTAIN),  0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, NORTH_WALL), 1);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, SOUTH_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, EAST_WALL),  0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, WEST_WALL),  0);
+    ck_assert_uint_eq(has_property(&maze, checkx, checky, VISITED),    0);
+    ck_assert_uint_eq(has_property(&maze, checkx, checky, UNCERTAIN),  0);
 
     // Set third bit on
-    setBitOn(&maze, checkx, checky, EAST_WALL);
+    set_wall_on(&maze, checkx, checky, EAST_WALL);
 
     // Assert all bits are 0 except first and third
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, NORTH_WALL), 1);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, SOUTH_WALL), 0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, EAST_WALL),  1);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, WEST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, VISITED),    0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, UNCERTAIN),  0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, NORTH_WALL), 1);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, SOUTH_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, EAST_WALL),  1);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, WEST_WALL),  0);
+    ck_assert_uint_eq(has_property(&maze, checkx, checky, VISITED),    0);
+    ck_assert_uint_eq(has_property(&maze, checkx, checky, UNCERTAIN),  0);
 
     // Set sixth bit on
-    setBitOn(&maze, checkx, checky, UNCERTAIN);
+    set_property_on(&maze, checkx, checky, UNCERTAIN);
 
     // Assert all bits are 0 except first, third, and sixth
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, NORTH_WALL), 1);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, SOUTH_WALL), 0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, EAST_WALL),  1);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, WEST_WALL),  0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, VISITED),    0);
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, UNCERTAIN),  1);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, NORTH_WALL), 1);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, SOUTH_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, EAST_WALL),  1);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, WEST_WALL),  0);
+    ck_assert_uint_eq(has_property(&maze, checkx, checky, VISITED),    0);
+    ck_assert_uint_eq(has_property(&maze, checkx, checky, UNCERTAIN),  1);
 }
 END_TEST
 
@@ -139,15 +198,15 @@ START_TEST(check_maze_bit_off) {
     set_maze_dimensions(&maze, MAX_WIDTH, MAX_HEIGHT);
 
     // Assert bit is not set
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, NORTH_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, NORTH_WALL), 0);
     // Set the bit
-    setBitOn(&maze, checkx, checky, NORTH_WALL);
+    set_wall_on(&maze, checkx, checky, NORTH_WALL);
     // Assert bit is turned on
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, NORTH_WALL), 1);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, NORTH_WALL), 1);
     // Turn bit off
-    setBitOff(&maze, checkx, checky, NORTH_WALL);
+    set_wall_off(&maze, checkx, checky, NORTH_WALL);
     // Assert bit is turned off
-    ck_assert_uint_eq(isBitSet(&maze, checkx, checky, NORTH_WALL), 0);
+    ck_assert_uint_eq(has_wall(&maze, checkx, checky, NORTH_WALL), 0);
 }
 END_TEST
 
@@ -167,6 +226,8 @@ Suite* maze_suite(void) {
     tcase_add_test(tc_core, check_basic);
     tcase_add_test(tc_core, check_maze_definitions);
     tcase_add_test(tc_core, check_maze_bits_zeroed);
+    tcase_add_test(tc_core, check_wall_setters);
+    tcase_add_test(tc_core, check_property_setters);
     tcase_add_test(tc_core, check_box_maze);
     tcase_add_test(tc_core, check_maze_bit_on);
     tcase_add_test(tc_core, check_maze_bit_off);

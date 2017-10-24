@@ -35,3 +35,7 @@ Do I need to care about keeping state outside of the function?
 I'll probably need to run the algorithm again very soon if I am exploring attempting to find a path to the center.
 
 
+Both algorithms need:
+get path and get directions functions.
+
+Directions needs get path function

@@ -44,66 +44,126 @@ void box_maze(
 ) {
     // Draw North and South walls
     for(unsigned i = 0; i < maze->width; ++i) {
-        setBitOn(maze, i, 0, SOUTH_WALL); 
-        setBitOn(maze, i, maze->height - 1, NORTH_WALL);
+        set_wall_on(maze, i, 0, SOUTH_WALL); 
+        set_wall_on(maze, i, maze->height - 1, NORTH_WALL);
     }
     
     // Draw West and East walls
     for(unsigned j = 0; j < maze->height; ++j) {
-        setBitOn(maze, 0, j, WEST_WALL);
-        setBitOn(maze, maze->width - 1, j, EAST_WALL);
+        set_wall_on(maze, 0, j, WEST_WALL);
+        set_wall_on(maze, maze->width - 1, j, EAST_WALL);
     }
 }
 
-/*
- * Calculate the position in the array that corresponds to (x, y),
- * then use bitwise OR to turn on the single bit without affecting 
- * any other bits.
- */
-void setBitOn(
+void set_wall_on(
     Maze* maze,
-    const unsigned x, 
-    const unsigned y, 
-    const unsigned char mask
+    const unsigned x,
+    const unsigned y,
+    const unsigned char wall
 ) {
-    maze->maze[x][y] |= mask;
+
+    if(wall == NORTH_WALL) {
+
+        maze->maze[x][y] |= wall;
+        if(y + 1 < maze->height) {
+            maze->maze[x][y + 1] |= SOUTH_WALL;
+        }
+    } else if(wall == SOUTH_WALL) {
+
+        maze->maze[x][y] |= wall;
+        if(y > 0) {
+            maze->maze[x][y - 1] |= NORTH_WALL;
+        }
+    } else if(wall == EAST_WALL) {
+
+        maze->maze[x][y] |= wall;
+        if(x + 1 < maze->width) {
+            maze->maze[x + 1][y] |= WEST_WALL;
+        }
+    } else if(wall == WEST_WALL) {
+
+        maze->maze[x][y] |= wall;
+        if(x > 0) {
+            maze->maze[x - 1][y] |= EAST_WALL;
+        }
+    }
 }
 
-/*
- * Calcuate array index that corresponds to (x, y),
- * then use negated bitwise AND to turn off the single bit.
- */
-void setBitOff(
+void set_wall_off(
     Maze* maze,
-    const unsigned x, 
-    const unsigned y, 
-    const unsigned char mask
+    const unsigned x,
+    const unsigned y,
+    const unsigned char wall
 ) {
-    maze->maze[x][y] &= ~mask;
+    if(wall == NORTH_WALL) {
+
+        maze->maze[x][y] &= ~wall;
+        if(y + 1 < maze->height) {
+            maze->maze[x][y + 1] &= ~SOUTH_WALL;
+        }
+    } else if(wall == SOUTH_WALL) {
+
+        maze->maze[x][y] &= ~wall;
+        if(y > 0) {
+            maze->maze[x][y - 1] &= ~NORTH_WALL;
+        }
+    } else if(wall == EAST_WALL) {
+
+        maze->maze[x][y] &= ~wall;
+        if(x + 1 < maze->width) {
+            maze->maze[x + 1][y] &= ~WEST_WALL;
+        }
+    } else if(wall == WEST_WALL) {
+
+        maze->maze[x][y] &= ~wall;
+        if(x > 0) {
+            maze->maze[x - 1][y] &= ~EAST_WALL;
+        }
+    }
 }
 
-/*
- * Calculate index from (x, y), then use bitwise AND to
- * check if value is set or not.
- */
-unsigned isBitSet(
-    Maze* maze,
-    const unsigned x, 
-    const unsigned y, 
-    const unsigned char mask
+unsigned has_wall(
+    const Maze* maze,
+    const unsigned x,
+    const unsigned y,
+    const unsigned char wall
 ) {
-    if(maze->maze[x][y] & mask) return 1;
+    if(maze->maze[x][y] & wall) return 1;
     else                        return 0;
 }
 
-/*
- * Calculate array index of (x, y), then return copy of the BLOCK.
- */
-unsigned char getBlock(
+void set_property_on(
     Maze* maze,
-    const unsigned x, 
-    const unsigned y
+    const unsigned x,
+    const unsigned y,
+    const unsigned char property 
 ) {
-    return maze->maze[x][y];
+    if(property == VISITED ||
+       property == UNCERTAIN) {
+        maze->maze[x][y] |= property;
+    }
 }
+
+void set_property_off(
+    Maze* maze,
+    const unsigned x,
+    const unsigned y,
+    const unsigned char property 
+) {
+    if(property == VISITED ||
+       property == UNCERTAIN) {
+        maze->maze[x][y] &= ~property;
+    }
+}
+
+unsigned has_property(
+    const Maze* maze,
+    const unsigned x,
+    const unsigned y,
+    const unsigned char property
+) {
+    if(maze->maze[x][y] & property) return 1;
+    else                            return 0;
+}
+
 

@@ -30,18 +30,15 @@ typedef struct Maze {
  * and each char has 8 bits, meaning 8 possible fields of info
  * per BLOCK.
  */
+// Walls
 #define NORTH_WALL 1
 #define SOUTH_WALL 2
 #define EAST_WALL  4
 #define WEST_WALL  8
+// Properties
 #define VISITED    16
 #define UNCERTAIN  32
-#define NORTH_WALL_IDX 0
-#define SOUTH_WALL_IDX 1
-#define EAST_WALL_IDX  2
-#define WEST_WALL_IDX  3
-#define VISITED_IDX    4
-#define UNCERTAIN_IDX  5
+
 
 /**
  * @brief function to set new width and height of a maze.
@@ -75,67 +72,89 @@ void box_maze(
 );
 
 /**
- * @brief Turn on a single bit in the BLOCK found at the coordinate (x, y).
- *        Note that (0, 0) is the "bottom-left" corner of the maze, and 
- *        (xmax, ymax) is the "top-right" corner.
- *
- * @param maze A pointer to the maze to add the bit to.
- * @param x The x coordinate of the BLOCK.
- * @param y The y coordinate of the BLOCK.
- * @param mask A mask representing the bit to turn on in the BLOCK.
+ * @brief Sets the wall bit in a maze on, and the corresponding bit
+ *        for the block in that wall's direction.
+ * @param maze A pointer to the maze to modify.
+ * @param x X coordinate of block
+ * @param y Y coordinate of block
+ * @param wall A wall defined constant.
  */
-void setBitOn(
+void set_wall_on(
     Maze* maze,
-    const unsigned x, 
-    const unsigned y, 
-    const unsigned char mask
+    const unsigned x,
+    const unsigned y,
+    const unsigned char wall
 );
 
 /**
- * @brief Turn off a single bit in the BLOCK found at (x, y).
- *        Note (0, 0) is "bottom-left" corner, while (xmax, ymax)
- *        is the "top-right" corner.
- *
- * @param maze A pointer to the maze to turn off the bit from.
- * @param x The x coordinate in the maze of the BLOCK.
- * @param y The y coordinate in the maze of the BLOCK.
- * @param mask A bitmask representing the bit to turn off.
+ * @brief Sets the wall bit in a maze off, and the corresponding bit
+ *        for the block in that wall's direction.
+ * @param maze A pointer to the maze to modify.
+ * @param x X coordinate of block
+ * @param y Y coordinate of block
+ * @param wall A wall defined constant.
  */
-void setBitOff(
+void set_wall_off(
     Maze* maze,
-    const unsigned x, 
-    const unsigned y, 
-    const unsigned char mask
+    const unsigned x,
+    const unsigned y,
+    const unsigned char wall
 );
 
 /**
- * @brief Check if the given bit is set or not.
- *
- * @param maze A pointer to the maze.
- * @param x The x coordinate in the maze of the BLOCK.
- * @param y The y coordinate in the maze of the BLOCK.
- * @param mask A bitmask representing the bit to check.
- * @return 1 if bit is on, 0 if bit is off.
+ * @brief check if the wall exists in maze block.
+ * @param maze Pointer to maze to check
+ * @param x X coordinate of block
+ * @param y Y coordinate of block
+ * @param wall Defined constant representing wall
  */
-unsigned isBitSet(
-    Maze* maze,
-    const unsigned x, 
-    const unsigned y, 
-    const unsigned char mask
+unsigned has_wall(
+    const Maze* maze,
+    const unsigned x,
+    const unsigned y,
+    const unsigned char wall
 );
 
 /**
- * @brief Get a copy of the "BLOCK" at the (x, y) coordinate of the maze.
- *
- * @param maze A pointer to our maze.
- * @param x The x coordinate of the BLOCK.
- * @param y The y coordinate of the BLOCK.
- * @return A copy of the BLOCK.
+ * @brief Set a property for a maze block.
+ * @param maze Pointer to maze
+ * @param x X coordinate
+ * @param y Y coordinate
+ * @param property A defined constant found in maze.h
  */
-unsigned char getBlock(
+void set_property_on(
     Maze* maze,
-    const unsigned x, 
-    const unsigned y
+    const unsigned x,
+    const unsigned y,
+    const unsigned char property
+);
+
+/**
+ * @brief Set a property for a maze block off.
+ * @param maze Pointer to maze
+ * @param x X coordinate
+ * @param y Y coordinate
+ * @param property A defined constant found in maze.h
+ */
+void set_property_off(
+    Maze* maze,
+    const unsigned x,
+    const unsigned y,
+    const unsigned char property
+);
+
+/**
+ * @brief Set a property for a maze block.
+ * @param maze Pointer to maze
+ * @param x X coordinate
+ * @param y Y coordinate
+ * @param property A defined constant found in maze.h
+ */
+unsigned has_property(
+    const Maze* maze,
+    const unsigned x,
+    const unsigned y,
+    const unsigned char property
 );
 
 #endif // MICROMOUSE_UNICORN_MAZE_H_
