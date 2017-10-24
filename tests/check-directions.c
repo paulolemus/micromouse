@@ -15,45 +15,63 @@ START_TEST(check_basic) {
 }
 END_TEST
 
-START_TEST(check_create_path) {
-    Path path;
-    ck_assert_int_eq(sizeof(Path), sizeof(path));
+START_TEST(check_definitions) {
+    ck_assert(NORTH == 10);
+    ck_assert(SOUTH == 20);
+    ck_assert(WEST  == 30);
+    ck_assert(EAST  == 40);
+    ck_assert(NONE  == 50);
+    ck_assert_uint_gt(DIRECTIONS_SIZE, 0);
 }
 END_TEST
 
-START_TEST(check_clear_path) {
-    Path path;
-    clear_path(&path);
+START_TEST(check_clear_directions) {
 
-    ck_assert_uint_eq(path.curr, 0);
-    ck_assert_uint_eq(path.end,  0);
+    Directions directions;
+    clear_directions(&directions);
+    ck_assert_uint_eq(directions.curr, 0);
+    ck_assert_uint_eq(directions.end,  0);
 
-    for(unsigned i = 0; i < PATH_SIZE; ++i) {
-        ck_assert_uint_eq(path.coords[i].x, 0);
-        ck_assert_uint_eq(path.coords[i].y, 0);
+    for(unsigned i = 0; i < DIRECTIONS_SIZE; ++i) {
+        ck_assert(directions.directions[i] == NONE);
     }
 }
 END_TEST
 
-START_TEST(check_get_next_coord_succ) {
-    Path path;
-    clear_path(&path);
-    path.coords[0].x = 3;
-    path.coords[0].y = 4;
+START_TEST(check_get_direction) {
+    Directions directions;
+    clear_directions(&directions);
 
-    Coord coord = get_next_coord(&path);
-    ck_assert_uint_eq(coord.x, 3);
-    ck_assert_uint_eq(coord.y, 4);
+    directions.end = 3;
+    directions.directions[0] = NORTH;
+    directions.directions[1] = SOUTH;
+    directions.directions[2] = EAST;
+    directions.directions[3] = WEST;
 
-    path.coords[1].x = 5;
-    path.coords[1].y = 6;
-    path.end = 1;
-
-    Coord coord_end = get_next_coord(&path);
-    ck_assert_uint_eq(coord_end.x, 5);
-    ck_assert_uint_eq(coord_end.y, 6);
+    ck_assert(get_direction(&directions) == NORTH);
+    directions.curr++;
+    ck_assert(get_direction(&directions) == SOUTH);
+    directions.curr++;
+    ck_assert(get_direction(&directions) == EAST);
+    directions.curr++;
+    ck_assert(get_direction(&directions) == WEST);
 }
 END_TEST
+
+START_TEST(check_shift_directions_up) {
+
+    Directions directions;
+    clear_directions(&directions);
+
+    ck_assert_uint_eq(shift_directions_up(&directions), 0);
+
+    directions.end = 1;
+    ck_assert_uint_eq(shift_directions_up(&directions), 1);
+    ck_assert_uint_eq(directions.curr, 1);
+        
+}
+END_TEST
+
 
 
 /** 
@@ -62,16 +80,17 @@ END_TEST
 Suite* maze_suite(void) {
     Suite* s;
     TCase* tc_core;
-    s = suite_create("Path");
+    s = suite_create("Directions");
     tc_core = tcase_create("Core");
 
     /*
      * Add tests here
      */
     tcase_add_test(tc_core, check_basic);
-    tcase_add_test(tc_core, check_create_path);
-    tcase_add_test(tc_core, check_clear_path);
-    tcase_add_test(tc_core, check_get_next_coord_succ);
+    tcase_add_test(tc_core, check_definitions);
+    tcase_add_test(tc_core, check_clear_directions);
+    tcase_add_test(tc_core, check_get_direction);
+    tcase_add_test(tc_core, check_shift_directions_up);
 
     suite_add_tcase(s, tc_core);
     return s;
