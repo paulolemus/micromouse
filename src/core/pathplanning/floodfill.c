@@ -4,10 +4,11 @@
  * Created  : 9/22/2017
  */
 
-#include <stdio.h>
 #include <micromouse/config.h>
 #include <micromouse/core/pathplanning/floodfill.h>
+#include <micromouse/core/pathplanning/directions.h>
 #include <micromouse/core/pathplanning/coord.h>
+#include <micromouse/core/pathplanning/path.h>
 #include <micromouse/core/maze/maze.h>
 
 /////////////////////////////////////////////////////
@@ -96,7 +97,7 @@ unsigned floodfill(
     // Queue to hold open nodes
     Queue open_nodes;
     // BFS depth trackers 
-    unsigned char depth = 0;
+    unsigned char depth    = 0;
     int nodes_til_increase = 1;
     // Infinite loop protection
     unsigned loop_count = 0;
@@ -105,19 +106,20 @@ unsigned floodfill(
     // Matrix representing visited indicies
     char visited[maze->width][maze->height];
     
-    // Clear visited matrix to default state
+    // Data structure initializations
     for(unsigned i = 0; i < maze->width; ++i) {
         for(unsigned j = 0; j < maze->height; ++j) {
             visited[i][j] = 0;
         }
     }
     init_queue(&open_nodes);
+    ffMap->width  = maze->width;
+    ffMap->height = maze->height;
     
     // Add the goal node to the open queue to begin.
     set_coord(&curr_node, x_goal, y_goal);
     enqueue(&open_nodes, &curr_node);
     visited[curr_node.x][curr_node.y] = 1;
-
 
     // While the queue is not empty, process nodes
     while(open_nodes.size > 0) {
@@ -126,7 +128,6 @@ unsigned floodfill(
         curr_node = peek(&open_nodes);
         dequeue(&open_nodes);
         ffMap->maze[curr_node.x][curr_node.y] = depth;  
-
 
         // Add surrounding unexplored nodes to queue
         // NORTH CASE
@@ -183,6 +184,9 @@ unsigned floodfill(
 }
 
 
+/*
+ * Warning: x and y passed in are not safety checked
+ */
 unsigned ff_get_path(
     const Maze* maze,
     const Maze* ffMap,
@@ -192,8 +196,94 @@ unsigned ff_get_path(
 ) {
     const unsigned SUCCESS = 1;
     const unsigned FAILURE = 0;
+    unsigned loop_count = 0;
+    unsigned loop_limit = MAX_WIDTH * MAX_HEIGHT;
 
-    return FAILURE;
+    // Guard against invalid start coordinates
+    if(x >= ffMap->width || y >= ffMap->height) {
+        return FAILURE;
+    }
+
+    // Path data variables
+    unsigned x_curr = x;
+    unsigned y_curr = y;
+    unsigned index  = 0;
+
+    // Add self as first node in path
+    path->coords[index].x = x_curr;
+    path->coords[index].y = y_curr;
+
+
+    // Build path until we land on a 0 indicating goal
+    while(ffMap->maze[x_curr][y_curr] != 0) {
+
+        index++;
+        loop_count++;
+
+        // Calculate which adjacent open square has smallest value
+        Direct direction = NONE;
+        unsigned char curr_val = ffMap->maze[x_curr][y_curr];
+
+        // Check north wall
+        if(!has_wall(maze, x_curr, y_curr, NORTH_WALL) &&
+           ffMap->maze[x_curr][y_curr + 1] < curr_val) {
+            direction = NORTH;
+            curr_val = ffMap->maze[x_curr][y_curr + 1];
+        }
+        // Check south wall
+        if(!has_wall(maze, x_curr, y_curr, SOUTH_WALL) &&
+           ffMap->maze[x_curr][y_curr - 1] < curr_val) {
+            direction = SOUTH;
+            curr_val = ffMap->maze[x_curr][y_curr - 1];
+        }
+        // Check east wall
+        if(!has_wall(maze, x_curr, y_curr, EAST_WALL) &&
+           ffMap->maze[x_curr + 1][y_curr] < curr_val) {
+            direction = EAST;
+            curr_val = ffMap->maze[x_curr + 1][y_curr];
+        }
+        // Check west wall
+        if(!has_wall(maze, x_curr, y_curr, WEST_WALL) &&
+           ffMap->maze[x_curr - 1][y_curr] < curr_val) {
+            direction = WEST;
+            curr_val = ffMap->maze[x_curr - 1][y_curr];
+        }
+
+        // Add direction to maze
+        switch(direction) {
+        case NORTH:
+            y_curr++;
+            break;
+        case SOUTH:
+            y_curr--;
+            break;
+        case EAST:
+            x_curr++;
+            break;
+        case WEST:
+            x_curr--;
+            break;
+        case NONE:
+        default:
+            // Should not reach
+            break;
+        }
+        path->coords[index].x = x_curr;
+        path->coords[index].y = y_curr;
+
+        // Failure conditions
+        if(loop_count > loop_limit ||
+           index >= PATH_SIZE) {
+            return FAILURE;
+        }
+    }
+
+    // Add last item from path and set path struct variables
+    path->curr = 0;
+    path->end  = index;
+    path->coords[index].x = x_curr;
+    path->coords[index].y = y_curr;
+    return SUCCESS;
 }
 
 
@@ -207,5 +297,5 @@ unsigned ff_get_directions(
     const unsigned SUCCESS = 1;
     const unsigned FAILURE = 0;
 
-    return FAILURE;
+    return SUCCESS;
 }
