@@ -11,10 +11,7 @@
 #include <micromouse/sim/display.h>
 
 
-void init_display(
-    const unsigned width,
-    const unsigned height
-) {
+void init_display() {
     initscr();
     raw();
     keypad(stdscr, TRUE);
@@ -37,7 +34,7 @@ void finish_display() {
 }
 
 void put_mouse(
-    const unsigned dir,
+    const Direct direction,
     const unsigned x,
     const unsigned y
 ) {

@@ -18,35 +18,32 @@
 #include <micromouse/config.h>
 #include <micromouse/core/maze/maze.h>
 #include <micromouse/core/maze/parser.h>
-#include <micromouse/core/pathplanning/directions.h>
-#include <micromouse/sim/display.h>
 
+#include <micromouse/sim/procedures/explore.h>
+#include <micromouse/sim/procedures/speedrun.h>
+
+/*
+ * Main:
+ * 1. Make Maze, mouseMaze, and ffObject. These are
+ *    passed in to each procedure that uses them.
+ * 2. This program selects which simulation procedure
+ *    to launch.
+ * 3. Continue running simulations until q has been entered.
+ */
 int main() {
 
     // Variables with default values
     // Actual dimensions of maze
-    unsigned width  = 16;
-    unsigned height = 16;
-    // Booleans to toggle views
-    int show_hidden_walls = SHOW_HIDDEN_WALLS;
-    int show_ff_values    = SHOW_FF_VALUES;
-    int show_path         = SHOW_PATH;
-    // Mouse variables
-    unsigned x_pos = 0;
-    unsigned y_pos = 0;
-    Direct dir = NORTH;
-    const unsigned X_GOAL = (width  - 1) / 2;
-    const unsigned Y_GOAL = (height - 1) / 2;
+    unsigned width  = MAX_WIDTH;
+    unsigned height = MAX_HEIGHT;
 
     // Maze data structures
     Maze maze;
     Maze mouseMaze;
-    Maze ffMaze;
 
     // Clear mazes, ensure all bits are properly set. 
     clear_maze(&maze);
     clear_maze(&mouseMaze);
-    clear_maze(&ffMaze);
 
     // Parse in mazes from default sim file named in config.h
     if(parse_maze(&maze, &width, &height, SIM_MAP_STR) == 0) {
@@ -55,11 +52,53 @@ int main() {
     }
 
     if(set_maze_dimensions(&maze, width, height)      == 0 ||
-       set_maze_dimensions(&mouseMaze, width, height) == 0 ||
-       set_maze_dimensions(&ffMaze, width, height)    == 0) {
+       set_maze_dimensions(&mouseMaze, width, height) == 0) {
 
         fprintf(stderr, "sim_main - Failed to set width and height\n");
         return (-1);
     }
+
+
+    /*
+     * Get user input to select procedure to launch until q is entered.
+     */
+    int choice = ' ';
+    int c;
+    do {
+        printf("\n1 - explore, 2 - speedrun\n");
+        printf("Select procedure (q to quit): ");
+        choice = getchar();
+
+        // Clear stdin
+        c = getchar();
+        while(choice != EOF && c != '\n') {
+            c = getchar();
+        }
+
+        // Select procedure
+        switch(choice) {
+        case '1':
+            printf(
+                "explore exit code: %d\n", 
+                proc_explore(&maze, &mouseMaze)
+            );
+            break;
+        case '2':
+            printf(
+                "speedrun exit code: %d\n", 
+                proc_speedrun(&maze, &mouseMaze)
+            );
+            break;
+        default:
+            printf("case default\n");
+            break;
+        }
+    } while(choice != 'q' && choice != EOF);
+
+    printf("\n\nGoodbye!\n\n");
     return 0;
 }
+
+
+
+

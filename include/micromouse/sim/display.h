@@ -20,10 +20,7 @@
  * @param width used to set internal width state.
  * @param height used to set internal height state.
  */
-void init_display(
-    const unsigned width,
-    const unsigned height
-);
+void init_display();
 
 /**
  * @brief Clear all text and colors on NCURSES screen.
@@ -48,7 +45,7 @@ void finish_display();
  * @param y Y coordinate of the mouse.
  */
 void put_mouse(
-    const unsigned dir,
+    const Direct direction,
     const unsigned x,
     const unsigned y
 );
@@ -70,7 +67,6 @@ void put_hidden_walls(
 void put_visible_walls(
     const Maze* maze
 );
-
 
 /**
  * @brief Put a path in the maze.

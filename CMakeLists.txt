@@ -52,7 +52,9 @@ add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 
 # Files for simulation
 set (SIM_SOURCE_FILES
-    src/sim/display.c)
+    src/sim/display.c
+    src/sim/procedures/explore.c
+    src/sim/procedures/speedrun.c)
 add_library (${MICROMOUSE_SIM_LIBRARY_NAME} STATIC ${SIM_SOURCE_FILES})
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
