@@ -11,6 +11,7 @@
 
 #include <micromouse/core/maze/maze.h>
 #include <micromouse/core/pathplanning/path.h>
+#include <micromouse/core/pathplanning/directions.h>
 
 
 /**
