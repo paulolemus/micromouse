@@ -17,10 +17,10 @@
 /**
  * @brief Path used to keep a list of coordinates describing a list
  * from one point to another in the maze.
- * Note that the 0th index in the path is the current location of the mouse,
+ * Note that the 0th index in the path is the original location of the mouse,
  * and the end index contains the end coordinates of the path.
  *
- * @field next Index of the next coordinate in the path.
+ * @field curr Index of the current coordinate in the path.
  * @field end Index of the last valid coordinate in the path.
  * @field coords The array containing all the coordinates in the path.
  */

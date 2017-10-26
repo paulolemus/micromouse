@@ -3,6 +3,8 @@
  * Author: Paulo Lemus
  */
 
+#include <stdio.h>
+
 #include <micromouse/sim/display.h>
 #include <micromouse/sim/procedures/explore.h>
 
@@ -14,7 +16,7 @@
 
 
 int proc_explore(
-    Maze* maze,
+    const Maze* maze,
     Maze* mouseMaze
 ) {
     const int SUCCESS = 1;
@@ -27,6 +29,7 @@ int proc_explore(
     Coord mouse_pos;
     Coord next_pos;
     Maze ffMap;
+    Path path;
 
     // Initialization
     direction = NORTH;
@@ -34,14 +37,34 @@ int proc_explore(
     mouse_pos.y = 0;
     next_pos.x  = 0;
     next_pos.y  = 0;
+    clear_maze(&ffMap);
+
+    path.curr = 0;
+    path.end  = 4;
+    path.coords[0].x = 0;
+    path.coords[0].y = 0;
+    path.coords[1].x = 0;
+    path.coords[1].y = 1;
+    path.coords[2].x = 0;
+    path.coords[2].y = 2;
+    path.coords[3].x = 1;
+    path.coords[3].y = 2;
+    path.coords[4].x = 2;
+    path.coords[4].y = 2;
 
     // Initialize ncurses display
     init_display();
     clear_display();
-    put_visible_walls(maze);
+    put_posts(maze);
+    put_hidden_walls(maze);
+    put_path(maze, &path);
+    put_mouse(maze, SOUTH, 0, 0);
+    put_mouse(maze, NORTH, 0, 1);
+    put_mouse(maze, EAST,  1, 0);
+    put_mouse(maze, WEST,  1, 1);
+    put_mouse(maze, NONE,  2, 2);
     render();
     getch();
     finish_display();
-
     return exit_code;
 }

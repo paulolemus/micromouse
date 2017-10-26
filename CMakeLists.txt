@@ -25,7 +25,7 @@ set (MICROMOUSE_MAJOR_VERSION 0)
 set (MICROMOUSE_MINOR_VERSION 1)
 set (MICROMOUSE_LIBRARY_NAME
         "micromouse-core-${MICROMOUSE_MAJOR_VERSION}.${MICROMOUSE_MINOR_VERSION}")
-set(MICROMOUSE_SIM_LIBRARY_NAME
+set (MICROMOUSE_SIM_LIBRARY_NAME
         "micromouse-sim-${MICROMOUSE_MAJOR_VERSION}.${MICROMOUSE_MINOR_VERSION}")
 include_directories (include)
 
@@ -51,13 +51,14 @@ set (SOURCE_FILES
 add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 
 # Files for simulation
+find_package(Curses REQUIRED)
+include_directories(${CURSES_INCLUDE_DIR})
+
 set (SIM_SOURCE_FILES
     src/sim/display.c
     src/sim/procedures/explore.c
     src/sim/procedures/speedrun.c)
 add_library (${MICROMOUSE_SIM_LIBRARY_NAME} STATIC ${SIM_SOURCE_FILES})
-find_package(Curses REQUIRED)
-include_directories(${CURSES_INCLUDE_DIR})
 
 
 # EXECUTABLES
@@ -68,9 +69,9 @@ add_executable (pic_micromouse src/pic_main.c)
 # Micromouse simulation target
 add_executable (micromouse_sim src/sim_main.c)
 target_link_libraries (micromouse_sim
+                        ${CURSES_LIBRARIES}
                         ${MICROMOUSE_LIBRARY_NAME}
-                        ${MICROMOUSE_SIM_LIBRARY_NAME}
-                        ${CURSES_LIBRARIES})
+                        ${MICROMOUSE_SIM_LIBRARY_NAME})
 
 
 # TESTS

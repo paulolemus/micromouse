@@ -46,15 +46,22 @@ void finish_display();
  * @param y Y coordinate of the mouse.
  */
 void put_mouse(
+    const Maze* maze,
     const Direct direction,
     const unsigned x,
     const unsigned y
 );
 
 /**
+ * @brief draw all the posts for the maze.
+ * @param maze Used only for width and height.
+ */
+void put_posts(
+    const Maze* maze
+);
+
+/**
  * @brief Draw all the walls for a completed maze in a darker color
- * @param WIDTH Width to consider of maze.
- * @param HEIGHT height to consider of maze.
  * @param maze A representation of the maze.
  */
 void put_hidden_walls(
@@ -73,6 +80,7 @@ void put_visible_walls(
  * @brief Put a path in the maze.
  */
 void put_path(
+    const Maze* maze,
     const Path* path    
 );
 

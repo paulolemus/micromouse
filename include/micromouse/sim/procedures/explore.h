@@ -22,6 +22,7 @@
 #define MICROMOUSE_SIM_PROCEDURES_EXPLORE_H_
 
 #include <micromouse/core/maze/maze.h>
+#include <micromouse/core/pathplanning/path.h>
 
 /**
  * @brief Procedure to explore all blocks of a maze.
@@ -30,7 +31,7 @@
  * @return 1 if successful, 0 if failure
  */
 int proc_explore(
-    Maze* maze,
+    const Maze* maze,
     Maze* mouseMaze
 );
 
