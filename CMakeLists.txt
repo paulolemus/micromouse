@@ -56,6 +56,7 @@ include_directories(${CURSES_INCLUDE_DIR})
 
 set (SIM_SOURCE_FILES
     src/sim/display.c
+    src/sim/controls.c
     src/sim/procedures/explore.c
     src/sim/procedures/speedrun.c)
 add_library (${MICROMOUSE_SIM_LIBRARY_NAME} STATIC ${SIM_SOURCE_FILES})

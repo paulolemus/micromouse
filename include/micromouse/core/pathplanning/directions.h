@@ -7,15 +7,53 @@
 #define MICROMOUSE_CORE_PATHPLANNING_DIRECTIONS_H_
 
 #include <micromouse/config.h>
+#include <micromouse/core/maze/maze.h>
 
-// Absolute directions - numbers are arbitrary
+/*
+ * Absolute directions.
+ * Ensure that these are order clockwise or counterclockwise.
+ */
 typedef enum Direct {
-    NORTH = 10,
-    SOUTH = 20,
-    WEST  = 30,
-    EAST  = 40,
-    NONE  = 50
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST,
+    DIRECT_COUNT 
 } Direct;
+
+/*
+ * Relative directions.
+ * Ensure that these are order clockwise or counterclockwise.
+ */
+typedef enum Relative {
+    FORWARD,
+    RIGHT,
+    BACK,
+    LEFT,
+    RELATIVE_COUNT
+} Relative;
+
+/**
+ * @brief Convert a relative direction to an absolute direction.
+ * @param direction Current mouse absolute direction.
+ * @param relative Direction relative to absolute direction.
+ * @return Direct of converted relative to absolutee direction.
+ */
+Direct relative_to_direct(
+    Direct mouse_dir,
+    Relative relative
+);
+
+/**
+ * @brief Convert a relative direction to wall constant.
+ * @param direction Current mouse absolute direction.
+ * @param relative Direction relative to absolute direction.
+ * @return Wall constant defined in maze.h.
+ */
+unsigned char relative_to_wall(
+    Direct mouse_dir,
+    Relative relative
+);
 
 /**
  * Directions struct is used to represent the directions that

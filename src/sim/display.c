@@ -56,12 +56,11 @@ void finish_display() {
 void put_mouse(
     const Maze* maze,
     const Direct direction,
-    const unsigned x,
-    const unsigned y
+    const Coord coord
 ) {
     // Convert to row and column
-    int row = abs(y - maze->height + 1) * SCALE_Y + OFFSET_Y;
-    int col = x * SCALE_X + OFFSET_X;
+    int row = abs(coord.y - maze->height + 1) * SCALE_Y + OFFSET_Y;
+    int col = coord.x * SCALE_X + OFFSET_X;
 
     switch(direction) {
     case NORTH:

@@ -16,14 +16,44 @@ START_TEST(check_basic) {
 END_TEST
 
 START_TEST(check_definitions) {
-    ck_assert_int_eq(NORTH, 10);
-    ck_assert_int_eq(SOUTH, 20);
-    ck_assert_int_eq(WEST,  30);
-    ck_assert_int_eq(EAST,  40);
-    ck_assert_int_eq(NONE,  50);
+    ck_assert_int_eq(NORTH, 0);
+    ck_assert_int_eq(EAST,  1);
+    ck_assert_int_eq(SOUTH, 2);
+    ck_assert_int_eq(WEST,  3);
+    ck_assert_int_eq(DIRECT_COUNT,  4);
     ck_assert_uint_gt(DIRECTIONS_SIZE, 0);
 }
 END_TEST
+
+
+START_TEST(check_relative_to_direct) {
+
+    Direct direct = NORTH;
+    ck_assert_int_eq(relative_to_direct(direct, FORWARD), NORTH);
+    ck_assert_int_eq(relative_to_direct(direct, LEFT),    WEST);
+    ck_assert_int_eq(relative_to_direct(direct, BACK),    SOUTH);
+    ck_assert_int_eq(relative_to_direct(direct, RIGHT),   EAST);
+
+    direct = EAST;
+    ck_assert_int_eq(relative_to_direct(direct, FORWARD), EAST);
+    ck_assert_int_eq(relative_to_direct(direct, LEFT),    NORTH);
+    ck_assert_int_eq(relative_to_direct(direct, BACK),    WEST);
+    ck_assert_int_eq(relative_to_direct(direct, RIGHT),   SOUTH);
+
+    direct = SOUTH;
+    ck_assert_int_eq(relative_to_direct(direct, FORWARD), SOUTH);
+    ck_assert_int_eq(relative_to_direct(direct, LEFT),    EAST);
+    ck_assert_int_eq(relative_to_direct(direct, BACK),    NORTH);
+    ck_assert_int_eq(relative_to_direct(direct, RIGHT),   WEST);
+
+    direct = WEST;
+    ck_assert_int_eq(relative_to_direct(direct, FORWARD), WEST);
+    ck_assert_int_eq(relative_to_direct(direct, LEFT),    SOUTH);
+    ck_assert_int_eq(relative_to_direct(direct, BACK),    EAST);
+    ck_assert_int_eq(relative_to_direct(direct, RIGHT),   NORTH);
+}
+END_TEST
+
 
 START_TEST(check_clear_directions) {
 
@@ -33,7 +63,7 @@ START_TEST(check_clear_directions) {
     ck_assert_uint_eq(directions.end,  0);
 
     for(unsigned i = 0; i < DIRECTIONS_SIZE; ++i) {
-        ck_assert_int_eq(directions.directions[i], NONE);
+        ck_assert_int_eq(directions.directions[i], DIRECT_COUNT);
     }
 }
 END_TEST
@@ -88,6 +118,7 @@ Suite* maze_suite(void) {
      */
     tcase_add_test(tc_core, check_basic);
     tcase_add_test(tc_core, check_definitions);
+    tcase_add_test(tc_core, check_relative_to_direct);
     tcase_add_test(tc_core, check_clear_directions);
     tcase_add_test(tc_core, check_get_direction);
     tcase_add_test(tc_core, check_shift_directions_up);

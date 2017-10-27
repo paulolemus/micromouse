@@ -221,7 +221,7 @@ unsigned ff_get_path(
         loop_count++;
 
         // Calculate which adjacent open square has smallest value
-        Direct direction = NONE;
+        Direct direction = DIRECT_COUNT;
         unsigned char curr_val = ffMap->maze[x_curr][y_curr];
 
         // Check north wall
@@ -263,7 +263,6 @@ unsigned ff_get_path(
         case WEST:
             x_curr--;
             break;
-        case NONE:
         default:
             // Should not reach
             break;

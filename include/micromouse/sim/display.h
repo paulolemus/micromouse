@@ -41,15 +41,14 @@ void finish_display();
 
 /**
  * @brief Put a mouse on the screen.
- * @param dir Direction the mouse is facing.
- * @param x X coordinate of the mouse.
- * @param y Y coordinate of the mouse.
+ * @param maze Maze used for dimensions.
+ * @param direction Direction the mouse is facing.
+ * @param coord Location to draw mouse to.
  */
 void put_mouse(
     const Maze* maze,
     const Direct direction,
-    const unsigned x,
-    const unsigned y
+    const Coord coord
 );
 
 /**
