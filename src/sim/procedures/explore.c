@@ -111,8 +111,8 @@ int proc_explore(
     const Maze* maze,
     Maze* mouseMaze
 ) {
-    const int SUCCESS = 1;
-    const int FAILURE = 0;
+    const int SUCCESS =  0;
+    const int FAILURE = -1;
     const double SPEED_ADJ = 0.01;
 
     int exit_code = SUCCESS;
@@ -131,7 +131,7 @@ int proc_explore(
     Relative maneuver_dir = FORWARD;
     int in_maneuver = 0;
     int control  = 'p';
-    int paused   = 0;
+    int paused   = 1;
     int step     = 0;
     int visited  = 0;
     int finished = 0;
@@ -182,14 +182,14 @@ int proc_explore(
                 );
                 break;
             // speed up simulation
-            case '.':
-                speed += SPEED_ADJ;
-                break;
-            // Slow down simulation
-            case ',':
+            case 'm':
                 if(speed - SPEED_ADJ > 0) {
                     speed -= SPEED_ADJ;
                 }
+                break;
+            // Slow down simulation
+            case 'n':
+                speed += SPEED_ADJ;
                 break;
             case 'z':
                 explore_mode = LEFT_HUGGER;
@@ -202,6 +202,9 @@ int proc_explore(
                 break;
             case 'o':
                 step = 1;
+                break;
+            case 'q':
+                finished = 1;
                 break;
             default:
                 break;
@@ -268,6 +271,7 @@ int proc_explore(
         clear_display();
         put_posts(maze);
         put_hidden_walls(maze);
+        put_visible_walls(mouseMaze); 
         put_path(maze, &path);
         put_mouse(maze, direction, mouse_pos);
         render();
@@ -275,7 +279,6 @@ int proc_explore(
         // Delay before next frame 
         usleep((unsigned)(1000000 * speed));
     }
-    getch();
     finish_display();
     return exit_code;
 }
