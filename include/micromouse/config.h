@@ -54,7 +54,7 @@
 
 // Simulator default variables
 // Blocks traversed per second
-#define SIM_SPEED 0.8
+#define SIM_SPEED 1.5
 
 
 #endif // MICROMOUSE_UNICORN_CONFIG_H_

@@ -3,7 +3,6 @@
  * Author: Paulo Lemus
  */
 
-#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -54,6 +53,19 @@ void init_vars(
     next_pos->y  = 0;
     goal_pos->x  = 0;
     goal_pos->y  = 0;
+}
+
+// greater the speed, less we wait.
+void my_sleep(double speed) {
+
+    const unsigned SECOND = 1000000;
+    unsigned time_to_wait = SECOND / speed;
+
+    while(time_to_wait > SECOND) {
+        sleep(1);
+        time_to_wait -= SECOND;
+    }
+    usleep(time_to_wait);
 }
 
 
@@ -113,7 +125,7 @@ int proc_explore(
 ) {
     const int SUCCESS =  0;
     const int FAILURE = -1;
-    const double SPEED_ADJ = 0.01;
+    const double SPEED_ADJ = 0.1;
 
     int exit_code = SUCCESS;
 
@@ -125,10 +137,11 @@ int proc_explore(
     Path path;
 
     // Initializations
-    srand(time(NULL));
     double speed = SIM_SPEED;
     Explore_Mode explore_mode = LEFT_HUGGER;
     Relative maneuver_dir = FORWARD;
+    int show_hidden = 1;
+    int show_path   = 1;
     int in_maneuver = 0;
     int control  = 'p';
     int paused   = 1;
@@ -183,13 +196,13 @@ int proc_explore(
                 break;
             // speed up simulation
             case 'm':
-                if(speed - SPEED_ADJ > 0) {
-                    speed -= SPEED_ADJ;
-                }
+                speed += SPEED_ADJ;
                 break;
             // Slow down simulation
             case 'n':
-                speed += SPEED_ADJ;
+                if(speed - SPEED_ADJ > 0.5) {
+                    speed -= SPEED_ADJ;
+                }
                 break;
             case 'z':
                 explore_mode = LEFT_HUGGER;
@@ -200,11 +213,19 @@ int proc_explore(
             case 'c':
                 explore_mode = RIGHT_HUGGER;
                 break;
+            case '1':
+                show_hidden = !show_hidden;
+                break;
+            case '2':
+                show_path = !show_path;
+                break;
             case 'o':
                 step = 1;
                 break;
             case 'q':
                 finished = 1;
+                paused = 1;
+                step = 0;
                 break;
             default:
                 break;
@@ -225,11 +246,12 @@ int proc_explore(
         // Ignore high level logic to execute maneuver
         } else if(in_maneuver) {
 
-            Direct maneuver_dir = relative_to_direct(direction, maneuver_dir);
-            if(     maneuver_dir == NORTH) mouse_pos.y++;
-            else if(maneuver_dir == SOUTH) mouse_pos.y--;
-            else if(maneuver_dir == EAST)  mouse_pos.x++;
-            else if(maneuver_dir == WEST)  mouse_pos.x--;
+            Direct maneuver_abs_dir =
+                relative_to_direct(direction, maneuver_dir);
+            if(     maneuver_abs_dir == NORTH) mouse_pos.y++;
+            else if(maneuver_abs_dir == SOUTH) mouse_pos.y--;
+            else if(maneuver_abs_dir == EAST)  mouse_pos.x++;
+            else if(maneuver_abs_dir == WEST)  mouse_pos.x--;
             in_maneuver = 0;
         
         // Left wall hugger logic 
@@ -241,6 +263,7 @@ int proc_explore(
             // Case 1: No left
             if(!has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_left)) {
                 direction = relative_to_direct(direction, LEFT); 
+                in_maneuver = 1;
             }
             // Case 2: Left and front
             else if(has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_forw)) {
@@ -254,6 +277,22 @@ int proc_explore(
         // Right wall hugger logic
         } else if(explore_mode == RIGHT_HUGGER) {
 
+            unsigned char wall_right = relative_to_wall(direction, RIGHT);
+            unsigned char wall_forw = relative_to_wall(direction, FORWARD);
+
+            // Case 1: No right
+            if(!has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_right)) {
+                direction = relative_to_direct(direction, RIGHT); 
+                in_maneuver = 1;
+            }
+            // Case 2: right and front
+            else if(has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_forw)) {
+                direction = relative_to_direct(direction, LEFT);
+            }
+            // Case 3: right and no front
+            else if(!has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_forw)) {
+                move_mouse_forward(&mouse_pos, direction); 
+            }
         // Floodfill to explore logic
         } else if(explore_mode == FLOODFILL) {
 
@@ -270,14 +309,14 @@ int proc_explore(
         // Draw all structures to screen
         clear_display();
         put_posts(maze);
-        put_hidden_walls(maze);
+        if(show_hidden) put_hidden_walls(maze);
         put_visible_walls(mouseMaze); 
-        put_path(maze, &path);
+        if(show_path) put_path(maze, &path);
         put_mouse(maze, direction, mouse_pos);
         render();
 
         // Delay before next frame 
-        usleep((unsigned)(1000000 * speed));
+        my_sleep(speed);
     }
     finish_display();
     return exit_code;
