@@ -143,13 +143,13 @@ int proc_explore(
     int show_hidden = 1;
     int show_path   = 1;
     int in_maneuver = 0;
-    int control  = 'p';
-    int paused   = 1;
-    int step     = 0;
-    int visited  = 0;
+    int control     = 'p';
+    int paused      = 1;
+    int step        = 0;
+    unsigned visited = 0;
     int finished = 0;
     Direct direction = NORTH;
-    int total = maze->width * maze->height;
+    unsigned total = maze->width * maze->height;
     init_vars(maze, mouseMaze, &ffMap, &path, &mouse_pos, &next_pos, &goal_pos);
     init_display();
 
