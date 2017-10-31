@@ -3,6 +3,7 @@
  * Author: Paulo Lemus
  */
 
+#include <stdlib.h>
 #include <micromouse/config.h>
 #include <micromouse/core/pathplanning/directions.h>
 
@@ -12,6 +13,13 @@ Direct relative_to_direct(
     Relative relative
 ) {
     return (mouse_dir + relative) % DIRECT_COUNT;
+}
+
+Relative direct_to_relative(
+    Direct mouse_dir,
+    Direct new_dir 
+) {
+    return abs(new_dir - mouse_dir) % RELATIVE_COUNT;
 }
 
 unsigned char relative_to_wall(

@@ -14,6 +14,7 @@
 #define MICROMOUSE_SIM_PROCEDURES_SPEEDRUN_H_
 
 #include <micromouse/core/maze/maze.h>
+#include <micromouse/core/pathplanning/floodfill.h>
 
 /**
  * @brief Procedure to navigate from start to goal over shortest path.
@@ -22,8 +23,7 @@
  * @return 1 if success, 0 if failure
  */
 int proc_speedrun(
-    Maze* maze,
-    Maze* mouseMaze
+    const Maze* maze
 );
 
 

@@ -18,6 +18,8 @@
 #include <micromouse/config.h>
 #include <micromouse/core/maze/maze.h>
 #include <micromouse/core/maze/parser.h>
+#include <micromouse/core/pathplanning/path.h>
+#include <micromouse/core/pathplanning/floodfill.h>
 
 #include <micromouse/sim/procedures/explore.h>
 #include <micromouse/sim/procedures/speedrun.h>
@@ -86,7 +88,7 @@ int main() {
         case '2':
             printf(
                 "speedrun exit code: %d\n", 
-                proc_speedrun(&maze, &mouseMaze)
+                proc_speedrun(&maze)
             );
             break;
         default:

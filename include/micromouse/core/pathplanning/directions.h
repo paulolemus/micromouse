@@ -44,6 +44,11 @@ Direct relative_to_direct(
     Relative relative
 );
 
+Relative direct_to_relative(
+    Direct mouse_dir,
+    Direct new_dir 
+);
+
 /**
  * @brief Convert a relative direction to wall constant.
  * @param direction Current mouse absolute direction.

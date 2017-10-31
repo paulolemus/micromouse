@@ -9,6 +9,7 @@
 #ifndef MICROMOUSE_SIM_DISPLAY_H_
 #define MICROMOUSE_SIM_DISPLAY_H_
 
+#include <ncurses.h>
 #include <micromouse/core/maze/maze.h>
 #include <micromouse/core/pathplanning/path.h>
 #include <micromouse/core/pathplanning/directions.h>

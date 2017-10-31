@@ -5,18 +5,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <ncurses.h>
 
 #include <micromouse/config.h>
 #include <micromouse/sim/display.h>
-#include <micromouse/sim/controls.h>
+#include <micromouse/sim/base.h>
 #include <micromouse/sim/procedures/explore.h>
 
 #include <micromouse/core/maze/maze.h>
 #include <micromouse/core/pathplanning/coord.h>
 #include <micromouse/core/pathplanning/path.h>
-#include <micromouse/core/pathplanning/directions.c>
+#include <micromouse/core/pathplanning/directions.h>
 #include <micromouse/core/pathplanning/floodfill.h>
 
 typedef enum Explore_Mode {
@@ -55,19 +53,6 @@ void init_vars(
     goal_pos->y  = 0;
 }
 
-// greater the speed, less we wait.
-void my_sleep(double speed) {
-
-    const unsigned SECOND = 1000000;
-    unsigned time_to_wait = SECOND / speed;
-
-    while(time_to_wait > SECOND) {
-        sleep(1);
-        time_to_wait -= SECOND;
-    }
-    usleep(time_to_wait);
-}
-
 
 /*
  * Function used to check the wall in front, left, and right 
@@ -90,31 +75,6 @@ void update_walls(
     wall_def = relative_to_wall(mouse_dir, RIGHT);
     if(has_wall(maze, pos.x, pos.y, wall_def)) {
         set_wall_on(mouseMaze, pos.x, pos.y, wall_def);
-    }
-}
-
-/* 
- * Function used to place a mouse one position forward
- */
-void move_mouse_forward(
-    Coord* mouse_pos,
-    Direct direction
-) {
-    switch(direction) {
-    case NORTH:
-        mouse_pos->y++;
-        break;
-    case SOUTH:
-        mouse_pos->y--;
-        break;
-    case EAST:
-        mouse_pos->x++;
-        break;
-    case WEST:
-        mouse_pos->x--;
-        break;
-    default:
-        break;
     }
 }
 
@@ -148,18 +108,13 @@ int proc_explore(
     int step        = 0;
     unsigned visited = 0;
     int finished = 0;
-    Direct direction = NORTH;
+    Direct mouse_dir = NORTH;
     unsigned total = maze->width * maze->height;
     init_vars(maze, mouseMaze, &ffMap, &path, &mouse_pos, &next_pos, &goal_pos);
     init_display();
 
     // Add starting walls
-    update_walls(maze, mouseMaze, mouse_pos, direction);
-
-    // TODO: DELETE THESE
-    Directions directions;
-    clear_directions(&directions);
-    get_direction(&directions);
+    update_walls(maze, mouseMaze, mouse_pos, mouse_dir);
 
     // Primary loop and logic to explore maze.
     // Goal is to completely populate the mouse's map,
@@ -182,7 +137,7 @@ int proc_explore(
                 paused    = 1;
                 visited   = 0;
                 finished  = 0;
-                direction = NORTH;
+                mouse_dir = NORTH;
                 total = maze->width * maze->height;
                 init_vars(
                     maze, 
@@ -246,52 +201,47 @@ int proc_explore(
         // Ignore high level logic to execute maneuver
         } else if(in_maneuver) {
 
-            Direct maneuver_abs_dir =
-                relative_to_direct(direction, maneuver_dir);
-            if(     maneuver_abs_dir == NORTH) mouse_pos.y++;
-            else if(maneuver_abs_dir == SOUTH) mouse_pos.y--;
-            else if(maneuver_abs_dir == EAST)  mouse_pos.x++;
-            else if(maneuver_abs_dir == WEST)  mouse_pos.x--;
+            move_sim_mouse(&mouse_pos, &mouse_dir, maneuver_dir);
             in_maneuver = 0;
         
         // Left wall hugger logic 
         } else if(explore_mode == LEFT_HUGGER) {
 
-            unsigned char wall_left = relative_to_wall(direction, LEFT);
-            unsigned char wall_forw = relative_to_wall(direction, FORWARD);
+            unsigned char wall_left = relative_to_wall(mouse_dir, LEFT);
+            unsigned char wall_forw = relative_to_wall(mouse_dir, FORWARD);
 
             // Case 1: No left
             if(!has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_left)) {
-                direction = relative_to_direct(direction, LEFT); 
+                move_sim_mouse(&mouse_pos, &mouse_dir, LEFT);
                 in_maneuver = 1;
             }
             // Case 2: Left and front
             else if(has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_forw)) {
-                direction = relative_to_direct(direction, RIGHT);
+                move_sim_mouse(&mouse_pos, &mouse_dir, RIGHT);
             }
             // Case 3: Left and no front
             else if(!has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_forw)) {
-                move_mouse_forward(&mouse_pos, direction); 
+                move_sim_mouse(&mouse_pos, &mouse_dir, FORWARD);
             }
 
         // Right wall hugger logic
         } else if(explore_mode == RIGHT_HUGGER) {
 
-            unsigned char wall_right = relative_to_wall(direction, RIGHT);
-            unsigned char wall_forw = relative_to_wall(direction, FORWARD);
+            unsigned char wall_right = relative_to_wall(mouse_dir, RIGHT);
+            unsigned char wall_forw = relative_to_wall(mouse_dir, FORWARD);
 
             // Case 1: No right
             if(!has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_right)) {
-                direction = relative_to_direct(direction, RIGHT); 
+                move_sim_mouse(&mouse_pos, &mouse_dir, RIGHT);
                 in_maneuver = 1;
             }
             // Case 2: right and front
             else if(has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_forw)) {
-                direction = relative_to_direct(direction, LEFT);
+                move_sim_mouse(&mouse_pos, &mouse_dir, LEFT);
             }
             // Case 3: right and no front
             else if(!has_wall(mouseMaze, mouse_pos.x, mouse_pos.y, wall_forw)) {
-                move_mouse_forward(&mouse_pos, direction); 
+                move_sim_mouse(&mouse_pos, &mouse_dir, FORWARD);
             }
         // Floodfill to explore logic
         } else if(explore_mode == FLOODFILL) {
@@ -299,7 +249,7 @@ int proc_explore(
         }
 
         // Add walls from new coordinate
-        update_walls(maze, mouseMaze, mouse_pos, direction);
+        update_walls(maze, mouseMaze, mouse_pos, mouse_dir);
             
         // Check finish conditions
         if(visited >= total) {
@@ -312,11 +262,11 @@ int proc_explore(
         if(show_hidden) put_hidden_walls(maze);
         put_visible_walls(mouseMaze); 
         if(show_path) put_path(maze, &path);
-        put_mouse(maze, direction, mouse_pos);
+        put_mouse(maze, mouse_dir, mouse_pos);
         render();
 
         // Delay before next frame 
-        my_sleep(speed);
+        if(!paused) sim_sleep(speed);
     }
     finish_display();
     return exit_code;
