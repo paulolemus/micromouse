@@ -37,14 +37,8 @@ void init_vars(
     clear_maze(ffMap);
     set_maze_dimensions(mouseMaze, maze->width, maze->height);
     box_maze(mouseMaze);
+    clear_path(path);
 
-    // TODO: Figure out why clear_path(Path* path) does not work.
-    path->curr = 0;
-    path->end  = 0;
-    for(unsigned i = 0; i < PATH_SIZE; ++i) {
-        path->coords[i].x = 0;
-        path->coords[i].y = 0;
-    }
     mouse_pos->x = 0;
     mouse_pos->y = 0;
     next_pos->x  = 0;
@@ -84,7 +78,6 @@ int proc_explore(
     Maze* mouseMaze
 ) {
     const int SUCCESS =  0;
-    const int FAILURE = -1;
     const double SPEED_ADJ = 0.1;
 
     int exit_code = SUCCESS;
@@ -266,7 +259,7 @@ int proc_explore(
         render();
 
         // Delay before next frame 
-        if(!paused) sim_sleep(speed);
+        if(!paused && !step) sim_sleep(speed);
     }
     finish_display();
     return exit_code;

@@ -21,8 +21,8 @@
 int proc_speedrun(
     const Maze* maze
 ) {
-    const int    SUCCESS   =   1;
-    const int    FAILURE   =   0;
+    const int    SUCCESS   =   0;
+    const int    FAILURE   =  -1;
     const double SPEED_ADJ = 0.1;
 
     int exit_code = FAILURE;
@@ -46,12 +46,7 @@ int proc_speedrun(
 
     clear_maze(&ffMap);
     set_maze_dimensions(&ffMap, maze->width, maze->height);
-    path.curr = 0;
-    path.end  = 0;
-    for(unsigned i = 0; i < PATH_SIZE; ++i) {
-        path.coords[i].x = 0;
-        path.coords[i].y = 0;
-    }
+    clear_path(&path);
     mouse_pos.x = 0;
     mouse_pos.y = 0;
     goal_pos.x  = 0;
@@ -59,9 +54,9 @@ int proc_speedrun(
 
     // Get goal coordinates and validate
     printf("Enter goal x coordinate: ");
-    scanf("%u\n", &goal_pos.x);
+    scanf("%u", &goal_pos.x);
     printf("Enter goal y coordinate: ");
-    scanf("%u\n", &goal_pos.y);
+    scanf("%u", &goal_pos.y);
 
     if(goal_pos.x >= maze->width || goal_pos.y >= maze->height) {
         printf("coordinates (%u, %u) are greater than maze bounds\n", 
@@ -93,6 +88,8 @@ int proc_speedrun(
                 finished = 0;
                 mouse_pos.x = 0;
                 mouse_pos.y = 0;
+                show_path   = 0;
+                is_path_valid = 0;
                 mouse_dir = NORTH;
                 clear_maze(&ffMap);
                 break;
@@ -108,7 +105,7 @@ int proc_speedrun(
                 break;
             // Toggle display of path
             case '1':
-                show_path != show_path;
+                show_path = !show_path;
                 break;
             // Step simulation one cycle
             case 'o':
@@ -147,16 +144,19 @@ int proc_speedrun(
                 control   = 'q';
             }
             // Extract path, and check for success.
-            if(!ff_get_path(maze, &ffMap, goal_pos.x, goal_pos.y, &path)) {
+            else if(!ff_get_path(maze, &ffMap, mouse_pos.x, mouse_pos.y, &path)) {
                 exit_code = FAILURE;
                 finished  = 1;
                 control   = 'q';
             } else {
+                next_pos.x = path.coords[0].x;
+                next_pos.y = path.coords[0].y;
                 is_path_valid = 1;
+                show_path = 1;
             }
             
         // Move along valid path to goal if we are not there
-        } else if(mouse_pos.x != goal_pos.x && mouse_pos.y != goal_pos.y) {
+        } else if(mouse_pos.x != goal_pos.x || mouse_pos.y != goal_pos.y) {
 
             // If we have reached next position, get the next position
             if(mouse_pos.x == next_pos.x && mouse_pos.y == next_pos.y) {
@@ -193,5 +193,7 @@ int proc_speedrun(
 
         if(!paused) sim_sleep(speed);
     }
+    finish_display();
     return exit_code;
 }
+

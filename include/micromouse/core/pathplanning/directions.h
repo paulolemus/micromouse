@@ -7,7 +7,6 @@
 #define MICROMOUSE_CORE_PATHPLANNING_DIRECTIONS_H_
 
 #include <micromouse/config.h>
-#include <micromouse/core/maze/maze.h>
 
 /*
  * Absolute directions.
