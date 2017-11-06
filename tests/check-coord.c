@@ -30,24 +30,13 @@ START_TEST(check_coord_values) {
 }
 END_TEST
 
-
-START_TEST(check_set_coord) {
-    Coord coord;
-    const unsigned x = 10;
-    const unsigned y = 15;
-    set_coord(&coord, x, y);
-    ck_assert_uint_eq(coord.x, x);
-    ck_assert_uint_eq(coord.y, y);
-}
-END_TEST
-
-
 START_TEST(check_set_coord_ptr) {
     Coord coord;
     Coord* coordptr = &coord;
     const unsigned x = 10;
     const unsigned y = 15;
-    set_coord(coordptr, x, y);
+    coordptr->x = x;
+    coordptr->y = y;
     ck_assert_uint_eq(coord.x, x);
     ck_assert_uint_eq(coord.y, y);
 }
@@ -68,7 +57,6 @@ Suite* maze_suite(void) {
     tcase_add_test(tc_core, check_basic);
     tcase_add_test(tc_core, check_create_coord);
     tcase_add_test(tc_core, check_coord_values);
-    tcase_add_test(tc_core, check_set_coord);
     tcase_add_test(tc_core, check_set_coord_ptr);
 
     suite_add_tcase(s, tc_core);

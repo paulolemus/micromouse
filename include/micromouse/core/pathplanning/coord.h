@@ -20,15 +20,4 @@ typedef struct Coord {
     unsigned y;
 } Coord;
 
-/**
- * @brief Set the x and y values of a Coord.
- * @param x The x value to set.
- * @param y The y value to set.
- */
-void set_coord(
-    Coord* coord, 
-    const unsigned x, 
-    const unsigned y
-);
-
 #endif // MICROMOUSE_CORE_PATHPLANNING_COORD_H_

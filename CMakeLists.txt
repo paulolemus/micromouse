@@ -44,7 +44,6 @@ set (MICROMOUSE_SIM_LIBRARY_NAME
 set (SOURCE_FILES
     src/core/maze/maze.c
     src/core/maze/parser.c
-    src/core/pathplanning/coord.c
     src/core/pathplanning/path.c
     src/core/pathplanning/directions.c
     src/core/pathplanning/floodfill.c)

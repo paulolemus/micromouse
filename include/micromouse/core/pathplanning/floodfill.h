@@ -31,54 +31,52 @@
 #include <micromouse/core/pathplanning/directions.h>
 
 
+typedef struct FloodObj {
+    unsigned char map[MAX_WIDTH][MAX_HEIGHT];
+} FloodObj;
+
 /**
  * @brief Perform floodfill algorithm with given maze and goal
  *        coordinates, and store the processed values in the ffMap.
- * @param maze A pointer to the maze to flood.
- * @param ffMap A pointer to the maze to store the processed map
+ * @param floodMap A pointer to the maze to store the processed map
  *              data in.
- * @param x X coordinate of goal.
- * @param y Y coordinate of goal.
+ * @param maze A pointer to the maze to flood.
+ * @param goal_pos Coordinate of the goal 
  * @return 1 if success, 0 if failure
  */
 unsigned floodfill(
+    FloodObj* floodObj, 
     const Maze* maze, 
-    Maze* ffMap, 
-    const unsigned x_goal,
-    const unsigned y_goal
+    const Coord* goal_pos 
 );
 
 /**
  * @brief Extract a path from a ffMap.
+ * @param floodObj contains floodfill data.
  * @param maze Used for wall data.
- * @param ffMap Floodfill data
- * @param x Current X coordinate
- * @param y Current Y coordinate
+ * @param mouse_pos coordinates of mouse.
  * @param path Struct to populate with path data.
  * @return 1 if success, 0 if failure.
  */
 unsigned ff_get_path(
+    const FloodObj* floodObj,
     const Maze* maze,
-    const Maze* ffMap,
-    const unsigned x,
-    const unsigned y,
+    const Coord* mouse_pos,
     Path* path
 );
 
 /**
  * @brief Extract directions from a ffMap.
+ * @param floodObj Map used for floodfill data.
  * @param maze Maze used for wall data.
- * @param ffMap Map used for floodfill data.
- * @param x Current X coordinate.
- * @param y Current Y coordinate.
+ * @param mouse_pos Current coordinates of mouse..
  * @param directions Struct to populate with directions.
  * @return 1 if success, 0 if failure.
  */
 unsigned ff_get_directions(
+    const FloodObj* floodObj,
     const Maze* maze,
-    const Maze* ffMap,
-    const unsigned x,
-    const unsigned y,
+    const Coord* mouse_pos,
     Directions* directions
 );
 

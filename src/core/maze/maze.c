@@ -32,8 +32,9 @@ unsigned set_maze_dimensions(
  * @param maze A pointer to the maze.
  */
 void clear_maze(Maze* maze) {
-    for(unsigned i = 0; i < MAX_WIDTH; ++i) {
-        for(unsigned j = 0; j < MAX_HEIGHT; ++j) {
+    unsigned i, j;
+    for(i = 0; i != MAX_WIDTH; ++i) {
+        for(j = 0; j != MAX_HEIGHT; ++j) {
             maze->maze[i][j] = 0;
         }
     }
@@ -42,16 +43,17 @@ void clear_maze(Maze* maze) {
 void box_maze(
     Maze* maze
 ) {
+    unsigned i;
     // Draw North and South walls
-    for(unsigned i = 0; i < maze->width; ++i) {
+    for(i = 0; i != maze->width; ++i) {
         set_wall_on(maze, i, 0, SOUTH_WALL); 
         set_wall_on(maze, i, maze->height - 1, NORTH_WALL);
     }
     
     // Draw West and East walls
-    for(unsigned j = 0; j < maze->height; ++j) {
-        set_wall_on(maze, 0, j, WEST_WALL);
-        set_wall_on(maze, maze->width - 1, j, EAST_WALL);
+    for(i = 0; i != maze->height; ++i) {
+        set_wall_on(maze, 0, i, WEST_WALL);
+        set_wall_on(maze, maze->width - 1, i, EAST_WALL);
     }
 }
 

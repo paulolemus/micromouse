@@ -41,9 +41,10 @@ unsigned char relative_to_wall(
 
 
 void clear_directions(Directions* directions) {
+    unsigned i;
     directions->curr = 0;
     directions->end  = 0;
-    for(unsigned i = 0; i < DIRECTIONS_SIZE; ++i) {
+    for(i = 0; i != DIRECTIONS_SIZE; ++i) {
         directions->directions[i] = DIRECT_COUNT;
     }
 }

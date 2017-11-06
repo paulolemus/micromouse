@@ -8,9 +8,10 @@
 
 
 void clear_path(Path* path) {
+    unsigned i;
     path->curr = 0;
     path->end  = 0;
-    for(unsigned i = 0; i < PATH_SIZE; ++i) {
+    for(i = 0; i != PATH_SIZE; ++i) {
         path->coords[i].x = 0;
         path->coords[i].y = 0;
     }

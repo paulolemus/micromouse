@@ -17,10 +17,10 @@
  * Queue implemented as a wrap-around array.
  */
 typedef struct Queue {
-    int cap;
-    int head;
-    int tail;
-    int size;
+    unsigned cap;
+    unsigned head;
+    unsigned tail;
+    unsigned size;
     Coord array[MAX_WIDTH * MAX_HEIGHT];
 } Queue;
 
@@ -44,12 +44,12 @@ Coord peek(Queue* queue) {
  * If there is space on the queue, move the tail
  * back one element and add the Coord to the tail.
  */
-unsigned enqueue(Queue* queue, Coord* coord) {
+unsigned enqueue(Queue* queue, const Coord* coord) {
     const unsigned SUCCESS = 1;
     const unsigned FAILURE = 0;
 
     if(queue->size < queue->cap) {
-        if(queue->size > 0) {
+        if(queue->size != 0) {
             queue->tail = (queue->tail + 1) % queue->cap;
         }
         queue->array[queue->tail] = *coord;
@@ -67,7 +67,7 @@ unsigned dequeue(Queue* queue) {
     const unsigned SUCCESS = 1;
     const unsigned FAILURE = 0;
 
-    if(queue->size > 0) {
+    if(queue->size != 0) {
         queue->size--;
         if(queue->head != queue->tail) {
             queue->head = (queue->head + 1) % queue->cap;
@@ -83,10 +83,9 @@ unsigned dequeue(Queue* queue) {
 /////////////////////////////////////////////////////
 
 unsigned floodfill(
+    FloodObj* floodObj,
     const Maze* maze,
-    Maze* ffMap,
-    const unsigned x_goal,
-    const unsigned y_goal 
+    const Coord* goal_pos
 ) {
     const unsigned SUCCESS = 1;
     const unsigned FAILURE = 0;
@@ -97,29 +96,27 @@ unsigned floodfill(
     // Queue to hold open nodes
     Queue open_nodes;
     // BFS depth trackers 
-    unsigned char depth    = 0;
-    int nodes_til_increase = 1;
+    unsigned char depth         = 0;
+    unsigned nodes_til_increase = 1;
     // Infinite loop protection
     unsigned loop_count = 0;
     unsigned loop_limit = MAX_WIDTH * MAX_HEIGHT;
 
     // Matrix representing visited indicies
-    char visited[maze->width][maze->height];
+    unsigned char visited[maze->width][maze->height];
     
     // Data structure initializations
-    for(unsigned i = 0; i < maze->width; ++i) {
-        for(unsigned j = 0; j < maze->height; ++j) {
+    unsigned i, j;
+    for(i = 0; i != maze->width; ++i) {
+        for(j = 0; j != maze->height; ++j) {
             visited[i][j] = 0;
         }
     }
     init_queue(&open_nodes);
-    ffMap->width  = maze->width;
-    ffMap->height = maze->height;
     
     // Add the goal node to the open queue to begin.
-    set_coord(&curr_node, x_goal, y_goal);
-    enqueue(&open_nodes, &curr_node);
-    visited[curr_node.x][curr_node.y] = 1;
+    enqueue(&open_nodes, goal_pos);
+    visited[goal_pos->x][goal_pos->y] = 1;
 
     // While the queue is not empty, process nodes
     while(open_nodes.size > 0) {
@@ -127,7 +124,7 @@ unsigned floodfill(
         // Generate floodfill data from top node
         curr_node = peek(&open_nodes);
         dequeue(&open_nodes);
-        ffMap->maze[curr_node.x][curr_node.y] = depth;  
+        floodObj->map[curr_node.x][curr_node.y] = depth;  
 
         // Add surrounding unexplored nodes to queue
         // NORTH CASE
@@ -169,14 +166,14 @@ unsigned floodfill(
 
         // Logic to keep track of depth
         nodes_til_increase--;
-        if(nodes_til_increase < 1) {
+        if(nodes_til_increase == 0) {
             depth++;
             nodes_til_increase = open_nodes.size;
         }
 
         // Infinite loop prevention
         loop_count++;
-        if(loop_count >= loop_limit) {
+        if(loop_count == loop_limit) {
             return FAILURE;
         }
     }
@@ -188,26 +185,24 @@ unsigned floodfill(
  * Warning: x and y passed in are not safety checked
  */
 unsigned ff_get_path(
+    const FloodObj* floodObj,
     const Maze* maze,
-    const Maze* ffMap,
-    const unsigned x,
-    const unsigned y,
+    const Coord* mouse_pos,
     Path* path
 ) {
     const unsigned SUCCESS = 1;
     const unsigned FAILURE = 0;
     unsigned loop_count = 0;
     unsigned loop_limit = MAX_WIDTH * MAX_HEIGHT;
+    // Path data variables
+    unsigned x_curr = mouse_pos->x;
+    unsigned y_curr = mouse_pos->y;
+    unsigned index  = 0;
 
     // Guard against invalid start coordinates
-    if(x >= ffMap->width || y >= ffMap->height) {
+    if(x_curr >= maze->width || y_curr >= maze->height) {
         return FAILURE;
     }
-
-    // Path data variables
-    unsigned x_curr = x;
-    unsigned y_curr = y;
-    unsigned index  = 0;
 
     // Add self as first node in path
     path->coords[index].x = x_curr;
@@ -215,38 +210,38 @@ unsigned ff_get_path(
 
 
     // Build path until we land on a 0 indicating goal
-    while(ffMap->maze[x_curr][y_curr] != 0) {
+    while(floodObj->map[x_curr][y_curr] != 0) {
 
         index++;
         loop_count++;
 
         // Calculate which adjacent open square has smallest value
         Direct direction = DIRECT_COUNT;
-        unsigned char curr_val = ffMap->maze[x_curr][y_curr];
+        unsigned char curr_val = floodObj->map[x_curr][y_curr];
 
         // Check north wall
         if(!has_wall(maze, x_curr, y_curr, NORTH_WALL) &&
-           ffMap->maze[x_curr][y_curr + 1] < curr_val) {
+           floodObj->map[x_curr][y_curr + 1] < curr_val) {
             direction = NORTH;
-            curr_val = ffMap->maze[x_curr][y_curr + 1];
+            curr_val = floodObj->map[x_curr][y_curr + 1];
         }
         // Check south wall
         if(!has_wall(maze, x_curr, y_curr, SOUTH_WALL) &&
-           ffMap->maze[x_curr][y_curr - 1] < curr_val) {
+           floodObj->map[x_curr][y_curr - 1] < curr_val) {
             direction = SOUTH;
-            curr_val = ffMap->maze[x_curr][y_curr - 1];
+            curr_val = floodObj->map[x_curr][y_curr - 1];
         }
         // Check east wall
         if(!has_wall(maze, x_curr, y_curr, EAST_WALL) &&
-           ffMap->maze[x_curr + 1][y_curr] < curr_val) {
+           floodObj->map[x_curr + 1][y_curr] < curr_val) {
             direction = EAST;
-            curr_val = ffMap->maze[x_curr + 1][y_curr];
+            curr_val = floodObj->map[x_curr + 1][y_curr];
         }
         // Check west wall
         if(!has_wall(maze, x_curr, y_curr, WEST_WALL) &&
-           ffMap->maze[x_curr - 1][y_curr] < curr_val) {
+           floodObj->map[x_curr - 1][y_curr] < curr_val) {
             direction = WEST;
-            curr_val = ffMap->maze[x_curr - 1][y_curr];
+            curr_val = floodObj->map[x_curr - 1][y_curr];
         }
 
         // Add direction to maze
@@ -271,8 +266,7 @@ unsigned ff_get_path(
         path->coords[index].y = y_curr;
 
         // Failure conditions
-        if(loop_count > loop_limit ||
-           index >= PATH_SIZE) {
+        if(loop_count == loop_limit || index == PATH_SIZE) {
             return FAILURE;
         }
     }
@@ -287,10 +281,9 @@ unsigned ff_get_path(
 
 
 unsigned ff_get_directions(
+    const FloodObj* floodObj,
     const Maze* maze,
-    const Maze* ffMap,
-    const unsigned x,
-    const unsigned y,
+    const Coord* mouse_pos,
     Directions* directions
 ) {
     const unsigned SUCCESS = 1;

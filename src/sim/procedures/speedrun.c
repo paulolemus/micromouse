@@ -31,7 +31,7 @@ int proc_speedrun(
     Coord mouse_pos;
     Coord next_pos;
     Coord goal_pos;
-    Maze ffMap;
+    FloodObj floodObj;
     Path path;
 
     // Initializations
@@ -44,8 +44,6 @@ int proc_speedrun(
     int step        = 0;
     int finished    = 0;
 
-    clear_maze(&ffMap);
-    set_maze_dimensions(&ffMap, maze->width, maze->height);
     clear_path(&path);
     mouse_pos.x = 0;
     mouse_pos.y = 0;
@@ -91,7 +89,6 @@ int proc_speedrun(
                 show_path   = 0;
                 is_path_valid = 0;
                 mouse_dir = NORTH;
-                clear_maze(&ffMap);
                 break;
             // Increase simulation speed
             case 'm':
@@ -138,13 +135,13 @@ int proc_speedrun(
         } else if(!is_path_valid) {
 
             // Ensure floodfill ran successfully.
-            if(!floodfill(maze, &ffMap, goal_pos.x, goal_pos.y)) {
+            if(!floodfill(&floodObj, maze, &goal_pos)) {
                 exit_code = FAILURE;
                 finished  = 1;
                 control   = 'q';
             }
             // Extract path, and check for success.
-            else if(!ff_get_path(maze, &ffMap, mouse_pos.x, mouse_pos.y, &path)) {
+            else if(!ff_get_path(&floodObj, maze, &mouse_pos, &path)) {
                 exit_code = FAILURE;
                 finished  = 1;
                 control   = 'q';
