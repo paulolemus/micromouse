@@ -43,10 +43,12 @@ set (MICROMOUSE_SIM_LIBRARY_NAME
 # Add all source files to this variable
 set (SOURCE_FILES
     src/core/maze/maze.c
-    src/core/maze/parser.c
     src/core/pathplanning/path.c
     src/core/pathplanning/directions.c
     src/core/pathplanning/floodfill.c)
+if (NOT PIC_TARGET)
+    set (SOURCE_FILES ${SOURCE_FILES} src/core/maze/parser.c)
+endif (NOT PIC_TARGET)
 add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 
 # Files for simulation
