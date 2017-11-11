@@ -22,8 +22,8 @@ We are Team UNICORN X. Our purpose is to build an autonomous micromouse that is 
 
 ## Building for Linux
 
-This is primarily a C project. We use CMake as our primary build system for desktop builds.
-The source is developed on Arch Linux (4.9.61-1-lts) using gcc as the default C compiler, but has been built and run on Ubuntu 16.04. To build for Linux, type the following from the project root folder:
+This is primarily a C project. CMake is our primary build tool.
+Micromouse is developed on Arch Linux (4.9.61-1-lts) using gcc (7.2.0) as the default C compiler, but has been built and executed on Ubuntu 16.04. To build for Linux, type the following from the project root folder:
 ```bash
 cd build
 cmake -DPIC_TARGET:BOOL=OFF ../
