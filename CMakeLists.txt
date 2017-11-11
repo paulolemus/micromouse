@@ -12,6 +12,9 @@ project (micromouse)
 #             Generate for PIC MCU
 # cmake -DPIC_TARGET:BOOL=ON <path to cmakelists.txt>
 #
+#         Testing with verbose errors
+# env CTEST_OUTPUT_ON_FAILURE=1 make test
+#
 # Keep in mind that the PIC_TARGET flag only needs to
 # be set when you switch between modes the first time.
 #################################################
