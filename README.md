@@ -49,6 +49,12 @@ cd build
 cmake -DPIC_TARGET:BOOL=OFF ../
 make && make test
 ```
+OR to view test output:
+```bash
+cd build
+cmake -DPIC_TARGET:BOOL=OFF ../
+make && ctest --verbose
+```
 
 ## Architecture
 

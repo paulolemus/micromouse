@@ -14,6 +14,8 @@ project (micromouse)
 #
 #         Testing with verbose errors
 # env CTEST_OUTPUT_ON_FAILURE=1 make test
+#                   OR
+# ctest --verbose
 #
 # Keep in mind that the PIC_TARGET flag only needs to
 # be set when you switch between modes the first time.
@@ -21,8 +23,15 @@ project (micromouse)
 
 
 ### General make variables
-#set (CMAKE_VERBOSE_MAKEFILE ON)
 option (PIC_TARGET "Target PIC MCUs" OFF)
+# Alert user if generating for PIC MCU or desktop
+if (PIC_TARGET)
+    message ("MICROMOUSE: Generating for PIC MCU")
+else (PIC_TARGET)
+    message ("MICROMOUSE: Generating for desktop compiler")
+endif (PIC_TARGET)
+
+
 # Compiler flags
 set (GCC_COMPILER_FLAGS "-Wall -Wextra -Wconversion -Wunreachable-code -pedantic")
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${GCC_COMPILER_FLAGS}")
