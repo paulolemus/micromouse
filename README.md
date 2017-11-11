@@ -4,7 +4,7 @@ Code, schematics, and documentation for the University of Hawaii at Manoa UNICOR
 ## The Team
 
 * Paulo Lemus => Software lead
-* Nicole Hortizuela => Hardware Lead
+* Nicole Hortizuela => Hardware lead
 * Rodolfo Julian => Hardware
 * Eva Keeslar => Hardware
 
