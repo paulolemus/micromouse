@@ -11,23 +11,44 @@ Code, schematics, and documentation for the University of Hawaii at Manoa UNICOR
 ## Table of Contents
 
 * [Purpose](#purpose)
-* [Building](#building)
+* [Building for Linux](#building-for-linux)
+* [Building for MCU](#building-for-mcu)
+* [Testing](#testing)
 * [Architecture](#architecture)
 
 ## Purpose
 
 We are Team UNICORN X. Our purpose is to build an autonomous micromouse that is exemplary at mapping and solving NxN mazes. Our mouse, the UNICORN X, is a side-sensing, DC motor mouse controlled by a PIC32MK MCU. Our goal for this semester is to win first place at the University of Hawaii at Manoa fall Micromouse competition.
 
-## Building
+## Building for Linux
 
 This is primarily a C project. We use CMake as our primary build system for desktop builds.
-To build the code, do the following from the project root:
+The source is developed on Arch Linux (4.9.61-1-lts) using gcc as the default C compiler, but has been built and run on Ubuntu 16.04. To build for Linux, type the following from the project root folder:
 ```bash
 cd build
-cmake ../
+cmake -DPIC_TARGET:BOOL=OFF ../
 make
 ```
 These commands should build all tests into the tests/ folder, and all executables into the bin/ folder.
+
+## Building for MCU
+
+The code is written targeting a specific Microchip MCU, the PIC32MK1024MCF064. The Core library has not yet been build for the MCU, nor has the cmake been configured for the Microchip XC32 compiler, however the following would be used from the root folder:
+```bash
+cd build
+cmake -DPIC_TARGET::BOOL=ON ../
+make
+```
+
+## Testing
+
+We use *Check*, a unit testing framework for C for all tests. The test source files and binaries (once built) can be found in the tests/ folder.
+To build and run all tests, do the following from the project root:
+```bash
+cd build
+cmake -DPIC_TARGET:BOOL=OFF ../
+make && make test
+```
 
 ## Architecture
 
