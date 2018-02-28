@@ -1,8 +1,15 @@
-/* 
- * File:   pic_hardware_test.c
- * Author: paulo
- *
- * Created on February 27, 2018, 10:49 PM
+/**
+ * File:   
+ *     pic_hardware_test.c
+ * 
+ * Description:
+ *     Testing driver used comprehensive testing of hardware components.
+ * 
+ * Notes:
+ * 
+ * 
+ * Author: 
+ *     Paulo Lemus
  */
 
 // DSPIC33FJ128MC804 Configuration Bit Settings
@@ -57,11 +64,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Hardware components
+#include "micromouse/pic/components/oscillator.h"
+#include "micromouse/pic/components/led.h"
+#include "micromouse/pic/components/sensor.h"
+#include "micromouse/pic/components/encoder.h"
+#include "micromouse/pic/components/motor.h"
 
-/*
- * 
- */
 int main(int argc, char** argv) {
+    
+    // Initialize hardware components
+    init_oscillator();
+    init_led();
+    //init_sensor();
+    //init_encoder();
+    //init_motor();
+    
+    // LEDs work! Uncomment to view.
+    LED_ON(RGB_R);
+    //LED_ON(RGB_G);
+    //LED_ON(RGB_B);
+    LED_ON(LED_L);
+    LED_ON(LED_R);
 
     while(1) {
         // Do nothing

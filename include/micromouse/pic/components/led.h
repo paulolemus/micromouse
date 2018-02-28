@@ -27,6 +27,21 @@ extern "C" {
 void init_led();
 
 
+// LED RGB PORTS
+#define RGB_R LATAbits.LATA9
+#define RGB_G LATCbits.LATC3
+#define RGB_B LATCbits.LATC4
+
+// LED SIGNAL PORTS
+#define LED_L LATAbits.LATA4
+#define LED_R LATCbits.LATC5
+
+// LED interaction macros
+#define LED_ON(led_lat)     led_lat = 1
+#define LED_OFF(led_lat)    led_lat = 0
+#define LED_TOGGLE(led_lat) led_lat = ~led_lat
+
+
 #ifdef __cplusplus
 }
 #endif

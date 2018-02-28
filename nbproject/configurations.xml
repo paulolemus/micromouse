@@ -14,6 +14,8 @@
                    projectFiles="true">
       <itemPath>src/drivers/pic_main.c</itemPath>
       <itemPath>src/drivers/pic_hardware_test.c</itemPath>
+      <itemPath>src/pic/components/oscillator.c</itemPath>
+      <itemPath>src/pic/components/led.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
