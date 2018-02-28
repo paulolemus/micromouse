@@ -6,7 +6,7 @@
             <name>micromouse</name>
             <creation-uuid>7119c790-5cc4-4ab2-8e19-9c8d2171856f</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions/>
+            <c-extensions>c</c-extensions>
             <cpp-extensions/>
             <header-extensions/>
             <asminc-extensions/>

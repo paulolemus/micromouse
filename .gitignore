@@ -17,6 +17,8 @@ html/
 nbproject/private/
 nbproject/Package-*.bash
 debug/
+dist/
+/dist/default/
 
 # Micromouse project structure ignores
 bin/*

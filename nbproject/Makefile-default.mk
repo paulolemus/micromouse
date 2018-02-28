@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=
+SOURCEFILES_QUOTED_IF_SPACED=src/drivers/pic_main.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=
-POSSIBLE_DEPFILES=
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/drivers/pic_main.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/src/drivers/pic_main.o.d
 
 # Object Files
-OBJECTFILES=
+OBJECTFILES=${OBJECTDIR}/src/drivers/pic_main.o
 
 # Source Files
-SOURCEFILES=
+SOURCEFILES=src/drivers/pic_main.c
 
 
 CFLAGS=
@@ -94,7 +94,21 @@ MP_LINKER_FILE_OPTION=,--script=p33FJ128MC804.gld
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/src/drivers/pic_main.o: src/drivers/pic_main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/drivers" 
+	@${RM} ${OBJECTDIR}/src/drivers/pic_main.o.d 
+	@${RM} ${OBJECTDIR}/src/drivers/pic_main.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/drivers/pic_main.c  -o ${OBJECTDIR}/src/drivers/pic_main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/drivers/pic_main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/drivers/pic_main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
+${OBJECTDIR}/src/drivers/pic_main.o: src/drivers/pic_main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/drivers" 
+	@${RM} ${OBJECTDIR}/src/drivers/pic_main.o.d 
+	@${RM} ${OBJECTDIR}/src/drivers/pic_main.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/drivers/pic_main.c  -o ${OBJECTDIR}/src/drivers/pic_main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/drivers/pic_main.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/drivers/pic_main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 endif
 
 # ------------------------------------------------------------------------------------
