@@ -18,6 +18,7 @@ NOTE: THE REPO IS CURRENTLY BEING REFACTORED. THIS NOTE WILL BE REMOVED WHEN THE
 * [Building for Linux](#building-for-linux)
 * [Building for MCU](#building-for-mcu)
 * [Testing](#testing)
+* [License](#license)
 
 ## Purpose
 
@@ -74,3 +75,7 @@ cd build
 cmake -DPIC_TARGET:BOOL=OFF ../
 make && ctest --verbose
 ```
+
+## License
+
+This project is licensed under the Apache License 2.0. See [LICENSE](LICENSE) for more details.
