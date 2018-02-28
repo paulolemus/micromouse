@@ -1,20 +1,8 @@
-/**
- * File:
- *     pic_main.c
- * 
- * Description:
- *     The primary driver for the mouse. 
- *     Driver allows user to first select the mode, then the mouse will solve 
- *     the maze using the selected algorithm.
- * 
- * Notes:
- *     MIPS = million instructions/sec
- *     MAX = 40 MIPS = 40 mil instructions/sec
- *     Output of PLL is Fosc, however the instruction clock Fcy = Fp = Fosc / 2
- *     Fcy MAX = 40 MHz
- * 
- * Author:
- *     Paulo Lemus
+/* 
+ * File:   pic_hardware_test.c
+ * Author: paulo
+ *
+ * Created on February 27, 2018, 10:49 PM
  */
 
 // DSPIC33FJ128MC804 Configuration Bit Settings
@@ -69,59 +57,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Hardware components
-#include "micromouse/pic/components/oscillator.h"
-#include "micromouse/pic/components/led.h"
-#include "micromouse/pic/components/sensor.h"
-#include "micromouse/pic/components/encoder.h"
-#include "micromouse/pic/components/motor.h"
 
-// High level hardware interfaces
-#include "micromouse/pic/adc.h"
-#include "micromouse/pic/motor_control.h"
-
-// Behavior procedures
-#include "micromouse/pic/procedures/startup_proc.h"
-#include "micromouse/pic/procedures/explore_proc.h"
-#include "micromouse/pic/procedures/hug_proc.h"
-#include "micromouse/pic/procedures/flood_proc.h"
-#include "micromouse/pic/procedures/error_proc.h"
-
-
+/*
+ * 
+ */
 int main(int argc, char** argv) {
-    
-    operation_t operation_mode;
 
-    // Initialize hardware components
-    init_oscillator();
-    init_led();
-    init_sensor();
-    init_encoder();
-    init_motor();
-
-    // Initialize software modules
-    init_adc();
-    init_motor_control();
-    
-    operation_mode = get_operation_mode();
-    
-    
-    // Run long lived procedures that implement high level control of the mouse.
     while(1) {
-        
-        
-        startup_proc();
-        
-        
-        switch(operation_mode) {
-            case OP_ENUM: rand_explore_proc(); break;
-            case OP_ENUM: left_hug_proc();     break;
-            case OP_ENUM: right_hub_proc();    break;
-            case OP_ENUM: flood_proc();        break;
-            default     : error_proc();        break;
-        }
+        // Do nothing
     }
-    
     return (EXIT_SUCCESS);
 }
 
