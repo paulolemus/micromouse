@@ -54,37 +54,23 @@ set (MICROMOUSE_SIM_LIBRARY_NAME
 # Core library
 # Add all source files to this variable
 set (SOURCE_FILES
-    src/core/maze/maze.c
-    src/core/pathplanning/path.c
-    src/core/pathplanning/directions.c
-    src/core/pathplanning/floodfill.c)
-if (NOT PIC_TARGET)
-    set (SOURCE_FILES ${SOURCE_FILES} src/core/maze/parser.c)
-endif (NOT PIC_TARGET)
+    src/core/maze.c)
 add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 
-# Files for simulation
+# Simulation libraries
 if (NOT PIC_TARGET)
-    find_package(Curses REQUIRED)
-    include_directories(${CURSES_INCLUDE_DIR})
-    set (SIM_SOURCE_FILES
-        src/sim/display.c
-        src/sim/base.c
-        src/sim/procedures/explore.c
-        src/sim/procedures/speedrun.c)
-    add_library (${MICROMOUSE_SIM_LIBRARY_NAME} STATIC ${SIM_SOURCE_FILES})
+    find_package (Curses REQUIRED)
+    include_directories (${CURSES_INCLUDE_DIR})
 endif (NOT PIC_TARGET)
-
 
 # EXECUTABLES
 if (PIC_TARGET)
     # PIC main target
-    add_executable (pic_micromouse src/pic_main.c)
+    add_executable (micromouse_pic src/drivers/pic_main.c)
 else (PIC_TARGET)
     # Micromouse simulation target
-    add_executable (micromouse_sim src/sim_main.c)
+    add_executable (micromouse_sim src/drivers/sim_main.c)
     target_link_libraries (micromouse_sim
-                            ${MICROMOUSE_SIM_LIBRARY_NAME}
                             ${CURSES_LIBRARIES}
                             ${MICROMOUSE_LIBRARY_NAME})
 endif (PIC_TARGET)
