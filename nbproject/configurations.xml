@@ -232,6 +232,16 @@
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
       <item path="src/drivers/pic_hardware_test.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AR>
+        </C30-AR>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
       </item>
     </conf>
     <conf name="hardware_test" type="2">
@@ -441,6 +451,16 @@
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
       <item path="src/drivers/pic_main.c" ex="true" overriding="false">
+        <C30>
+        </C30>
+        <C30-AR>
+        </C30-AR>
+        <C30-AS>
+        </C30-AS>
+        <C30-LD>
+        </C30-LD>
+        <C30Global>
+        </C30Global>
       </item>
     </conf>
   </confs>

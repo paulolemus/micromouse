@@ -13,6 +13,7 @@
  */
 
 #include <stdlib.h>
+#include <stdbool.h>
 #include <check.h>
 
 #include <micromouse/core/maze.h>
@@ -45,10 +46,10 @@ START_TEST(check_maze_bits_zeroed) {
 
     for(x = 0; x < maze.width; ++x) {
         for(y = 0; y < maze.height; ++y) {
-            ck_assert_uint_eq(has_field(&maze, x, y, WALL_NORTH), 0);
-            ck_assert_uint_eq(has_field(&maze, x, y, WALL_SOUTH), 0);
-            ck_assert_uint_eq(has_field(&maze, x, y, WALL_EAST),  0);
-            ck_assert_uint_eq(has_field(&maze, x, y, WALL_WEST),  0);
+            ck_assert_uint_eq(has_field(&maze, x, y, WALL_NORTH), false);
+            ck_assert_uint_eq(has_field(&maze, x, y, WALL_SOUTH), false);
+            ck_assert_uint_eq(has_field(&maze, x, y, WALL_EAST),  false);
+            ck_assert_uint_eq(has_field(&maze, x, y, WALL_WEST),  false);
         }
     }
 }
@@ -65,32 +66,32 @@ START_TEST(check_wall_setters) {
     init_maze(&maze, MAX_WIDTH, MAX_HEIGHT);
 
     // Check top wall is zero, set it on, check that it is on for both block.
-    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_NORTH), 0);
-    ck_assert_uint_eq(has_field(&maze, x, y + 1, WALL_SOUTH), 0);
+    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_NORTH), false);
+    ck_assert_uint_eq(has_field(&maze, x, y + 1, WALL_SOUTH), false);
     set_field_on(&maze, x, y, WALL_NORTH);
-    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_NORTH), 1);
-    ck_assert_uint_eq(has_field(&maze, x, y + 1, WALL_SOUTH), 1);
+    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_NORTH), true);
+    ck_assert_uint_eq(has_field(&maze, x, y + 1, WALL_SOUTH), true);
     init_maze(&maze, MAX_WIDTH, MAX_HEIGHT);
 
-    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_SOUTH), 0);
-    ck_assert_uint_eq(has_field(&maze, x, y - 1, WALL_NORTH), 0);
+    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_SOUTH), false);
+    ck_assert_uint_eq(has_field(&maze, x, y - 1, WALL_NORTH), false);
     set_field_on(&maze, x, y, WALL_SOUTH);
-    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_SOUTH), 1);
-    ck_assert_uint_eq(has_field(&maze, x, y - 1, WALL_NORTH), 1);
+    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_SOUTH), true);
+    ck_assert_uint_eq(has_field(&maze, x, y - 1, WALL_NORTH), true);
     init_maze(&maze, MAX_WIDTH, MAX_HEIGHT);
 
-    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_EAST), 0);
-    ck_assert_uint_eq(has_field(&maze, x + 1, y, WALL_WEST), 0);
+    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_EAST), false);
+    ck_assert_uint_eq(has_field(&maze, x + 1, y, WALL_WEST), false);
     set_field_on(&maze, x, y, WALL_EAST);
-    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_EAST), 1);
-    ck_assert_uint_eq(has_field(&maze, x + 1, y, WALL_WEST), 1);
+    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_EAST), true);
+    ck_assert_uint_eq(has_field(&maze, x + 1, y, WALL_WEST), true);
     init_maze(&maze, MAX_WIDTH, MAX_HEIGHT);
 
-    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_WEST), 0);
-    ck_assert_uint_eq(has_field(&maze, x - 1, y, WALL_EAST), 0);
+    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_WEST), false);
+    ck_assert_uint_eq(has_field(&maze, x - 1, y, WALL_EAST), false);
     set_field_on(&maze, x, y, WALL_WEST);
-    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_WEST), 1);
-    ck_assert_uint_eq(has_field(&maze, x - 1, y, WALL_EAST), 1);
+    ck_assert_uint_eq(has_field(&maze, x, y,     WALL_WEST), true);
+    ck_assert_uint_eq(has_field(&maze, x - 1, y, WALL_EAST), true);
     init_maze(&maze, MAX_WIDTH, MAX_HEIGHT);
 }
 END_TEST
@@ -108,14 +109,14 @@ START_TEST(check_box_maze) {
 
     // Check North and South walls
     for(i = 0; i < width; ++i) {
-        ck_assert_uint_eq(has_field(&maze, i, 0, WALL_SOUTH), 1);
-        ck_assert_uint_eq(has_field(&maze, i, height - 1, WALL_NORTH), 1);
+        ck_assert_uint_eq(has_field(&maze, i, 0, WALL_SOUTH), true);
+        ck_assert_uint_eq(has_field(&maze, i, height - 1, WALL_NORTH), true);
     }
 
     // Check East and West walls
     for(j = 0; j < height; ++j) {
-        ck_assert_uint_eq(has_field(&maze, 0, j, WALL_WEST), 1);
-        ck_assert_uint_eq(has_field(&maze, width - 1, j, WALL_EAST), 1);
+        ck_assert_uint_eq(has_field(&maze, 0, j, WALL_WEST), true);
+        ck_assert_uint_eq(has_field(&maze, width - 1, j, WALL_EAST), true);
     }
 }
 END_TEST
@@ -129,37 +130,37 @@ START_TEST(check_maze_bit_on) {
     init_maze(&maze, MAX_WIDTH, MAX_HEIGHT);
 
     // Assert all important bits are 0
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), 0);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_SOUTH), 0);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_EAST),  0);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_WEST),  0);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), false);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_SOUTH), false);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_EAST),  false);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_WEST),  false);
 
     // Set first bit on
     set_field_on(&maze, checkx, checky, WALL_NORTH);
 
     // Assert all bits are 0 except the WALL_NORTH bit
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), 1);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_SOUTH), 0);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_EAST),  0);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_WEST),  0);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), true);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_SOUTH), false);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_EAST),  false);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_WEST),  false);
 
     // Set third bit on
     set_field_on(&maze, checkx, checky, WALL_EAST);
 
     // Assert all bits are 0 except first and third
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), 1);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_SOUTH), 0);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_EAST),  1);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_WEST),  0);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), true);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_SOUTH), false);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_EAST),  true);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_WEST),  false);
 
     // Set fourth bit on
     set_field_on(&maze, checkx, checky, WALL_WEST);
 
     // Assert all bits are 0 except first, third, and sixth
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), 1);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_SOUTH), 0);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_EAST),  1);
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_WEST),  1);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), true);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_SOUTH), false);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_EAST),  true);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_WEST),  true);
 }
 END_TEST
 
@@ -172,15 +173,15 @@ START_TEST(check_maze_bit_off) {
     init_maze(&maze, MAX_WIDTH, MAX_HEIGHT);
 
     // Assert bit is not set
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), 0);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), false);
     // Set the bit
     set_field_on(&maze, checkx, checky, WALL_NORTH);
     // Assert bit is turned on
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), 1);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), true);
     // Turn bit off
     set_field_off(&maze, checkx, checky, WALL_NORTH);
     // Assert bit is turned off
-    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), 0);
+    ck_assert_uint_eq(has_field(&maze, checkx, checky, WALL_NORTH), false);
 }
 END_TEST
 
