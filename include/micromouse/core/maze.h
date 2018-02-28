@@ -24,6 +24,7 @@ extern "C" {
 
 #include "micromouse/config.h"
 
+
 // Scalar type used to represent a cell in the maze.
 typedef unsigned char cell_t;
 
@@ -33,6 +34,13 @@ typedef struct Maze {
     unsigned height;
     cell_t maze[MAX_WIDTH][MAX_HEIGHT];
 } Maze;
+
+// Secondary type used for representing a coordinate in the maze.
+typedef struct Coord {
+    unsigned x;
+    unsigned y;
+} Coord;
+
 
 /**
  * cell_t bit masks.
@@ -45,6 +53,7 @@ typedef struct Maze {
 #define WALL_SOUTH 2
 #define WALL_EAST  4
 #define WALL_WEST  8
+
 
 // Maze interface functions
 
