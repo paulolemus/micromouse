@@ -1,8 +1,6 @@
 # Micromouse
 Code, schematics, and documentation for the University of Hawaii at Manoa UNICORN X mouse.
 
-NOTE: THE REPO IS CURRENTLY BEING REFACTORED. THIS NOTE WILL BE REMOVED WHEN THE REFACTOR IS FINISHED
-
 ## The Team
 
 * Paulo Lemus => Software lead
