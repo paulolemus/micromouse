@@ -58,6 +58,7 @@
 #include <stdlib.h>
 
 #include "micromouse/core/maze/maze.h"
+#include "micromouse/config.h"
 
 /*
  * 
