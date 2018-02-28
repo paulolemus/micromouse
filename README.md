@@ -1,6 +1,8 @@
 # Micromouse
 Code, schematics, and documentation for the University of Hawaii at Manoa UNICORN X mouse.
 
+NOTE: THE REPO IS CURRENTLY BEING REFACTORED. THIS NOTE WILL BE REMOVED WHEN THE REFACTOR IS FINISHED
+
 ## The Team
 
 * Paulo Lemus => Software lead
@@ -11,36 +13,53 @@ Code, schematics, and documentation for the University of Hawaii at Manoa UNICOR
 ## Table of Contents
 
 * [Purpose](#purpose)
+* [Getting Started](#getting-started)
+* [Prerequisites](#prerequisites)
 * [Building for Linux](#building-for-linux)
 * [Building for MCU](#building-for-mcu)
 * [Testing](#testing)
-* [Architecture](#architecture)
 
 ## Purpose
 
-We are Team UNICORN X. Our purpose is to build an autonomous micromouse that is exemplary at mapping and solving NxN mazes. Our mouse, the UNICORN X, is a side-sensing, DC motor mouse controlled by a PIC32MK MCU. Our goal for this semester is to win first place at the University of Hawaii at Manoa fall Micromouse competition.
+We are Team UNICORN X. Our purpose is to build an autonomous robotic mouse that is exemplary at mapping and solving NxN mazes. Our mouse, the UNICORN X, is a side-sensing, DC motor mouse controlled by a dsPIC33 MCU. Our goal for this semester is to win first place at the University of Hawaii at Manoa fall Micromouse competition.
 
-## Building for Linux
+## Getting Started
 
-This is primarily a C project. CMake is our primary build tool.
-Micromouse is developed on Arch Linux (4.9.61-1-lts) using gcc (7.2.0) as the default C compiler, but has been built and executed on Ubuntu 16.04. To build for Linux, type the following from the project root folder:
+### Prerequisites
+
+All the code has been run and tested primarily on Arch Linux (4.9.61-1-lts) and Ubuntu 17.10. All the installation instructions will assume that you are using Ubuntu.
+
+For a desktop build you will need to install [CMake](https://cmake.org/), [Check](https://github.com/libcheck/check), and [NCurses](https://www.gnu.org/software/ncurses/).
+
 ```bash
-cd build
-cmake -DPIC_TARGET:BOOL=OFF ../
-make
-```
-These commands should build all tests into the tests/ folder, and all executables into the bin/ folder.
-
-## Building for MCU
-
-The code is written targeting a specific Microchip MCU, the PIC32MK1024MCF064. The Core library has not yet been build for the MCU, nor has the cmake been configured for the Microchip XC32 compiler, however the following would be used from the root folder:
-```bash
-cd build
-cmake -DPIC_TARGET::BOOL=ON ../
-make
+sudo apt install cmake check libncurses-dev
 ```
 
-## Testing
+To build for the dsPIC33FJ128MC804 MCU, please install both the [MPLAB X IDE](http://www.microchip.com/mplab/mplab-x-ide) and the [MPLAB XC16 Compiler](http://www.microchip.com/mplab/compilers).
+
+
+### Building for Linux
+
+To build a desktop executables as well as tests:
+```bash
+cd build
+cmake -DPIC_TARGET:BOOL=OFF ..
+make
+```
+These commands should build all tests into the tests/ folder, and all executables into the bin/ folder in this root directory.
+
+### Building for MCU
+
+The code is written targeting a specific Microchip MCU, the dsPIC33FJ128MC804. The MPLAB X IDE is used with a [PICkit 3](http://www.microchip.com/Developmenttools/ProductDetails.aspx?PartNO=PG164130) to build and flash code to the mouse. To build for the MCU follow these steps:
+
+* Open the MPLAB X IDE.
+* Open the micromouse project.
+* Set the project as default in the "Production" tab.
+* Plug the PICkit 3 into your computer.
+* Connect pin 1 of the PICkit to pin 1 of the 5 pin breakout male header on the mouse.
+* Press the green arrow "Run Main Project" button in MPLAB X.
+
+### Testing
 
 We use *Check*, a unit testing framework for C for all tests. The test source files and binaries (once built) can be found in the tests/ folder.
 To build and run all tests, do the following from the project root:
@@ -55,10 +74,3 @@ cd build
 cmake -DPIC_TARGET:BOOL=OFF ../
 make && ctest --verbose
 ```
-
-## Architecture
-
-This project has three primary "modules", which are **core**, **sim**, and **pic**.
-**Core** contains all the code that makes up the library that is our micromouse. This code is independent from any specific PIC, simulation, or display. It contains the data structures and functions used for creating and modifying a representation of a maze. It contains pathplanning algorithms used to solve a maze, and our PID controllers. It also contains useful functions for parsing a maze from file.
-**Sim** is the module that allows us to have a graphical representation of a maze, and to simulate what happens when we try to send our mouse through it, or when we would like to run a pathplanning algorithm on a maze. It makes use of **core** to build structures, and displays them to a screen.
-**Pic** contains all the code required to flash everything to our MCU. This includes MCU specific configurations (PRAGMAS), and mouse maze solving logic, as well as sensor polling / motor control / ADC functions.
