@@ -49,10 +49,10 @@ static volatile unsigned int rr_last;
 static volatile unsigned int rf_last;
 
 // Detector calibration variables TODO: FIX INITIAL VALUES
-static unsigned int ll_close = 700;
-static unsigned int lf_close = 700;
-static unsigned int rr_close = 700;
-static unsigned int rf_close = 700;
+static unsigned int ll_close = 600;
+static unsigned int lf_close = 600;
+static unsigned int rr_close = 600;
+static unsigned int rf_close = 600;
 
 //static unsigned int ll_far = 300;
 //static unsigned int lf_far = 300;

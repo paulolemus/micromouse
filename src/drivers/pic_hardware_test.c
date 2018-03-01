@@ -88,18 +88,18 @@ int main(int argc, char** argv) {
     init_adc();
     enable_adc();
     
-    // LEDs work! Uncomment to view.
+    // LEDs work! Uncomment to view, also disable ADC module.
     //LED_ON(RGB_R);
     //LED_ON(RGB_G);
     //LED_ON(RGB_B);
-    LED_ON(LED_L);
-    LED_ON(LED_R);
+    //LED_ON(LED_L);
+    //LED_ON(LED_R);
     
     // Test emitters! working perfectly.
     //EMI_ON(EMI_RR);
-    EMI_ON(EMI_LL);
+    //EMI_ON(EMI_LL);
     //EMI_ON(EMI_RF);
-    EMI_ON(EMI_LF);
+    //EMI_ON(EMI_LF);
     
     //EMI_OFF(EMI_RR);
     //EMI_OFF(EMI_LL);
