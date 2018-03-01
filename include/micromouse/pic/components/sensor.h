@@ -27,6 +27,18 @@ extern "C" {
 void init_sensor();
 
 
+// Emitter PORTS
+// The emitters pins are digital out. 
+#define EMI_LL LATAbits.LATA8
+#define EMI_LF LATBbits.LATB4
+#define EMI_RR LATAbits.LATA3
+#define EMI_RF LATAbits.LATA2
+
+// Emitter interaction macros
+#define EMI_ON(emi_lat)  emi_lat = 1
+#define EMI_OFF(emi_lat) emi_lat = 0
+
+
 #ifdef __cplusplus
 }
 #endif

@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
     // Initialize hardware components
     init_oscillator();
     init_led();
-    //init_sensor();
+    init_sensor();
     //init_encoder();
     //init_motor();
     
