@@ -101,9 +101,9 @@ int main(int argc, char** argv) {
     //EMI_ON(EMI_RF);
     EMI_ON(EMI_LF);
     
-    EMI_OFF(EMI_RR);
+    //EMI_OFF(EMI_RR);
     //EMI_OFF(EMI_LL);
-    EMI_OFF(EMI_RF);
+    //EMI_OFF(EMI_RF);
     //EMI_OFF(EMI_LF);
 
     while(1) {
