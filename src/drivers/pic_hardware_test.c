@@ -81,11 +81,22 @@ int main(int argc, char** argv) {
     //init_motor();
     
     // LEDs work! Uncomment to view.
-    LED_ON(RGB_R);
+    //LED_ON(RGB_R);
     //LED_ON(RGB_G);
     //LED_ON(RGB_B);
     LED_ON(LED_L);
     LED_ON(LED_R);
+    
+    // Test emitters
+    //EMI_ON(EMI_RR);
+    EMI_ON(EMI_LL);
+    //EMI_ON(EMI_RF);
+    EMI_ON(EMI_LF);
+    
+    EMI_OFF(EMI_RR);
+    //EMI_OFF(EMI_LL);
+    EMI_OFF(EMI_RF);
+    //EMI_OFF(EMI_LF);
 
     while(1) {
         // Do nothing

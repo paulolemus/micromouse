@@ -27,6 +27,13 @@
 #define MAX_WIDTH  16
 #define MAX_HEIGHT 16
 
+//////////////////////////
+//   Interrupt config   //
+//////////////////////////
+
+// ADC update frequency, 1 ms
+#define ADC_DT 1
+
 
 /////////////////////////////
 //   Pathplanning config   //
