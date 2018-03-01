@@ -41,6 +41,9 @@ set (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 # Where to look for includes
 include_directories (include)
 
+# YCM Database generation
+set (CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
 
 # Micromouse
 set (MICROMOUSE_MAJOR_VERSION 0)
@@ -54,7 +57,8 @@ set (MICROMOUSE_SIM_LIBRARY_NAME
 # Core library
 # Add all source files to this variable
 set (SOURCE_FILES
-    src/core/maze.c)
+    src/core/maze.c
+    src/core/floodfill.c)
 add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 
 # Simulation libraries

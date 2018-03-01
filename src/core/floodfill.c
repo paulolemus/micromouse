@@ -13,6 +13,8 @@
  */
 
 
+#include <stdbool.h>
+
 #include "micromouse/config.h"
 #include "micromouse/core/maze.h"
 #include "micromouse/core/floodfill.h"
@@ -43,7 +45,7 @@ void init_queue(Queue* queue) {
 
 /* Get the Coord in the front of the queue.
  */
-Coord peek(Queue* queue) {
+Coord peek_q(Queue* queue) {
     return queue->array[queue->head];
 }
 
@@ -51,38 +53,35 @@ Coord peek(Queue* queue) {
  * If there is space on the queue, move the tail
  * back one element and add the Coord to the tail.
  */
-unsigned enqueue(Queue* queue, const Coord* coord) {
-    const unsigned SUCCESS = 1;
-    const unsigned FAILURE = 0;
+unsigned push_back_q(Queue* queue, const Coord* coord) {
 
-    if(queue->size < queue->cap) {
-        if(queue->size != 0) {
-            queue->tail = (queue->tail + 1) % queue->cap;
-        }
-        queue->array[queue->tail] = *coord;
-        queue->size++;
-        return SUCCESS;
-    } else {
-        return FAILURE;
+    // Guard
+    if(queue->size >= queue->cap) {
+        return false;
     }
+
+    if(queue->size != 0) {
+        queue->tail = (queue->tail + 1) % queue->cap;
+    }
+    queue->array[queue->tail] = *coord;
+    queue->size++;
+    return true;
 }
 
 /* 
  * Moves the head up by one.
  */
-unsigned dequeue(Queue* queue) {
-    const unsigned SUCCESS = 1;
-    const unsigned FAILURE = 0;
+unsigned pop_front_q(Queue* queue) {
 
     if(queue->size != 0) {
         queue->size--;
         if(queue->head != queue->tail) {
             queue->head = (queue->head + 1) % queue->cap;
         }
-        return SUCCESS;
+        return true;
     }
     else {
-        return FAILURE;
+        return false;
     }
 }
 
@@ -92,19 +91,17 @@ unsigned dequeue(Queue* queue) {
 unsigned floodfill(
     FloodObj* floodObj,
     const Maze* maze,
-    const Coord* goal_pos
+    const Coord* target
 ) {
-    const unsigned SUCCESS = 1;
-    const unsigned FAILURE = 0;
     
-    // Coordinate of current node
     Coord curr_node;
     Coord temp_node;
-    // Queue to hold open nodes
     Queue open_nodes;
+
     // BFS depth trackers 
-    unsigned char depth         = 0;
+    unsigned char depth = 0;
     unsigned nodes_til_increase = 1;
+
     // Infinite loop protection
     unsigned loop_count = 0;
     unsigned loop_limit = MAX_WIDTH * MAX_HEIGHT;
@@ -122,53 +119,53 @@ unsigned floodfill(
     init_queue(&open_nodes);
     
     // Add the goal node to the open queue to begin.
-    enqueue(&open_nodes, goal_pos);
-    visited[goal_pos->x][goal_pos->y] = 1;
+    push_back_q(&open_nodes, target);
+    visited[target->x][target->y] = 1;
 
     // While the queue is not empty, process nodes
     while(open_nodes.size > 0) {
 
         // Generate floodfill data from top node
-        curr_node = peek(&open_nodes);
-        dequeue(&open_nodes);
+        curr_node = peek_q(&open_nodes);
+        pop_front_q(&open_nodes);
         floodObj->map[curr_node.x][curr_node.y] = depth;  
 
         // Add surrounding unexplored nodes to queue
         // NORTH CASE
-        if(!has_wall(maze, curr_node.x, curr_node.y, NORTH_WALL) &&
+        if(!has_field(maze, curr_node.x, curr_node.y, WALL_NORTH) &&
            visited[curr_node.x][curr_node.y + 1] == 0) {
 
             temp_node.x = curr_node.x;
             temp_node.y = curr_node.y + 1;
             visited[temp_node.x][temp_node.y] = 1;
-            enqueue(&open_nodes, &temp_node);
+            push_back_q(&open_nodes, &temp_node);
         }
         // SOUTH CASE
-        if(!has_wall(maze, curr_node.x, curr_node.y, SOUTH_WALL) &&
+        if(!has_field(maze, curr_node.x, curr_node.y, WALL_SOUTH) &&
            visited[curr_node.x][curr_node.y - 1] == 0) {
 
             temp_node.x = curr_node.x;
             temp_node.y = curr_node.y - 1;
             visited[temp_node.x][temp_node.y] = 1;
-            enqueue(&open_nodes, &temp_node);
+            push_back_q(&open_nodes, &temp_node);
         }
         // EAST CASE
-        if(!has_wall(maze, curr_node.x, curr_node.y, EAST_WALL) &&
+        if(!has_field(maze, curr_node.x, curr_node.y, WALL_EAST) &&
            visited[curr_node.x + 1][curr_node.y] == 0) {
 
             temp_node.x = curr_node.x + 1;
             temp_node.y = curr_node.y;
             visited[temp_node.x][temp_node.y] = 1;
-            enqueue(&open_nodes, &temp_node);
+            push_back_q(&open_nodes, &temp_node);
         }
         // WEST CASE
-        if(!has_wall(maze, curr_node.x, curr_node.y, WEST_WALL) &&
+        if(!has_field(maze, curr_node.x, curr_node.y, WALL_WEST) &&
            visited[curr_node.x - 1][curr_node.y] == 0) {
 
             temp_node.x = curr_node.x - 1;
             temp_node.y = curr_node.y;
             visited[temp_node.x][temp_node.y] = 1;
-            enqueue(&open_nodes, &temp_node);
+            push_back_q(&open_nodes, &temp_node);
         }
 
         // Logic to keep track of depth
@@ -181,8 +178,8 @@ unsigned floodfill(
         // Infinite loop prevention
         loop_count++;
         if(loop_count == loop_limit) {
-            return FAILURE;
+            return false;
         }
     }
-    return SUCCESS;
+    return true;
 }
