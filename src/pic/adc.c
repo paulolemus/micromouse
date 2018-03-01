@@ -54,10 +54,10 @@ static unsigned int lf_close = 700;
 static unsigned int rr_close = 700;
 static unsigned int rf_close = 700;
 
-static unsigned int ll_far = 300;
-static unsigned int lf_far = 300;
-static unsigned int rr_far = 300;
-static unsigned int rf_far = 300;
+//static unsigned int ll_far = 300;
+//static unsigned int lf_far = 300;
+//static unsigned int rr_far = 300;
+//static unsigned int rf_far = 300;
 
 // Number of MS to wait before starting a new scanning sequence.
 static volatile unsigned int tmr_4_ticks;
@@ -124,8 +124,8 @@ void enable_adc() {
     EMI_ON(EMI_RF);
     
     // Select first sensor in rotation
-    // Rotation goes SLD, FLD, FRD, SRD
-    SELECT_DETECTOR(SLD);
+    // Rotation goes ll, lr, rr, rf
+    SELECT_DET(DET_LL);
     
     
     T4CONbits.TON = 1; // Turn on timer4  
@@ -175,10 +175,10 @@ void __attribute__((__interrupt__, __shadow__, no_auto_psv)) _T4Interrupt(void) 
         tmr_4_ticks = 0;
 
         // Save last values
-        sl_last = sl_sensor;
-        sr_last = sr_sensor;
-        fl_last = fl_sensor;
-        fr_last = fr_sensor;
+        ll_last = ll_val;
+        lf_last = lf_val;
+        rr_last = rr_val;
+        rf_last = rf_val;
         
         // Convert here
         AD1CON1bits.SAMP = 1;
@@ -188,16 +188,16 @@ void __attribute__((__interrupt__, __shadow__, no_auto_psv)) _T4Interrupt(void) 
 
 
 // Interrupt to save values from the four detectors once conversions finished.
-// Order of scan goes: SLD, FLD, FRD, SRD
+// Order of scan goes: ll, lf, rr, rf
 void __attribute__((__interrupt__, __shadow__, no_auto_psv)) _ADC1Interrupt(void) {
     IFS0bits.AD1IF = 0; // Clear conversion flag
 
     // Capture value from scan depending on adc rotation
     switch(adc_rotation) {
-        case 0: CAPTURE_SCAN(sl_sensor); break;
-        case 1: CAPTURE_SCAN(fl_sensor); break;
-        case 2: CAPTURE_SCAN(fr_sensor); break;
-        case 3: CAPTURE_SCAN(sr_sensor); break;
+        case 0: CAPTURE_SCAN(ll_val); break;
+        case 1: CAPTURE_SCAN(lf_val); break;
+        case 2: CAPTURE_SCAN(rr_val); break;
+        case 3: CAPTURE_SCAN(rf_val); break;
     }
     
     // Rotate to next scan
@@ -205,29 +205,35 @@ void __attribute__((__interrupt__, __shadow__, no_auto_psv)) _ADC1Interrupt(void
     
     // Move to next scan
     switch(adc_rotation) {
-        case 0: SELECT_DETECTOR(SLD); break;
-        case 1: SELECT_DETECTOR(FLD); AD1CON1bits.SAMP = 1; break;
-        case 2: SELECT_DETECTOR(FRD); AD1CON1bits.SAMP = 1; break;
-        case 3: SELECT_DETECTOR(SRD); AD1CON1bits.SAMP = 1; break;
+        case 0: SELECT_DET(DET_LL); break;
+        case 1: SELECT_DET(DET_LF); AD1CON1bits.SAMP = 1; break;
+        case 2: SELECT_DET(DET_RR); AD1CON1bits.SAMP = 1; break;
+        case 3: SELECT_DET(DET_RF); AD1CON1bits.SAMP = 1; break;
     }
     
-    // Check if sl is working
-    if(sl_sensor > SLD_CLOSE) {
-        //LED_ON(LED_R);
+    // Check if ll is working
+    if(ll_val > ll_close) {
+        LED_ON(LED_L);
     }
     else {
-        //LED_OFF(LED_R);
+        LED_OFF(LED_L);
     }
-    // Check if sr is working - GOOD
-    if(sr_sensor > SRD_CLOSE) {
-        //LED_ON(LED_G);
+    // Check if lf is working - GOOD
+    if(lf_val > lf_close) {
+        LED_ON(RGB_G);
     } else {
-        //LED_OFF(LED_G);
+        LED_OFF(RGB_G);
     }
-    // Check if fr is working - GOOD
-    if(fr_sensor > FRD_CLOSE) {
-        //LED_ON(LED_B);
+    // Check if rr is working - GOOD
+    if(rr_val > rr_close) {
+        LED_ON(LED_R);
     } else {
-        //LED_OFF(LED_B);
+        LED_OFF(LED_R);
+    }
+    // Check if rf is working - GOOD
+    if(rf_val > rf_close) {
+        LED_ON(RGB_B);
+    } else {
+        LED_OFF(RGB_B);
     }
 }

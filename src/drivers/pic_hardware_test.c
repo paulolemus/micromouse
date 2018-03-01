@@ -71,6 +71,10 @@
 #include "micromouse/pic/components/encoder.h"
 #include "micromouse/pic/components/motor.h"
 
+// Hardware interface modules
+#include "micromouse/pic/adc.h"
+
+
 int main(int argc, char** argv) {
     
     // Initialize hardware components
@@ -80,6 +84,10 @@ int main(int argc, char** argv) {
     //init_encoder();
     //init_motor();
     
+    // Initialize software modules
+    init_adc();
+    enable_adc();
+    
     // LEDs work! Uncomment to view.
     //LED_ON(RGB_R);
     //LED_ON(RGB_G);
@@ -87,7 +95,7 @@ int main(int argc, char** argv) {
     LED_ON(LED_L);
     LED_ON(LED_R);
     
-    // Test emitters
+    // Test emitters! working perfectly.
     //EMI_ON(EMI_RR);
     EMI_ON(EMI_LL);
     //EMI_ON(EMI_RF);

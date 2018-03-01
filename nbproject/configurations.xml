@@ -19,6 +19,7 @@
       <itemPath>src/core/floodfill.c</itemPath>
       <itemPath>src/core/maze.c</itemPath>
       <itemPath>src/pic/components/sensor.c</itemPath>
+      <itemPath>src/pic/adc.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -28,7 +29,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>src/core</Elem>
-    <Elem>src/pic/components</Elem>
+    <Elem>src/pic</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
