@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=src/drivers/pic_main.c
+SOURCEFILES_QUOTED_IF_SPACED=src/drivers/pic_main.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/drivers/pic_main.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/src/drivers/pic_main.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/drivers/pic_main.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/src/drivers/pic_main.o.d ${OBJECTDIR}/src/pic/components/oscillator.o.d ${OBJECTDIR}/src/pic/components/led.o.d ${OBJECTDIR}/src/core/floodfill.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/src/drivers/pic_main.o
+OBJECTFILES=${OBJECTDIR}/src/drivers/pic_main.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o
 
 # Source Files
-SOURCEFILES=src/drivers/pic_main.c
+SOURCEFILES=src/drivers/pic_main.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c
 
 
 CFLAGS=
@@ -101,6 +101,27 @@ ${OBJECTDIR}/src/drivers/pic_main.o: src/drivers/pic_main.c  nbproject/Makefile-
 	${MP_CC} $(MP_EXTRA_CC_PRE)  src/drivers/pic_main.c  -o ${OBJECTDIR}/src/drivers/pic_main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/drivers/pic_main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/src/drivers/pic_main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/src/pic/components/oscillator.o: src/pic/components/oscillator.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic/components" 
+	@${RM} ${OBJECTDIR}/src/pic/components/oscillator.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/components/oscillator.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/oscillator.c  -o ${OBJECTDIR}/src/pic/components/oscillator.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/oscillator.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/oscillator.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/pic/components/led.o: src/pic/components/led.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic/components" 
+	@${RM} ${OBJECTDIR}/src/pic/components/led.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/components/led.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/led.c  -o ${OBJECTDIR}/src/pic/components/led.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/led.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/led.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/core/floodfill.o: src/core/floodfill.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/core" 
+	@${RM} ${OBJECTDIR}/src/core/floodfill.o.d 
+	@${RM} ${OBJECTDIR}/src/core/floodfill.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/floodfill.c  -o ${OBJECTDIR}/src/core/floodfill.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/floodfill.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/core/floodfill.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/src/drivers/pic_main.o: src/drivers/pic_main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/src/drivers" 
@@ -108,6 +129,27 @@ ${OBJECTDIR}/src/drivers/pic_main.o: src/drivers/pic_main.c  nbproject/Makefile-
 	@${RM} ${OBJECTDIR}/src/drivers/pic_main.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  src/drivers/pic_main.c  -o ${OBJECTDIR}/src/drivers/pic_main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/drivers/pic_main.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/src/drivers/pic_main.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/pic/components/oscillator.o: src/pic/components/oscillator.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic/components" 
+	@${RM} ${OBJECTDIR}/src/pic/components/oscillator.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/components/oscillator.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/oscillator.c  -o ${OBJECTDIR}/src/pic/components/oscillator.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/oscillator.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/oscillator.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/pic/components/led.o: src/pic/components/led.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic/components" 
+	@${RM} ${OBJECTDIR}/src/pic/components/led.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/components/led.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/led.c  -o ${OBJECTDIR}/src/pic/components/led.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/led.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/led.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/core/floodfill.o: src/core/floodfill.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/core" 
+	@${RM} ${OBJECTDIR}/src/core/floodfill.o.d 
+	@${RM} ${OBJECTDIR}/src/core/floodfill.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/floodfill.c  -o ${OBJECTDIR}/src/core/floodfill.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/floodfill.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/core/floodfill.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 

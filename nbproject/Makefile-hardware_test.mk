@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=src/drivers/pic_hardware_test.c src/pic/components/oscillator.c src/pic/components/led.c
+SOURCEFILES_QUOTED_IF_SPACED=src/drivers/pic_hardware_test.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c src/core/maze.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/drivers/pic_hardware_test.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/src/drivers/pic_hardware_test.o.d ${OBJECTDIR}/src/pic/components/oscillator.o.d ${OBJECTDIR}/src/pic/components/led.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/drivers/pic_hardware_test.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o ${OBJECTDIR}/src/core/maze.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/src/drivers/pic_hardware_test.o.d ${OBJECTDIR}/src/pic/components/oscillator.o.d ${OBJECTDIR}/src/pic/components/led.o.d ${OBJECTDIR}/src/core/floodfill.o.d ${OBJECTDIR}/src/core/maze.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/src/drivers/pic_hardware_test.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o
+OBJECTFILES=${OBJECTDIR}/src/drivers/pic_hardware_test.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o ${OBJECTDIR}/src/core/maze.o
 
 # Source Files
-SOURCEFILES=src/drivers/pic_hardware_test.c src/pic/components/oscillator.c src/pic/components/led.c
+SOURCEFILES=src/drivers/pic_hardware_test.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c src/core/maze.c
 
 
 CFLAGS=
@@ -115,6 +115,20 @@ ${OBJECTDIR}/src/pic/components/led.o: src/pic/components/led.c  nbproject/Makef
 	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/led.c  -o ${OBJECTDIR}/src/pic/components/led.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/led.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/led.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/src/core/floodfill.o: src/core/floodfill.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/core" 
+	@${RM} ${OBJECTDIR}/src/core/floodfill.o.d 
+	@${RM} ${OBJECTDIR}/src/core/floodfill.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/floodfill.c  -o ${OBJECTDIR}/src/core/floodfill.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/floodfill.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/core/floodfill.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/core/maze.o: src/core/maze.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/core" 
+	@${RM} ${OBJECTDIR}/src/core/maze.o.d 
+	@${RM} ${OBJECTDIR}/src/core/maze.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/maze.c  -o ${OBJECTDIR}/src/core/maze.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/maze.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/core/maze.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/src/drivers/pic_hardware_test.o: src/drivers/pic_hardware_test.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/src/drivers" 
@@ -136,6 +150,20 @@ ${OBJECTDIR}/src/pic/components/led.o: src/pic/components/led.c  nbproject/Makef
 	@${RM} ${OBJECTDIR}/src/pic/components/led.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/led.c  -o ${OBJECTDIR}/src/pic/components/led.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/led.o.d"        -g -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/led.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/core/floodfill.o: src/core/floodfill.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/core" 
+	@${RM} ${OBJECTDIR}/src/core/floodfill.o.d 
+	@${RM} ${OBJECTDIR}/src/core/floodfill.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/floodfill.c  -o ${OBJECTDIR}/src/core/floodfill.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/floodfill.o.d"        -g -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/core/floodfill.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/core/maze.o: src/core/maze.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/core" 
+	@${RM} ${OBJECTDIR}/src/core/maze.o.d 
+	@${RM} ${OBJECTDIR}/src/core/maze.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/maze.c  -o ${OBJECTDIR}/src/core/maze.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/maze.o.d"        -g -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/core/maze.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
