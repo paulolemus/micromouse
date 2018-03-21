@@ -85,8 +85,8 @@ int main(int argc, char** argv) {
     //init_motor();
     
     // Initialize software modules
-    init_adc();
-    enable_adc();
+    //init_adc();
+    //enable_adc();
     
     // LEDs work! Uncomment to view, also disable ADC module.
     //LED_ON(RGB_R);

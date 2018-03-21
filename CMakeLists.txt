@@ -58,7 +58,8 @@ set (MICROMOUSE_SIM_LIBRARY_NAME
 # Add all source files to this variable
 set (SOURCE_FILES
     src/core/maze.c
-    src/core/floodfill.c)
+    src/core/floodfill.c
+    src/core/path.c)
 add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 
 # Simulation libraries

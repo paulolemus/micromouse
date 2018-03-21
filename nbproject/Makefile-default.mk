@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=src/drivers/pic_main.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c
+SOURCEFILES_QUOTED_IF_SPACED=src/drivers/pic_main.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c src/core/maze.c src/pic/components/sensor.c src/pic/adc.c src/core/path.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/drivers/pic_main.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/src/drivers/pic_main.o.d ${OBJECTDIR}/src/pic/components/oscillator.o.d ${OBJECTDIR}/src/pic/components/led.o.d ${OBJECTDIR}/src/core/floodfill.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/drivers/pic_main.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o ${OBJECTDIR}/src/core/maze.o ${OBJECTDIR}/src/pic/components/sensor.o ${OBJECTDIR}/src/pic/adc.o ${OBJECTDIR}/src/core/path.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/src/drivers/pic_main.o.d ${OBJECTDIR}/src/pic/components/oscillator.o.d ${OBJECTDIR}/src/pic/components/led.o.d ${OBJECTDIR}/src/core/floodfill.o.d ${OBJECTDIR}/src/core/maze.o.d ${OBJECTDIR}/src/pic/components/sensor.o.d ${OBJECTDIR}/src/pic/adc.o.d ${OBJECTDIR}/src/core/path.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/src/drivers/pic_main.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o
+OBJECTFILES=${OBJECTDIR}/src/drivers/pic_main.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o ${OBJECTDIR}/src/core/maze.o ${OBJECTDIR}/src/pic/components/sensor.o ${OBJECTDIR}/src/pic/adc.o ${OBJECTDIR}/src/core/path.o
 
 # Source Files
-SOURCEFILES=src/drivers/pic_main.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c
+SOURCEFILES=src/drivers/pic_main.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c src/core/maze.c src/pic/components/sensor.c src/pic/adc.c src/core/path.c
 
 
 CFLAGS=
@@ -122,6 +122,34 @@ ${OBJECTDIR}/src/core/floodfill.o: src/core/floodfill.c  nbproject/Makefile-${CN
 	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/floodfill.c  -o ${OBJECTDIR}/src/core/floodfill.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/floodfill.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/src/core/floodfill.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/src/core/maze.o: src/core/maze.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/core" 
+	@${RM} ${OBJECTDIR}/src/core/maze.o.d 
+	@${RM} ${OBJECTDIR}/src/core/maze.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/maze.c  -o ${OBJECTDIR}/src/core/maze.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/maze.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/core/maze.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/pic/components/sensor.o: src/pic/components/sensor.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic/components" 
+	@${RM} ${OBJECTDIR}/src/pic/components/sensor.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/components/sensor.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/sensor.c  -o ${OBJECTDIR}/src/pic/components/sensor.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/sensor.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/sensor.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/pic/adc.o: src/pic/adc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic" 
+	@${RM} ${OBJECTDIR}/src/pic/adc.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/adc.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/adc.c  -o ${OBJECTDIR}/src/pic/adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/adc.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/adc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/core/path.o: src/core/path.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/core" 
+	@${RM} ${OBJECTDIR}/src/core/path.o.d 
+	@${RM} ${OBJECTDIR}/src/core/path.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/path.c  -o ${OBJECTDIR}/src/core/path.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/path.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/core/path.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/src/drivers/pic_main.o: src/drivers/pic_main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/src/drivers" 
@@ -150,6 +178,34 @@ ${OBJECTDIR}/src/core/floodfill.o: src/core/floodfill.c  nbproject/Makefile-${CN
 	@${RM} ${OBJECTDIR}/src/core/floodfill.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/floodfill.c  -o ${OBJECTDIR}/src/core/floodfill.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/floodfill.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/src/core/floodfill.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/core/maze.o: src/core/maze.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/core" 
+	@${RM} ${OBJECTDIR}/src/core/maze.o.d 
+	@${RM} ${OBJECTDIR}/src/core/maze.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/maze.c  -o ${OBJECTDIR}/src/core/maze.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/maze.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/core/maze.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/pic/components/sensor.o: src/pic/components/sensor.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic/components" 
+	@${RM} ${OBJECTDIR}/src/pic/components/sensor.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/components/sensor.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/sensor.c  -o ${OBJECTDIR}/src/pic/components/sensor.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/sensor.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/sensor.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/pic/adc.o: src/pic/adc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic" 
+	@${RM} ${OBJECTDIR}/src/pic/adc.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/adc.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/adc.c  -o ${OBJECTDIR}/src/pic/adc.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/adc.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/adc.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/core/path.o: src/core/path.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/core" 
+	@${RM} ${OBJECTDIR}/src/core/path.o.d 
+	@${RM} ${OBJECTDIR}/src/core/path.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/core/path.c  -o ${OBJECTDIR}/src/core/path.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/core/path.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/core/path.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
