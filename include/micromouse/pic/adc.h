@@ -47,10 +47,10 @@ void disable_adc();
  * If the ADC module is enabled, the readings are updated in realtime.
  * If the ADC module is disabled, then these functions return the last scan.
  */
-unsigned get_det_ll();
-unsigned get_det_lf();
-unsigned get_det_rr();
-unsigned get_det_rf();
+unsigned get_scan_ll();
+unsigned get_scan_lf();
+unsigned get_scan_rr();
+unsigned get_scan_rf();
 
 
 #ifdef	__cplusplus

@@ -92,14 +92,14 @@ int main(int argc, char** argv) {
     TRISBbits.TRISB12 = 0;
     
     // Initialize software modules
-    //init_adc();
-    //enable_adc();
+    init_adc();
+    enable_adc();
     
     // LEDs work! Uncomment to view, also disable ADC module.
     //LED_ON(RGB_R);
     //LED_ON(RGB_G);
     //LED_ON(RGB_B);
-    LED_ON(LED_L);
+    //LED_ON(LED_L);
     //LED_ON(LED_R);
     
     // Test emitters! working perfectly.
@@ -113,10 +113,10 @@ int main(int argc, char** argv) {
     //EMI_OFF(EMI_RF);
     //EMI_OFF(EMI_LF);
     
-    LATBbits.LATB13 = 1; // Left direction control
+    LATBbits.LATB13 = 0; // Left direction control
     LATBbits.LATB12 = 0; // Left motor control
-    LATBbits.LATB15 = 1; // Right direction control
-    LATBbits.LATB14 = 1; // Motor pwm control
+    LATBbits.LATB15 = 0; // Right direction control
+    LATBbits.LATB14 = 0; // Motor pwm control
 
     while(1) {
         // Do nothing
