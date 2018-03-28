@@ -49,10 +49,10 @@ static volatile unsigned int rr_last;
 static volatile unsigned int rf_last;
 
 // Detector calibration variables TODO: FIX INITIAL VALUES
-static unsigned int ll_close = 600;
-static unsigned int lf_close = 600;
-static unsigned int rr_close = 600;
-static unsigned int rf_close = 600;
+static unsigned int ll_close = 30;
+static unsigned int lf_close = 100;
+static unsigned int rr_close = 30;
+static unsigned int rf_close = 100;
 
 //static unsigned int ll_far = 300;
 //static unsigned int lf_far = 300;
@@ -213,27 +213,27 @@ void __attribute__((__interrupt__, __shadow__, no_auto_psv)) _ADC1Interrupt(void
     
     // Check if ll is working
     if(ll_val > ll_close) {
-        LED_ON(LED_L);
+        //LED_ON(LED_L);
     }
     else {
-        LED_OFF(LED_L);
+        //LED_OFF(LED_L);
     }
     // Check if lf is working - GOOD
     if(lf_val > lf_close) {
-        LED_ON(RGB_G);
+        LED_ON(LED_L);
     } else {
-        LED_OFF(RGB_G);
+        LED_OFF(LED_L);
     }
     // Check if rr is working - GOOD
     if(rr_val > rr_close) {
-        LED_ON(LED_R);
+        //LED_ON(LED_R);
     } else {
-        LED_OFF(LED_R);
+        //LED_OFF(LED_R);
     }
     // Check if rf is working - GOOD
     if(rf_val > rf_close) {
-        LED_ON(RGB_B);
+        LED_ON(LED_R);
     } else {
-        LED_OFF(RGB_B);
+        LED_OFF(LED_R);
     }
 }
