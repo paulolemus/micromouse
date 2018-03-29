@@ -84,13 +84,6 @@ int main(int argc, char** argv) {
     //init_encoder();
     //init_motor();
     
-    // Right motor drive test
-    TRISBbits.TRISB15 = 0; // Right motor direction pin is an output.
-    TRISBbits.TRISB14 = 0; // Right motor PWM pin is output.
-    // Left motor drive test
-    TRISBbits.TRISB13 = 0;
-    TRISBbits.TRISB12 = 0;
-    
     // Initialize software modules
     init_adc();
     enable_adc();
@@ -113,10 +106,23 @@ int main(int argc, char** argv) {
     //EMI_OFF(EMI_RF);
     //EMI_OFF(EMI_LF);
     
+    // Right motor drive test
+    TRISBbits.TRISB15 = 0; // Right motor direction pin is an output.
+    TRISBbits.TRISB14 = 0; // Right motor PWM pin is output.
+    // Left motor drive test
+    TRISBbits.TRISB13 = 0;
+    TRISBbits.TRISB12 = 0;
+    
+    // Bluetooth example
+    TRISCbits.TRISC6 = 0;
+    
     LATBbits.LATB13 = 0; // Left direction control
     LATBbits.LATB12 = 0; // Left motor control
     LATBbits.LATB15 = 0; // Right direction control
     LATBbits.LATB14 = 0; // Motor pwm control
+    
+    // Turn on bluetooth module
+    LATCbits.LATC6 = 1;
 
     while(1) {
         // Do nothing
