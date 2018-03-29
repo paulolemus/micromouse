@@ -19,6 +19,9 @@
 #ifndef MICROMOUSE_CONFIG_H_
 #define MICROMOUSE_CONFIG_H_
 
+// Frequency in Hz of mouse
+#define _XTAL_FREQ 32000000
+
 /////////////////////
 //   Maze config   //
 /////////////////////
@@ -28,7 +31,7 @@
 #define MAX_HEIGHT 16
 
 //////////////////////////
-//   Interrupt config   //
+//      ADC config      //
 //////////////////////////
 
 // ADC update frequency in us (1 ms)

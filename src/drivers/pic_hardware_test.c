@@ -73,6 +73,48 @@
 
 // Hardware interface modules
 #include "micromouse/pic/adc.h"
+#include "micromouse/pic/ble.h"
+
+///
+/// Testing functions, for DEBUGGING ONLY
+///
+
+void test_leds() {
+    // LEDs work! Uncomment to view.
+    // Consider disabling ADC module, as it may use the LEDs.
+    //LED_ON(RGB_R);
+    //LED_ON(RGB_G);
+    //LED_ON(RGB_B);
+    //LED_ON(LED_L);
+    //LED_ON(LED_R);
+}
+
+void test_emitters() {
+    // Test emitters! working perfectly.
+    //EMI_ON(EMI_RR);
+    //EMI_ON(EMI_LL);
+    //EMI_ON(EMI_RF);
+    //EMI_ON(EMI_LF);
+    
+    //EMI_OFF(EMI_RR);
+    //EMI_OFF(EMI_LL);
+    //EMI_OFF(EMI_RF);
+    //EMI_OFF(EMI_LF);
+}
+
+void test_motors() {
+    // Right motor drive test
+    TRISBbits.TRISB15 = 0; // Right motor direction pin is an output.
+    TRISBbits.TRISB14 = 0; // Right motor PWM pin is output.
+    // Left motor drive test
+    TRISBbits.TRISB13 = 0;
+    TRISBbits.TRISB12 = 0;
+    
+    LATBbits.LATB13 = 0; // Left direction control
+    LATBbits.LATB12 = 0; // Left motor control
+    LATBbits.LATB15 = 0; // Right direction control
+    LATBbits.LATB14 = 0; // Motor pwm control
+}
 
 
 int main(int argc, char** argv) {
@@ -86,44 +128,19 @@ int main(int argc, char** argv) {
     
     // Initialize software modules
     init_adc();
+    init_ble();
+    
+    // Enable desired software modules
     enable_adc();
+    //enable_ble();
     
-    // LEDs work! Uncomment to view, also disable ADC module.
-    //LED_ON(RGB_R);
-    //LED_ON(RGB_G);
-    //LED_ON(RGB_B);
-    //LED_ON(LED_L);
-    //LED_ON(LED_R);
     
-    // Test emitters! working perfectly.
-    //EMI_ON(EMI_RR);
-    //EMI_ON(EMI_LL);
-    //EMI_ON(EMI_RF);
-    //EMI_ON(EMI_LF);
+    // TESTING FUNCTIONS
+    //test_leds();
+    //test_emitters();
+    test_motors();
+        
     
-    //EMI_OFF(EMI_RR);
-    //EMI_OFF(EMI_LL);
-    //EMI_OFF(EMI_RF);
-    //EMI_OFF(EMI_LF);
-    
-    // Right motor drive test
-    TRISBbits.TRISB15 = 0; // Right motor direction pin is an output.
-    TRISBbits.TRISB14 = 0; // Right motor PWM pin is output.
-    // Left motor drive test
-    TRISBbits.TRISB13 = 0;
-    TRISBbits.TRISB12 = 0;
-    
-    // Bluetooth example
-    TRISCbits.TRISC6 = 0;
-    
-    LATBbits.LATB13 = 0; // Left direction control
-    LATBbits.LATB12 = 0; // Left motor control
-    LATBbits.LATB15 = 0; // Right direction control
-    LATBbits.LATB14 = 0; // Motor pwm control
-    
-    // Turn on bluetooth module
-    LATCbits.LATC6 = 1;
-
     while(1) {
         // Do nothing
     }
