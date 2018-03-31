@@ -123,8 +123,8 @@ int main(int argc, char** argv) {
     init_oscillator();
     init_led();
     init_sensor();
-    //init_encoder();
-    //init_motor();
+    init_encoder();
+    init_motor();
     
     // Initialize software modules
     init_adc();

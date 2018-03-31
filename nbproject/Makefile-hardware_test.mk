@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=src/drivers/pic_hardware_test.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c src/core/maze.c src/pic/components/sensor.c src/pic/adc.c src/core/path.c src/pic/ble.c src/pic/ble_api.c
+SOURCEFILES_QUOTED_IF_SPACED=src/drivers/pic_hardware_test.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c src/core/maze.c src/pic/components/sensor.c src/pic/adc.c src/core/path.c src/pic/ble.c src/pic/ble_api.c src/pic/components/encoder.c src/pic/components/motor.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/drivers/pic_hardware_test.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o ${OBJECTDIR}/src/core/maze.o ${OBJECTDIR}/src/pic/components/sensor.o ${OBJECTDIR}/src/pic/adc.o ${OBJECTDIR}/src/core/path.o ${OBJECTDIR}/src/pic/ble.o ${OBJECTDIR}/src/pic/ble_api.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/src/drivers/pic_hardware_test.o.d ${OBJECTDIR}/src/pic/components/oscillator.o.d ${OBJECTDIR}/src/pic/components/led.o.d ${OBJECTDIR}/src/core/floodfill.o.d ${OBJECTDIR}/src/core/maze.o.d ${OBJECTDIR}/src/pic/components/sensor.o.d ${OBJECTDIR}/src/pic/adc.o.d ${OBJECTDIR}/src/core/path.o.d ${OBJECTDIR}/src/pic/ble.o.d ${OBJECTDIR}/src/pic/ble_api.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/src/drivers/pic_hardware_test.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o ${OBJECTDIR}/src/core/maze.o ${OBJECTDIR}/src/pic/components/sensor.o ${OBJECTDIR}/src/pic/adc.o ${OBJECTDIR}/src/core/path.o ${OBJECTDIR}/src/pic/ble.o ${OBJECTDIR}/src/pic/ble_api.o ${OBJECTDIR}/src/pic/components/encoder.o ${OBJECTDIR}/src/pic/components/motor.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/src/drivers/pic_hardware_test.o.d ${OBJECTDIR}/src/pic/components/oscillator.o.d ${OBJECTDIR}/src/pic/components/led.o.d ${OBJECTDIR}/src/core/floodfill.o.d ${OBJECTDIR}/src/core/maze.o.d ${OBJECTDIR}/src/pic/components/sensor.o.d ${OBJECTDIR}/src/pic/adc.o.d ${OBJECTDIR}/src/core/path.o.d ${OBJECTDIR}/src/pic/ble.o.d ${OBJECTDIR}/src/pic/ble_api.o.d ${OBJECTDIR}/src/pic/components/encoder.o.d ${OBJECTDIR}/src/pic/components/motor.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/src/drivers/pic_hardware_test.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o ${OBJECTDIR}/src/core/maze.o ${OBJECTDIR}/src/pic/components/sensor.o ${OBJECTDIR}/src/pic/adc.o ${OBJECTDIR}/src/core/path.o ${OBJECTDIR}/src/pic/ble.o ${OBJECTDIR}/src/pic/ble_api.o
+OBJECTFILES=${OBJECTDIR}/src/drivers/pic_hardware_test.o ${OBJECTDIR}/src/pic/components/oscillator.o ${OBJECTDIR}/src/pic/components/led.o ${OBJECTDIR}/src/core/floodfill.o ${OBJECTDIR}/src/core/maze.o ${OBJECTDIR}/src/pic/components/sensor.o ${OBJECTDIR}/src/pic/adc.o ${OBJECTDIR}/src/core/path.o ${OBJECTDIR}/src/pic/ble.o ${OBJECTDIR}/src/pic/ble_api.o ${OBJECTDIR}/src/pic/components/encoder.o ${OBJECTDIR}/src/pic/components/motor.o
 
 # Source Files
-SOURCEFILES=src/drivers/pic_hardware_test.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c src/core/maze.c src/pic/components/sensor.c src/pic/adc.c src/core/path.c src/pic/ble.c src/pic/ble_api.c
+SOURCEFILES=src/drivers/pic_hardware_test.c src/pic/components/oscillator.c src/pic/components/led.c src/core/floodfill.c src/core/maze.c src/pic/components/sensor.c src/pic/adc.c src/core/path.c src/pic/ble.c src/pic/ble_api.c src/pic/components/encoder.c src/pic/components/motor.c
 
 
 CFLAGS=
@@ -164,6 +164,20 @@ ${OBJECTDIR}/src/pic/ble_api.o: src/pic/ble_api.c  nbproject/Makefile-${CND_CONF
 	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/ble_api.c  -o ${OBJECTDIR}/src/pic/ble_api.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/ble_api.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/src/pic/ble_api.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/src/pic/components/encoder.o: src/pic/components/encoder.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic/components" 
+	@${RM} ${OBJECTDIR}/src/pic/components/encoder.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/components/encoder.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/encoder.c  -o ${OBJECTDIR}/src/pic/components/encoder.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/encoder.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/encoder.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/pic/components/motor.o: src/pic/components/motor.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic/components" 
+	@${RM} ${OBJECTDIR}/src/pic/components/motor.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/components/motor.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/motor.c  -o ${OBJECTDIR}/src/pic/components/motor.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/motor.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/motor.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/src/drivers/pic_hardware_test.o: src/drivers/pic_hardware_test.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/src/drivers" 
@@ -234,6 +248,20 @@ ${OBJECTDIR}/src/pic/ble_api.o: src/pic/ble_api.c  nbproject/Makefile-${CND_CONF
 	@${RM} ${OBJECTDIR}/src/pic/ble_api.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/ble_api.c  -o ${OBJECTDIR}/src/pic/ble_api.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/ble_api.o.d"        -g -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
 	@${FIXDEPS} "${OBJECTDIR}/src/pic/ble_api.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/pic/components/encoder.o: src/pic/components/encoder.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic/components" 
+	@${RM} ${OBJECTDIR}/src/pic/components/encoder.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/components/encoder.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/encoder.c  -o ${OBJECTDIR}/src/pic/components/encoder.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/encoder.o.d"        -g -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/encoder.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/src/pic/components/motor.o: src/pic/components/motor.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/src/pic/components" 
+	@${RM} ${OBJECTDIR}/src/pic/components/motor.o.d 
+	@${RM} ${OBJECTDIR}/src/pic/components/motor.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  src/pic/components/motor.c  -o ${OBJECTDIR}/src/pic/components/motor.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/src/pic/components/motor.o.d"        -g -omf=elf -DXPRJ_hardware_test=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -O0 -I"include" -msmart-io=1 -Wall -msfr-warn=off  
+	@${FIXDEPS} "${OBJECTDIR}/src/pic/components/motor.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
