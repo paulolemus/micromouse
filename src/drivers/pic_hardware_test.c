@@ -163,14 +163,14 @@ int main(int argc, char** argv) {
     // Enable desired software modules
     //enable_adc();
     //enable_ble();
-    enable_qei();
+    //enable_qei();
     
     
     // TESTING FUNCTIONS
     //test_leds();
     //test_emitters();
     test_motors();
-    test_qei();
+    //test_qei();
         
     
     while(true) {

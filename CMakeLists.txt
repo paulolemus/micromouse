@@ -59,7 +59,8 @@ set (MICROMOUSE_SIM_LIBRARY_NAME
 set (SOURCE_FILES
     src/core/maze.c
     src/core/floodfill.c
-    src/core/path.c)
+    src/core/path.c
+    src/core/pid.c)
 add_library (${MICROMOUSE_LIBRARY_NAME} STATIC ${SOURCE_FILES})
 
 # Simulation libraries

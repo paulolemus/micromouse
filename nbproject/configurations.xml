@@ -27,6 +27,7 @@
       <itemPath>src/pic/components/motor.c</itemPath>
       <itemPath>src/pic/qei.c</itemPath>
       <itemPath>src/pic/utils.c</itemPath>
+      <itemPath>src/core/pid.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
