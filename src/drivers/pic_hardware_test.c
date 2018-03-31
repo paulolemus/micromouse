@@ -137,14 +137,14 @@ void test_motors() {
 
 void test_qei() {
     
-    signed int l_qei = 0;
-    signed int r_qei = 0;
+    signed long long l_qei = 0;
+    signed long long r_qei = 0;
     
     
     while(true) {
-        wait_ms(1);
-        l_qei += get_qei_l();
-        r_qei += get_qei_r();
+        wait_ms(2);
+        l_qei = get_qei_l_pos();
+        r_qei = get_qei_r_pos();
         
         if(l_qei > 2250) {
             LED_ON(LED_L);
@@ -161,9 +161,12 @@ void test_qei() {
 }
 
 void test_motor_control_positional() {
+    init_position_mc();
+    set_motor_control_function(&position_mc);
     
     while(true) {
-        wait_ms(100);
+        wait_ms(1000);
+        LED_TOGGLE(LED_R);
     }
 }
 
@@ -189,7 +192,7 @@ int main(int argc, char** argv) {
     //enable_ble();
     enable_qei();
     enable_pwm();
-    //enable_motor_control();
+    enable_motor_control();
     
     // TESTING FUNCTIONS
     //test_leds();

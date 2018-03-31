@@ -27,6 +27,10 @@ extern "C" {
 #define L_MTR_PER P1DC2
 #define R_MTR_PER P1DC1
 
+/// Duty upper and lower bounds
+#define L_DUTY_BOUND 100.0
+#define R_DUTY_BOUND 100.0
+
 // period max and min values
 #define L_MTR_MIN 0
 #define L_MTR_MAX 3200
@@ -55,17 +59,17 @@ void disable_pwm();
 /**
  * @brief Set the PWM duty cycle for the left motor.
  *        The correct duty is set regardless of the direction.
- * @param duty The duty cycle as a value between 0.0 and 1.0
+ * @param duty The duty cycle as a value between -1.0 and 1.0
  */
-void set_pwm_duty_l(const double duty);
+void set_pwm_duty_l(double duty);
 
 
 /**
  * @brief Set the PWM duty cycle for the right motor.
- *        The correct duty is set regarless of the direction.
- * @param duty The duty cycle as a value between 0.0 and 1.0.
+ *        The correct duty is set regardless of the direction.
+ * @param duty The duty cycle as a value between -1.0 and 1.0.
  */
-void set_pwm_duty_r(const double duty);
+void set_pwm_duty_r(double duty);
 
 
 #ifdef	__cplusplus

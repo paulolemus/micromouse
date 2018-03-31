@@ -20,7 +20,7 @@ double p_term(
     const signed int err, 
     const double kp
 ) {
-    return 0.0;
+    return ((double) err) * kp;
 }
 
 double i_term(
@@ -29,7 +29,7 @@ double i_term(
     const unsigned int dt, 
     const double ki
 ) {
-    return 0.0;
+    return (integral + (double) err * (double) dt) * ki;
 }
 
 double d_term(
@@ -38,5 +38,5 @@ double d_term(
     const unsigned int dt, 
     const double kd
 ) {
-    return 0.0;
+    return (((double) err - (double) prev_err) / (double) dt) * kd;
 }

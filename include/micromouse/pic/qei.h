@@ -49,15 +49,12 @@ void enable_qei();
  */
 void disable_qei();
 
+
 /**
- * Getters for qei readings.
- * These functions return the distance the wheels have moved from their
- * previous readings.
- * The "l" funciton gets the reading for the left module.
- * The "r" function gets the readings for the right module.
+ * Getters for QEI absolute position.
  */
-signed int get_qei_l();
-signed int get_qei_r();
+signed long long get_qei_l_pos();
+signed long long get_qei_r_pos();
 
 
 #ifdef	__cplusplus

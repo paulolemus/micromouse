@@ -13,6 +13,7 @@
  */
 
 #include <xc.h>
+#include <math.h>
 
 #include "micromouse/pic/pwm.h"
 #include "micromouse/pic/components/motor.h"
@@ -63,16 +64,23 @@ void disable_pwm() {
 }
 
 
-void set_pwm_duty_l(const double duty) {
+void set_pwm_duty_l(double duty) {
     
     signed int period;
     
-    if(L_MTR_DIR == L_MTR_FWD) {
-        period = (signed int) (duty * L_MTR_MAX);
+    // Normalize and bound
+    duty = duty / L_DUTY_BOUND;
+    if(duty > 1.0)       duty = 1.0;
+    else if(duty < -1.0) duty = -1.0;
+    
+    if(duty >= 0) {
+        L_MTR_DIR = L_MTR_FWD;
+        period = (signed int) (fabs(duty) * L_MTR_MAX);
     } else {
+        L_MTR_DIR = L_MTR_REV;
         period = 
             (signed int) L_MTR_MAX 
-            - ((signed int) (duty * L_MTR_MAX));
+            - ((signed int) (fabs(duty) * L_MTR_MAX));
     }
     
     if     (period < L_MTR_MIN) period = L_MTR_MIN;
@@ -80,16 +88,23 @@ void set_pwm_duty_l(const double duty) {
     L_MTR_PER = (unsigned int) period;
 }
 
-void set_pwm_duty_r(const double duty) {
+void set_pwm_duty_r(double duty) {
     
     signed int period;
     
-    if(R_MTR_DIR == R_MTR_FWD) {
+    // Normalize and bound
+    duty = duty / R_DUTY_BOUND;
+    if(duty > 1.0)       duty = 1.0;
+    else if(duty < -1.0) duty = -1.0;
+    
+    if(duty >= 0) {
+        R_MTR_DIR = R_MTR_FWD;
         period = 
             (signed int) R_MTR_MAX
-            - ((signed int) (duty * R_MTR_MAX));
+            - ((signed int) (fabs(duty) * R_MTR_MAX));
     } else {
-        period = (signed int) (duty * R_MTR_MAX);
+        R_MTR_DIR = R_MTR_REV;
+        period = (signed int) (fabs(duty) * R_MTR_MAX);
     }
     
     if     (period < R_MTR_MIN) period = R_MTR_MIN;

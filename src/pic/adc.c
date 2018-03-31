@@ -143,7 +143,7 @@ void disable_adc() {
     EMI_OFF(EMI_RF);
 }
 
-unsigned get_scan_ll() {
+unsigned int get_scan_ll() {
     size_t i;
     unsigned sum = 0;
     
@@ -153,7 +153,7 @@ unsigned get_scan_ll() {
     return sum / (ADC_AVG);
 }
 
-unsigned get_scan_lf() {
+unsigned int get_scan_lf() {
     size_t i;
     unsigned sum = 0;
     
@@ -163,7 +163,7 @@ unsigned get_scan_lf() {
     return sum / (ADC_AVG);
 }
 
-unsigned get_scan_rr() {
+unsigned int get_scan_rr() {
     size_t i;
     unsigned sum = 0;
     
@@ -173,7 +173,7 @@ unsigned get_scan_rr() {
     return sum / (ADC_AVG);
 }
 
-unsigned get_scan_rf() {
+unsigned int get_scan_rf() {
     size_t i;
     unsigned sum = 0;
     
@@ -227,10 +227,10 @@ void __attribute__((__interrupt__, __shadow__, no_auto_psv)) _ADC1Interrupt(void
     
     // Check if ll is working
     if(get_scan_ll() > ll_close) {
-        LED_ON(LED_L);
+        //LED_ON(LED_L);
     }
     else {
-        LED_OFF(LED_L);
+        //LED_OFF(LED_L);
     }
     // Check if lf is working - GOOD
     if(get_scan_lf() > lf_close) {
@@ -240,9 +240,9 @@ void __attribute__((__interrupt__, __shadow__, no_auto_psv)) _ADC1Interrupt(void
     }
     // Check if rr is working - GOOD
     if(get_scan_rr() > rr_close) {
-        LED_ON(LED_R);
+        //LED_ON(LED_R);
     } else {
-        LED_OFF(LED_R);
+        //LED_OFF(LED_R);
     }
     // Check if rf is working - GOOD
     if(get_scan_rf() > rf_close) {

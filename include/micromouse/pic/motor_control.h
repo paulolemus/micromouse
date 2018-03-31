@@ -44,6 +44,25 @@ void enable_motor_control();
 void disable_motor_control();
 
 
+/**
+ * @brief Use this function to set the operation that the motor controller will
+ *        execute.
+ * @param motor_control_func pointer to the non-blocking execution function.
+ */
+void set_motor_control_function(void (*motor_control_func)(void));
+
+
+///
+/// Motor Controller Functions
+///
+
+/**
+ * The motors will hold their current positions.
+ */
+void init_position_mc();
+void position_mc();
+
+
 #ifdef	__cplusplus
 }
 #endif
