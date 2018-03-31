@@ -35,24 +35,24 @@
 //////////////////////////
 
 // ADC update frequency in us (1 ms)
-#define ADC_DT 1000
+#define ADC_DT 500
 // How many recent scans are averaged for a read?
 // Ex: 4 means the last 4 scans are averaged and returned.
 #define ADC_AVG 4
 
 // Default value for sensor "wall is close" threshold.
 // TODO: FIX DEFAULT VALUES
-#define DEFAULT_LL_CLOSE 450
-#define DEFAULT_LF_CLOSE 100
-#define DEFAULT_RR_CLOSE 500
-#define DEFAULT_RF_CLOSE 100
+#define DEFAULT_LL_CLOSE 700
+#define DEFAULT_LF_CLOSE 400
+#define DEFAULT_RR_CLOSE 700
+#define DEFAULT_RF_CLOSE 400
 
 ///////////////////////////
 //       MC config       //
 ///////////////////////////
 
 // MC update frequency in us (4 ms)
-#define MC_DT 4000
+#define MC_DT 2000
 
 /////////////////////////////
 //   Pathplanning config   //

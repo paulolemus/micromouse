@@ -52,6 +52,12 @@ unsigned int get_scan_lf();
 unsigned int get_scan_rr();
 unsigned int get_scan_rf();
 
+unsigned int get_close_ll();
+unsigned int get_close_lf();
+unsigned int get_close_rr();
+unsigned int get_close_rf();
+
+
 
 #ifdef	__cplusplus
 }

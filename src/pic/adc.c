@@ -183,6 +183,19 @@ unsigned int get_scan_rf() {
     return sum / (ADC_AVG);
 }
 
+unsigned int get_close_ll() {
+    return ll_close;
+}
+unsigned int get_close_lf() {
+    return lf_close;
+}
+unsigned int get_close_rr() {
+    return rr_close;
+}
+unsigned int get_close_rf() {
+    return rf_close;
+}
+
 
 // Timer used to start ADC scans of all detectors.
 // Every ADC_DT us, all the detectors are 

@@ -139,20 +139,24 @@ void test_qei() {
     
     signed long long l_qei = 0;
     signed long long r_qei = 0;
+    signed long long l_qei_last = 0;
+    signed long long r_qei_last = 0;
     
     
     while(true) {
         wait_ms(2);
+        l_qei_last = l_qei;
+        r_qei_last = r_qei;
         l_qei = get_qei_l_pos();
         r_qei = get_qei_r_pos();
         
-        if(l_qei > 2250) {
+        if(l_qei >= l_qei_last) {
             LED_ON(LED_L);
         } else {
             LED_OFF(LED_L);
         }
         
-        if(r_qei > 2250) {
+        if(r_qei >= r_qei_last) {
             LED_ON(LED_R);
         } else {
             LED_OFF(LED_R);
@@ -161,12 +165,60 @@ void test_qei() {
 }
 
 void test_motor_control_positional() {
+    wait_ms(1000);
+    update_mc_state();
     init_position_mc();
     set_motor_control_function(&position_mc);
+    enable_motor_control();
+    while(true) {
+        
+    }
+}
+
+void test_left() {
+    wait_ms(1000);
+    update_mc_state();
+    init_left_mc();
+    set_motor_control_function(&left_mc);
+    enable_motor_control();
+    while(true);
+}
+
+void test_right() {
+    wait_ms(1000);
+    update_mc_state();
+    init_right_mc();
+    set_motor_control_function(&right_mc);
+    enable_motor_control();
+    while(true);
+}
+
+void test_around() {
+    wait_ms(1000);
+    update_mc_state();
+    init_around_mc();
+    set_motor_control_function(&around_mc);
+    enable_motor_control();
+    while(true);
+}
+
+void test_mc_straight() {
+    init_straight_mc();
+    set_motor_control_function(&straight_mc);
     
     while(true) {
-        wait_ms(1000);
-        LED_TOGGLE(LED_R);
+        wait_mc();
+        update_mc_state();
+        straight_mc();
+    }
+}
+
+void test_mc_track() {
+    init_track_mc();
+    set_motor_control_function(&track_mc);
+    
+    while(true) {
+        //
     }
 }
 
@@ -192,15 +244,19 @@ int main(int argc, char** argv) {
     //enable_ble();
     enable_qei();
     enable_pwm();
-    enable_motor_control();
+    
     
     // TESTING FUNCTIONS
     //test_leds();
     //test_emitters();
     //test_motors();
     //test_qei();
-    test_motor_control_positional();
-        
+    //test_motor_control_positional();
+    //test_left();
+    //test_right();
+    test_around();
+    //test_mc_straight();
+    //test_mc_track();
     
     while(true) {
         // Do nothing

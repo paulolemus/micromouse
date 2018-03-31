@@ -16,27 +16,27 @@
 #include "micromouse/core/pid.h"
 
 
-double p_term(
-    const signed int err, 
-    const double kp
+long double p_term(
+    const long double err, 
+    const long double kp
 ) {
-    return ((double) err) * kp;
+    return err * kp;
 }
 
-double i_term(
-    const signed int err, 
-    const double integral, 
-    const unsigned int dt, 
-    const double ki
+long double i_term(
+    const long double err, 
+    const long double integral, 
+    const long double dt, 
+    const long double ki
 ) {
-    return (integral + (double) err * (double) dt) * ki;
+    return (integral + err * dt) * ki;
 }
 
-double d_term(
-    const signed int err, 
-    const signed int prev_err, 
-    const unsigned int dt, 
-    const double kd
+long double d_term(
+    const long double err, 
+    const long double prev_err, 
+    const long double dt, 
+    const long double kd
 ) {
-    return (((double) err - (double) prev_err) / (double) dt) * kd;
+    return ((err - prev_err) / dt) * kd;
 }

@@ -27,7 +27,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=micromouse
 
 # Active Configuration
-DEFAULTCONF=hardware_test
+DEFAULTCONF=default
 CONF=${DEFAULTCONF}
 
 # All Configurations

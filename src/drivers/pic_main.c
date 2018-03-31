@@ -68,6 +68,7 @@
 #include <xc.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // Hardware components
 #include "micromouse/pic/components/oscillator.h"
@@ -78,14 +79,16 @@
 
 // High level hardware interfaces
 #include "micromouse/pic/adc.h"
+#include "micromouse/pic/ble.h"
+#include "micromouse/pic/qei.h"
+#include "micromouse/pic/pwm.h"
 #include "micromouse/pic/motor_control.h"
 
 // Behavior procedures
 #include "micromouse/pic/procedures/startup_proc.h"
-#include "micromouse/pic/procedures/explore_proc.h"
 #include "micromouse/pic/procedures/hug_proc.h"
-#include "micromouse/pic/procedures/flood_proc.h"
-#include "micromouse/pic/procedures/error_proc.h"
+
+#include "micromouse/pic/utils.h"
 
 
 int main(int argc, char** argv) {
@@ -101,10 +104,19 @@ int main(int argc, char** argv) {
 
     // Initialize software modules
     init_adc();
+    //init_ble();
+    init_qei();
+    init_pwm();
     init_motor_control();
     
     operation_mode = get_operation_mode();
     
+    
+    // Enable desired software modules
+    enable_adc();
+    //enable_ble();
+    enable_qei();
+    enable_pwm();
     
     // Run long lived procedures that implement high level control of the mouse.
     while(1) {

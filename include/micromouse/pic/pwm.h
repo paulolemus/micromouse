@@ -61,7 +61,7 @@ void disable_pwm();
  *        The correct duty is set regardless of the direction.
  * @param duty The duty cycle as a value between -1.0 and 1.0
  */
-void set_pwm_duty_l(double duty);
+void set_pwm_duty_l(long double duty);
 
 
 /**
@@ -69,7 +69,7 @@ void set_pwm_duty_l(double duty);
  *        The correct duty is set regardless of the direction.
  * @param duty The duty cycle as a value between -1.0 and 1.0.
  */
-void set_pwm_duty_r(double duty);
+void set_pwm_duty_r(long double duty);
 
 
 #ifdef	__cplusplus

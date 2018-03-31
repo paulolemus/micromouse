@@ -64,12 +64,12 @@ void disable_pwm() {
 }
 
 
-void set_pwm_duty_l(double duty) {
+void set_pwm_duty_l(long double duty) {
     
     signed int period;
     
     // Normalize and bound
-    duty = duty / L_DUTY_BOUND;
+    duty = duty / (long double) L_DUTY_BOUND;
     if(duty > 1.0)       duty = 1.0;
     else if(duty < -1.0) duty = -1.0;
     
@@ -88,12 +88,12 @@ void set_pwm_duty_l(double duty) {
     L_MTR_PER = (unsigned int) period;
 }
 
-void set_pwm_duty_r(double duty) {
+void set_pwm_duty_r(long double duty) {
     
     signed int period;
     
     // Normalize and bound
-    duty = duty / R_DUTY_BOUND;
+    duty = duty / (long double) R_DUTY_BOUND;
     if(duty > 1.0)       duty = 1.0;
     else if(duty < -1.0) duty = -1.0;
     
