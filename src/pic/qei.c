@@ -30,8 +30,8 @@
 #define R_QEI_MAX MAX2CNT 
 
 // One rotation of the left and right motor
-#define L_QEI_ROT 2250
-#define R_QEI_ROT 2250
+#define L_QEI_ROT 2100
+#define R_QEI_ROT 2100
 
 
 ///

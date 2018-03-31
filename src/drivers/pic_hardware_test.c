@@ -161,9 +161,9 @@ int main(int argc, char** argv) {
     init_qei();
     
     // Enable desired software modules
-    //enable_adc();
+    enable_adc();
     //enable_ble();
-    //enable_qei();
+    enable_qei();
     
     
     // TESTING FUNCTIONS
