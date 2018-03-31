@@ -63,6 +63,7 @@
 #include <xc.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // Hardware components
 #include "micromouse/pic/components/oscillator.h"
@@ -74,6 +75,9 @@
 // Hardware interface modules
 #include "micromouse/pic/adc.h"
 #include "micromouse/pic/ble.h"
+#include "micromouse/pic/qei.h"
+
+#include "micromouse/pic/utils.h"
 
 ///
 /// Testing functions, for DEBUGGING ONLY
@@ -116,6 +120,31 @@ void test_motors() {
     LATBbits.LATB14 = 0; // Motor pwm control
 }
 
+void test_qei() {
+    
+    signed int l_qei = 0;
+    signed int r_qei = 0;
+    
+    
+    while(true) {
+        wait_ms(1);
+        l_qei += get_qei_l();
+        r_qei += get_qei_r();
+        
+        if(l_qei > 2250) {
+            LED_ON(LED_L);
+        } else {
+            LED_OFF(LED_L);
+        }
+        
+        if(r_qei > 2250) {
+            LED_ON(LED_R);
+        } else {
+            LED_OFF(LED_R);
+        }
+    }
+}
+
 
 int main(int argc, char** argv) {
     
@@ -129,19 +158,22 @@ int main(int argc, char** argv) {
     // Initialize software modules
     init_adc();
     init_ble();
+    init_qei();
     
     // Enable desired software modules
-    enable_adc();
+    //enable_adc();
     //enable_ble();
+    enable_qei();
     
     
     // TESTING FUNCTIONS
     //test_leds();
     //test_emitters();
     test_motors();
+    test_qei();
         
     
-    while(1) {
+    while(true) {
         // Do nothing
     }
     return (EXIT_SUCCESS);

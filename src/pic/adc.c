@@ -66,28 +66,28 @@ void init_adc() {
     AD1PCFGL = 0b100001111;
     
     // Configure ADC software module
-    AD1CON1bits.ADON = 0; // Disable to configure
-    AD1CON1bits.AD12B = 1; // Operate in 12 bit mode (4096 max)
-    AD1CON1bits.SSRC = 0b111; // Enable auto-convert of a sample
+    AD1CON1bits.ADON = 0;       // Disable to configure
+    AD1CON1bits.AD12B = 1;      // Operate in 12 bit mode (4096 max)
+    AD1CON1bits.SSRC = 0b111;   // Enable auto-convert of a sample
     
-    AD1CON3bits.ADCS = 9; // 10 * Tcy = TAD = 312.5 ns
+    AD1CON3bits.ADCS = 9;       // 10 * Tcy = TAD = 312.5 ns
     AD1CON3bits.SAMC = 0b11111; // 31 TAD for auto sample time = 10uS
     
     // Configure finish of conversion interrupts
-    IPC3bits.AD1IP = 6; // lvl 6 priority
-    IEC0bits.AD1IE = 0; // Disable interrupts
+    IPC3bits.AD1IP = 6;         // lvl 6 priority
+    IEC0bits.AD1IE = 0;         // Disable interrupts
     
     
     // Configure Timer for sampling and converting ADC
-    T4CONbits.TCKPS = 0b01; // 1:8 prescaler, ticks at 4,000,000 Hz, 0.25 us
-    TMR4 = 0; // Clear TMR4 counter
-    PR4 = ADC_DT * 4; // Interrupts every ADC_DT microseconds.
+    T4CONbits.TCKPS = 0b01;     // 1:8 prescaler, ticks at 4,000,000Hz, 0.25 us
+    TMR4 = 0;                   // Clear TMR4 counter
+    PR4 = ADC_DT * 4;           // Interrupts every ADC_DT microseconds.
     
     // Configure TIMER 4 interrupts
-    IPC6bits.T4IP = 5; // lvl 6 priority (second highest)
-    IFS1bits.T4IF = 0; // Clear IF
-    IEC1bits.T4IE = 0; // Enable Tmr4 interrupts
-    T4CONbits.TON = 0; // Turn off timer4  
+    IPC6bits.T4IP = 5;          // lvl 6 priority (second highest)
+    IFS1bits.T4IF = 0;          // Clear IF
+    IEC1bits.T4IE = 0;          // Enable Tmr4 interrupts
+    T4CONbits.TON = 0;          // Turn off timer4  
 }
 
 void enable_adc() {

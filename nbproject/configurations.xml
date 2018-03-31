@@ -25,6 +25,8 @@
       <itemPath>src/pic/ble_api.c</itemPath>
       <itemPath>src/pic/components/encoder.c</itemPath>
       <itemPath>src/pic/components/motor.c</itemPath>
+      <itemPath>src/pic/qei.c</itemPath>
+      <itemPath>src/pic/utils.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
