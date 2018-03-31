@@ -76,6 +76,7 @@
 #include "micromouse/pic/adc.h"
 #include "micromouse/pic/ble.h"
 #include "micromouse/pic/qei.h"
+#include "micromouse/pic/motor_control.h"
 
 #include "micromouse/pic/utils.h"
 
@@ -145,6 +146,12 @@ void test_qei() {
     }
 }
 
+void test_motor_control_positional() {
+    while(true) {
+        // TODO:
+    }
+}
+
 
 int main(int argc, char** argv) {
     
@@ -159,18 +166,21 @@ int main(int argc, char** argv) {
     init_adc();
     init_ble();
     init_qei();
+    init_motor_control();
     
     // Enable desired software modules
     enable_adc();
     //enable_ble();
     enable_qei();
+    enable_motor_control();
     
     
     // TESTING FUNCTIONS
     //test_leds();
     //test_emitters();
-    test_motors();
+    //test_motors();
     //test_qei();
+    test_motor_control_positional();
         
     
     while(true) {
