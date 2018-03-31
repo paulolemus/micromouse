@@ -47,6 +47,12 @@
 #define DEFAULT_RR_CLOSE 500
 #define DEFAULT_RF_CLOSE 100
 
+///////////////////////////
+//       MC config       //
+///////////////////////////
+
+// MC update frequency in us (4 ms)
+#define MC_DT 4000
 
 /////////////////////////////
 //   Pathplanning config   //

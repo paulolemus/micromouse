@@ -19,6 +19,21 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+    
+    
+///
+/// Motor macros
+///
+
+// Motor direction pins
+#define L_MTR_DIR LATBbits.LATB13
+#define R_MTR_DIR LATBbits.LATB15
+    
+// Motor direction enums TODO
+#define L_MTR_FWD 0
+#define L_MTR_REV 1
+#define R_MTR_FWD 1
+#define R_MTR_REV 0
 
 /**
  * @brief Initialize the motors in hardware.

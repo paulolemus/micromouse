@@ -76,6 +76,7 @@
 #include "micromouse/pic/adc.h"
 #include "micromouse/pic/ble.h"
 #include "micromouse/pic/qei.h"
+#include "micromouse/pic/pwm.h"
 #include "micromouse/pic/motor_control.h"
 
 #include "micromouse/pic/utils.h"
@@ -119,6 +120,19 @@ void test_motors() {
     LATBbits.LATB12 = 0; // Left motor control
     LATBbits.LATB15 = 0; // Right direction control
     LATBbits.LATB14 = 0; // Motor pwm control
+    
+    
+    // Left behavior: (pwm, dir)
+    // 0, 0 = nothing
+    // 1, 0 = forward
+    // 0, 1 = backwards
+    // 1, 1 = nothing
+    
+    // Right behavior: (pwm, dir)
+    // 0, 0 = nothing
+    // 1, 0 = backwards
+    // 0, 1 = forward
+    // 1, 1 = nothing
 }
 
 void test_qei() {
@@ -147,8 +161,9 @@ void test_qei() {
 }
 
 void test_motor_control_positional() {
+    
     while(true) {
-        // TODO:
+        wait_ms(100);
     }
 }
 
@@ -164,16 +179,17 @@ int main(int argc, char** argv) {
     
     // Initialize software modules
     init_adc();
-    init_ble();
+    //init_ble();
     init_qei();
+    init_pwm();
     init_motor_control();
     
     // Enable desired software modules
     enable_adc();
     //enable_ble();
     enable_qei();
-    enable_motor_control();
-    
+    enable_pwm();
+    //enable_motor_control();
     
     // TESTING FUNCTIONS
     //test_leds();

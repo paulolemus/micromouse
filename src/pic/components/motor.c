@@ -23,5 +23,11 @@ void init_motor() {
     TRISBbits.TRISB13 = 0;
     TRISBbits.TRISB14 = 0;
     TRISBbits.TRISB15 = 0;
+    
+    // Set outputs to 0
+    LATBbits.LATB13 = 0; // Left direction control
+    LATBbits.LATB12 = 0; // Left motor control
+    LATBbits.LATB15 = 0; // Right direction control
+    LATBbits.LATB14 = 0; // Motor pwm control
 }
 

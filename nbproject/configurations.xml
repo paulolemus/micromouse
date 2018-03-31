@@ -29,6 +29,7 @@
       <itemPath>src/pic/utils.c</itemPath>
       <itemPath>src/core/pid.c</itemPath>
       <itemPath>src/pic/motor_control.c</itemPath>
+      <itemPath>src/pic/pwm.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
