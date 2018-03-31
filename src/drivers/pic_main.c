@@ -85,8 +85,9 @@
 #include "micromouse/pic/motor_control.h"
 
 // Behavior procedures
-#include "micromouse/pic/procedures/startup_proc.h"
-#include "micromouse/pic/procedures/hug_proc.h"
+#include "micromouse/pic/procs.h"
+//#include "micromouse/pic/procedures/startup_proc.h"
+//#include "micromouse/pic/procedures/hug_proc.h"
 
 #include "micromouse/pic/utils.h"
 
@@ -109,9 +110,6 @@ int main(int argc, char** argv) {
     init_pwm();
     init_motor_control();
     
-    operation_mode = get_operation_mode();
-    
-    
     // Enable desired software modules
     enable_adc();
     //enable_ble();
@@ -119,18 +117,17 @@ int main(int argc, char** argv) {
     enable_pwm();
     
     // Run long lived procedures that implement high level control of the mouse.
-    while(1) {
-        
+    while(true) {
+            
+        operation_mode = screen_select();
         
         startup_proc();
         
-        
         switch(operation_mode) {
-            case OP_ENUM: rand_explore_proc(); break;
-            case OP_ENUM: left_hug_proc();     break;
-            case OP_ENUM: right_hub_proc();    break;
-            case OP_ENUM: flood_proc();        break;
-            default     : error_proc();        break;
+            case LEFT_HUG : left_hug_proc();  break;
+            case RIGHT_HUG: right_hug_proc(); break;
+            case UP_N_DOWN: up_n_down_proc(); break;
+            default       :                   break;
         }
     }
     

@@ -43,9 +43,9 @@
 // Default value for sensor "wall is close" threshold.
 // TODO: FIX DEFAULT VALUES
 #define DEFAULT_LL_CLOSE 700
-#define DEFAULT_LF_CLOSE 400
-#define DEFAULT_RR_CLOSE 700
-#define DEFAULT_RF_CLOSE 400
+#define DEFAULT_LF_CLOSE 525
+#define DEFAULT_RR_CLOSE 750
+#define DEFAULT_RF_CLOSE 525
 
 ///////////////////////////
 //       MC config       //

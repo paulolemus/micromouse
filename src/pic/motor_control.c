@@ -114,8 +114,8 @@ void init_position_mc() {
     r_duty = 0.0;
 }
 void position_mc() {
-    const long double kp = 0.05;
-    const long double kd = 0.01;
+    const long double kp = 0.06;
+    const long double kd = 0.02;
     
     // Calculate error in position
     const long double l_err = (long double) (l_pos - position_mc_target_l);
@@ -191,17 +191,18 @@ void init_track_mc() {
     trk_r_vel_err = 0.0;
 }
 void track_mc() {
-    const long double l_vel_sp = 5.0;
-    const long double r_vel_sp = 5.0;
+    const long double vel_base = 10.0;
+    const long double l_vel_sp = 7.0;
+    const long double r_vel_sp = 7.0;
     const unsigned int l_trk_sp = get_close_ll();
     const unsigned int r_trk_sp = get_close_rr();
     
-    const long double vel_kp = 0.43;
-    const long double vel_kd = 6.5;
+    const long double vel_kp = 22.0;
+    const long double vel_kd = 0.1;
     
-    const long double l_sns_kp = 0.005;
+    const long double l_sns_kp = 0.12;
     const long double l_sns_kd = 0.001;
-    const long double r_sns_kp = 0.005;
+    const long double r_sns_kp = 0.12;
     const long double r_sns_kd = 0.001;
     
     LED_OFF(LED_L);
@@ -217,16 +218,21 @@ void track_mc() {
     const long double d_vel_out_r = d_term(r_vel_err, trk_r_vel_err, MC_DT, vel_kd);
     trk_l_vel_err = l_vel_err;
     trk_r_vel_err = r_vel_err;
+    
+    // Limit acceleration
+    const long double acc_kp = 0.0;
+    const long double l_acc_out = -p_term(l_acc, acc_kp);
+    const long double r_acc_out = -p_term(r_acc, acc_kp);
 
-    const long double l_vel_out = p_vel_out_l + d_vel_out_l;
-    const long double r_vel_out = p_vel_out_r + d_vel_out_r;
+    const long double l_vel_out = p_vel_out_l + d_vel_out_l + l_acc_out;
+    const long double r_vel_out = p_vel_out_r + d_vel_out_r + r_acc_out;
     
     
     signed int l_sns_err = 0;
     signed int r_sns_err = 0;
     signed int sns_out = 0;
     // Calculate sensor push
-    if(scan_ll > get_close_ll() - 375) {
+    if(scan_ll > get_close_ll() - 400) {
         // Using Left sensor
         LED_ON(LED_L);
         
@@ -238,7 +244,7 @@ void track_mc() {
         trk_l_sns_err = l_sns_err;
         trk_r_sns_err = scan_rr - r_trk_sp;
         
-    } else if(scan_rr > get_close_rr() - 375) {
+    } else if(scan_rr > get_close_rr() - 400) {
         // Using right sensor
         LED_ON(LED_R);
         
@@ -255,8 +261,8 @@ void track_mc() {
     const long double l_out = l_vel_out + sns_out;
     const long double r_out = r_vel_out - sns_out;
     
-    l_duty += l_out;
-    r_duty += r_out;
+    l_duty = vel_base + l_out;
+    r_duty = vel_base + r_out;
     
     if(l_duty < 0.0) l_duty = 0;
     if(r_duty < 0.0) r_duty = 0;
@@ -282,7 +288,7 @@ void init_left_mc() {
 }
 void left_mc() {
     const long double kp = 0.045;
-    const long double kd = 0.035;
+    const long double kd = 0.1;
     
     // Calculate error in position
     const long double l_err = (long double) (l_pos - left_mc_target_l);
@@ -324,7 +330,7 @@ void init_right_mc() {
 }
 void right_mc() {
     const long double kp = 0.045;
-    const long double kd = 0.035;
+    const long double kd = 0.1;
     
     // Calculate error in position
     const long double l_err = (long double) (l_pos - right_mc_target_l);
@@ -366,8 +372,8 @@ void init_around_mc() {
     r_duty = 0.0;
 }
 void around_mc() {
-    const long double kp = 0.021;
-    const long double kd = 0.28;
+    const long double kp = 0.07;
+    const long double kd = 0.25;
     
     // Calculate error in position
     const long double l_err = (long double) (l_pos - around_mc_target_l);

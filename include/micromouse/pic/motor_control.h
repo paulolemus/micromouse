@@ -88,6 +88,7 @@ void right_mc();
 void init_around_mc();
 void around_mc();
 
+
 #ifdef	__cplusplus
 }
 #endif
